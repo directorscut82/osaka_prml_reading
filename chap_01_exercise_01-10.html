@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第1章 演習 1.1-1.10</title>
+<!-- 2014-03-23 日 11:25 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="fi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第1章 演習 1.1-1.10</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第1章 演習 1.1-1.10</a>
+<ul>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 1.1 [www] 多項式の二乗和誤差を最小にする係数が満たす方程式</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 1.2 多項式の正則化された二乗和誤差を最小にする係数が満たす方程式</a></li>
+<li><a href="#sec-1-3"><span class="done DONE">DONE</span> 1.3 3つの箱から3種類の果物を取り出すときの事前確率と事後確率</a></li>
+<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 1.4 [www] 確率分布の変数変換</a></li>
+<li><a href="#sec-1-5"><span class="done DONE">DONE</span> 1.5 \(var[f] = E[f(x)^2] - E[f(x)]^2\) の証明</a></li>
+<li><a href="#sec-1-6"><span class="done DONE">DONE</span> 1.6 2つの独立な確率変数の共分散が0になることの証明</a></li>
+<li><a href="#sec-1-7"><span class="done DONE">DONE</span> 1.7 [www] 1変数ガウス分布が規格化されていることの証明</a></li>
+<li><a href="#sec-1-8"><span class="done DONE">DONE</span> 1.8 [www] 1変数ガウス分布の下での平均値、2次のモーメント、分散</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 1.9 [www] ガウス分布のモード</a></li>
+<li><a href="#sec-1-10"><span class="done DONE">DONE</span> 1.10 [www] 統計的に独立な2つの確率変数の和の平均と分散</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第1章 演習 1.1-1.10</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 1.1 [www] 多項式の二乗和誤差を最小にする係数が満たす方程式</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+多項式<br  />
+</p>
+\begin{align*}
+    \newcommand{\w}{{\bf w}}
+    y(x,\w) = \sum_{j=0}^M w_j x^j
+\end{align*}
+<p>
+二乗和誤差<br  />
+</p>
+\begin{align*}
+    E(\w) = \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2
+\end{align*}
+\begin{align*}
+    \frac{∂E(\w)}{∂w_i} & = 0 \\
+    \frac{∂}{∂w_i} \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2 & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} \{y(x_n,\w) - t_n\}] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} y(x_n,\w)] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} (\sum_{j=0}^M w_j x_n^j)] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} x_n^i] & = 0 \\
+    \sum_{n=1}^N [x_n^i y(x_n,\w) - x_n^i t_n] & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j) - x_n^i t_n] & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j)] - \sum_{n=1}^N x_n^i t_n & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j)] & = \sum_{n=1}^N x_n^i t_n \\
+    \sum_{j=0}^M (\sum_{n=1}^N x_n^{i+j}) w_j & = \sum_{n=1}^N x_n^i t_n \\
+    \sum_{j=0}^M A_{ij} w_j & = T_i
+\end{align*}
+\begin{align*}
+    A_{ij} & = \sum_{n=1}^N x_n^{i+j} \\
+    T_i    & = \sum_{n=1}^N x_n^i t_n
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 1.2 多項式の正則化された二乗和誤差を最小にする係数が満たす方程式</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+正規化された二乗和誤差<br  />
+</p>
+\begin{align*}
+    \tilde{E}(\w) = & \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2 + \frac{λ}{2} \|\w\|^2 \\
+                  = & E(\w) + \frac{λ}{2} \|\w\|^2
+\end{align*}
+\begin{align*}
+    \frac{∂\tilde{E}(w)}{∂w_i} = & 0 \\
+    \frac{∂}{∂w_i} (E(\w) + \frac{λ}{2} \|\w\|^2) = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + \frac{λ}{2} \frac{∂}{∂w_i} \|\w\|^2 = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + \frac{λ}{2} \frac{∂}{∂w_i} (\sum_{j=0}^M w_j^2) = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + λ w_i = & 0 \\
+    \sum_{j=0}^M A_{ij} w_j - T_i + λ w_i = & 0 \\
+    \sum_{j=0}^M A_{ij} w_j = & T_i - λ w_i
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="done DONE">DONE</span> 1.3 3つの箱から3種類の果物を取り出すときの事前確率と事後確率</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">りんごを選び出す確率</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+確率の加法定理より<br  />
+</p>
+\begin{align*}
+    p(a) = & \sum_B p(a|B)p(B) \\
+         = & p(a|r)p(r) + p(a|b)p(b) + p(a|g)p(g) \\
+         = & \frac{3}{3+4+3}0.2 + \frac{1}{1+1+0}0.2 + \frac{3}{3+3+4}0.6 \\
+         = & \frac{3}{10}\frac{2}{10} + \frac{1}{2}\frac{2}{10} + \frac{3}{10}\frac{6}{10} \\
+         = & \frac{6}{100} + \frac{10}{100} + \frac{18}{100} \\
+         = & \frac{34}{100} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">選んだ果物がオレンジであったとき、それが緑の箱から取り出されたものである確率</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+ベイズの定理より<br  />
+</p>
+\begin{align*}
+    p(g|o) = & \frac{p(o|g)p(g)}{p(o)} \\
+\end{align*}
+<p>
+確率の加法定理より<br  />
+</p>
+\begin{align*}
+    p(o) = & \sum_B p(o|B)p(B) \\
+         = & p(o|r)p(r) + p(o|b)p(b) + p(o|g)p(g) \\
+         = & \frac{4}{3+4+3}0.2 + \frac{1}{1+1+0}0.2 + \frac{3}{3+3+4}0.6 \\
+         = & \frac{4}{10}\frac{2}{10} + \frac{1}{2}\frac{2}{10} + \frac{3}{10}\frac{6}{10} \\
+         = & \frac{8}{100} + \frac{10}{100} + \frac{18}{100} \\
+         = & \frac{36}{100} \\
+\end{align*}
+\begin{align*}
+    p(g|o) = & \frac{18}{100}/\frac{36}{100} \\
+           = & \frac{1}{2} \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="done DONE">DONE</span> 1.4 [www] 確率分布の変数変換</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+最初に、関数\(f(x)\)の振る舞いが、<br  />
+\(x = g(y)\)という変数変換によってどのように変わるか考える。<br  />
+新しい\(y\)の関数\(\tilde{f}(y)\)を以下のように定義する。<br  />
+</p>
+\begin{align*}
+    \tilde{f}(y) = f(g(y)) & \text{(2)}
+\end{align*}
+<p>
+\(f(x)\)は\(\hat{x}\)で最大値を取るので、\(f'(\hat{x}) = 0\)である。<br  />
+(2)の両辺を\(y\)で微分する。<br  />
+</p>
+\begin{align*}
+    \tilde{f}'(\hat{y}) = f'(g(\hat{y}))g'(\hat{y}) = 0 & \text{(3)}
+\end{align*}
+<p>
+\(g'(\hat{y}) ≠ 0\)と仮定すると、\(f'(g(\hat{y})) = 0\)である。<br  />
+\(f'(\hat{x}) = 0\)だから、\(\hat{x} = g(\hat{y})\)である。<br  />
+</p>
+
+<p>
+次に、確率密度\(p_x(x)\)の振る舞いが、<br  />
+\(x = g(y)\)という変数変換によってどのように変わるか考える。<br  />
+新しい\(y\)の確率密度\(p_y(y)\)は、(1.27)より以下のように書ける。<br  />
+</p>
+\begin{align*}
+    p_y(y) = p_x(g(y))sg'(y)
+\end{align*}
+<p>
+ここで\(s∈\{-1,+1\}\)である。<br  />
+両辺を\(y\)で微分する。<br  />
+</p>
+\begin{align*}
+    p_y'(y) = sp_x'(g(y))\{g'(y)\}^2 + sp_x(g(y))g''(y) & \text{(4)}
+\end{align*}
+<p>
+第2項の存在により、\(\hat{x} = g(\hat{y})\)は成り立たない。<br  />
+\(g(y)\)が線形の場合は、\(g''(y) = 0\)より第2項が消えるので、<br  />
+\(\hat{x} = g(\hat{y})\)が成り立つ。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="done DONE">DONE</span> 1.5 \(var[f] = E[f(x)^2] - E[f(x)]^2\) の証明</h3>
+<div class="outline-text-3" id="text-1-5">
+\begin{align*}
+    var[f] & = E[(f(x) - E[f(x)])^2]    & \text{(1.38)} \\
+           & = E[f(x)^2 - 2f(x)E[f(x)] + E[f(x)]^2] \\
+           & = E[f(x)^2] - E[2f(x)E[f(x)] + E[E[f(x)]^2] \\
+           & = E[f(x)^2] - 2E[f(x)]E[f(x)] + E[f(x)]^2 \\
+           & = E[f(x)^2] - E[f(x)]^2    & \text{(1.39)}
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="done DONE">DONE</span> 1.6 2つの独立な確率変数の共分散が0になることの証明</h3>
+<div class="outline-text-3" id="text-1-6">
+\begin{align*}
+    cov[x,y] & = E_{x,y}[{x - E[x]}{y - E[y]}] (1.42) \\
+             & = E_{x,y}[xy] - E[x]E[y]
+\end{align*}
+<p>
+\(x\)と\(y\)が独立ならば、\(p(x,y) = p_x(x)p_y(y)\)<br  />
+</p>
+\begin{align*}
+    E_{x,y}[xy] & = \int\int p(x,y)xydxdy \\
+                & = \int\int p_x(x)p_y(y)xydxdy \\
+                & = \int p_x(x)xdx \int p_y(y)ydy \\
+                & = E[x]E[y]
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="done DONE">DONE</span> 1.7 [www] 1変数ガウス分布が規格化されていることの証明</h3>
+<div class="outline-text-3" id="text-1-7">
+\begin{align*}
+    I = \int_{-∞}^∞ \exp(-\frac{1}{2σ^2}x^2) dx
+\end{align*}
+\begin{align*}
+    I^2 = & \int_{-∞}^∞ \int_{-∞}^∞ \exp(- \frac{1}{2σ^2}x^2 - \frac{1}{2σ^2}y^2) dxdy \\
+        = & \int_{-∞}^∞ \int_{-∞}^∞ \exp\{- \frac{1}{2σ^2}(x^2 + y^2)\} dxdy
+\end{align*}
+<p>
+直交座標から極座標に変換すると、<br  />
+</p>
+\begin{align*}
+    I^2 = & \int_0^{2π} \int_0^∞ \exp(-\frac{1}{2σ^2}r^2) r drd\theta \\
+        = & 2π \int_0^∞ \exp(-\frac{1}{2σ^2}r^2) r dr
+\end{align*}
+<p>
+\(u = r^2\)という変数変換を行うと、<br  />
+</p>
+\begin{align*}
+    I^2 = & π \int_0^∞ \exp(-\frac{1}{2σ^2}u) du \\
+        = & π (-2σ^2) \left[ \exp(-\frac{1}{2σ^2}u) \right]_0^∞ \\
+        = & π (-2σ^2) (-1) \\
+        = & 2πσ^2 \\
+    I   = & (2πσ^2)^{1/2}
+\end{align*}
+\begin{align*}
+      & \int_{-∞}^∞ N(x|μ,σ^2) dx \\
+    = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} dx
+\end{align*}
+<p>
+\(y = x-μ\) と置くと<br  />
+</p>
+\begin{align*}
+    = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} dy \\
+    = & (2πσ^2)^{-1/2} (2πσ^2)^{1/2} \\
+    = & 1
+\end{align*}
+</div>
+
+<div id="outline-container-sec-1-7-1" class="outline-4">
+<h4 id="sec-1-7-1">dxdy = rdrd&theta;</h4>
+<div class="outline-text-4" id="text-1-7-1">
+\begin{align*}
+    x = & r \cos \theta \\
+    y = & r \sin \theta \\
+\end{align*}
+\begin{align*}
+    dxdy = & |J|drd\theta \\
+         = & \left|\frac{∂x}{∂r}\frac{∂y}{∂\theta}
+             - \frac{∂x}{∂\theta}\frac{∂y}{∂r}\right|drd\theta \\
+         = & \left|- r \cos^2 \theta - r \sin^2 \theta\right|drd\theta \\
+         = & rdrd\theta
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="done DONE">DONE</span> 1.8 [www] 1変数ガウス分布の下での平均値、2次のモーメント、分散</h3>
+<div class="outline-text-3" id="text-1-8">
+</div><div id="outline-container-sec-1-8-1" class="outline-4">
+<h4 id="sec-1-8-1"><span class="done DONE">DONE</span> 平均値 (1.49)</h4>
+<div class="outline-text-4" id="text-1-8-1">
+<p>
+(1.46) 1変数ガウス分布<br  />
+</p>
+\begin{align*}
+    N(x|μ,σ^2) = (2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\}
+\end{align*}
+<p>
+x の期待値<br  />
+</p>
+\begin{align*}
+    E[x] = & \int_{-∞}^∞ N(x|μ,σ^2) x dx \\
+         = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} x dx
+\end{align*}
+<p>
+ここで<br  />
+</p>
+\begin{align*}
+     y = & x - μ \\
+    dy = & dx
+\end{align*}
+<p>
+の変数変換を行うと<br  />
+</p>
+\begin{align*}
+    E[x] = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} (y+μ) dy \\
+         = & (2πσ^2)^{-1/2} \left[ \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} y dy +
+                            μ \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} dy \right]
+\end{align*}
+<p>
+括弧内の第1項は、演習1.7の r の積分と同じ形で積分範囲だけが異なる。<br  />
+</p>
+\begin{align*}
+    E[x] = (2πσ^2)^{-1/2} ( 0 + μ (2πσ^2)^{1/2} ) \\
+         = μ                                         ...(1.49)
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-8-2" class="outline-4">
+<h4 id="sec-1-8-2"><span class="done DONE">DONE</span> 2次のモーメント (1.50)</h4>
+<div class="outline-text-4" id="text-1-8-2">
+<p>
+(1.127) 規格化条件<br  />
+</p>
+\begin{align*}
+    \int_{-∞}^∞ N(x|μ,σ^2) dx = 1
+\end{align*}
+<p>
+両辺を σ<sup>2</sup> で微分する。<br  />
+</p>
+\begin{align*}
+    \frac{∂}{∂(σ^2)} \int_{-∞}^∞ N(x|μ,σ^2) dx = 0 \\
+    \int_{-∞}^∞ \frac{∂}{∂(σ^2)} N(x|μ,σ^2) dx = 0
+\end{align*}
+\begin{align*}
+        \frac{∂}{∂(σ^2)} N(x|μ,σ^2)
+    = & \frac{∂}{∂(σ^2)} [(2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2} (x-μ)^2\}] \\
+    = & \frac{∂}{∂t} [(2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\}] \\
+    = & [\frac{∂}{∂t} (2πt)^{-1/2}] \exp\{-\frac{1}{2t} (x-μ)^2\}
+        + (2πt)^{-1/2} \frac{∂}{∂t} \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+    = & - \frac{1}{2} (2πt)^{-1/2} (2πt)^{-1} 2π \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+      & + (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} \{-\frac{1}{2t^2} (x-μ)^2\} \\
+    = & - \frac{1}{2} 2π (2πt)^{-1} (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+      & - \frac{1}{2t^2} (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} (x-μ)^2 \\
+    = & - \frac{1}{2σ^2} N(x|μ,σ^2) - \frac{1}{2σ^4} N(x|μ,σ^2) (x-μ)^2
+\end{align*}
+\begin{align*}
+      0 = & \int_{-∞}^∞ \frac{∂}{∂(σ^2)} N(x|μ,σ^2) dx \\
+        = & - \frac{1}{2σ^2} \int_{-∞}^∞ N(x|μ,σ^2) dx
+            + \frac{1}{2σ^4} \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+        = & - \frac{1}{2σ^2}
+            + \frac{1}{2σ^4} \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+    σ^2 = & \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) (x^2 - 2xμ + μ^2) dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx
+            - 2μ \int_{-∞}^∞ N(x|μ,σ^2) x dx
+            + μ^2 \int_{-∞}^∞ N(x|μ,σ^2) dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx - 2μ μ + μ^2 \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx - μ^2 \\
+\end{align*}
+\begin{align*}
+    \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx = σ^2 + μ^2
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-8-3" class="outline-4">
+<h4 id="sec-1-8-3"><span class="done DONE">DONE</span> 分散 (1.51)</h4>
+<div class="outline-text-4" id="text-1-8-3">
+\begin{align*}
+    var[x] = & E[x^2] - E[x]^2 \\
+           = & (μ^2 + σ^2) - μ^2 \\
+           = & σ^2
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 1.9 [www] ガウス分布のモード</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+1変数ガウス分布<br  />
+</p>
+\begin{align*}
+    N(x|μ,σ^2) = (2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} (1.46)
+\end{align*}
+<p>
+\(x\) で微分する。<br  />
+</p>
+\begin{align*}
+    N             & ∝ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+    \frac{dN}{dx} & ∝ \frac{d}{dx} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+                  & = [\frac{d}{dx} \{-\frac{1}{2σ^2}(x-μ)^2\}] \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+                  & = -\frac{x(x-μ)}{σ^2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+\end{align*}
+<p>
+モードを \(x_{mode}\) とすると、<br  />
+</p>
+\begin{align*}
+    -\frac{x_{mode}(x_{mode}-μ)}{σ^2} \exp\{-\frac{1}{2σ^2}(x_{mode}-μ)^2\} = 0 \\
+    x_{mode} = 0, μ
+\end{align*}
+<p>
+多変量ガウス分布<br  />
+</p>
+\begin{align*}
+    N(x|μ,Σ^2) = (2π)^{-D/2} |Σ|^{-1/2} \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} (1.52)
+\end{align*}
+<p>
+\(x\) で微分する。<br  />
+</p>
+\begin{align*}
+    N                 & ∝ \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+    \frac{∂N}{∂x_i} & ∝ \frac{∂}{∂x_i} \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+                      & = [\frac{∂}{∂x_i} \{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\}]
+                          \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+                      & = -\frac{1}{2} [\frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\}]
+                          \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\}
+\end{align*}
+<p>
+モードを \(x_{mode}\) とすると、<br  />
+</p>
+\begin{align*}
+    -\frac{1}{2} [\frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\}]
+    \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} = 0 \\
+    \frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\} = 0 \\
+    \frac{∂}{∂x_i} \{\sum_i \sum_j Σ^{-1}_{i,j} (x-μ)\} = 0 \\
+    Σ^{-1}_{i,i} (x_i - μ_i)^2 = 0 \\
+    2 Σ^{-1}_{i,i} (x_i - μ_i) (x_i - μ_i)^2 = 0 \\
+    x = 0, μ
+\end{align*}
+\begin{align*}
+             x^T X x & = \sum_i \sum_j x_i X_{i,j} x_j \\
+    ∂/∂x_k x^T X x & = ∂/∂x_k \sum_i \sum_j x_i X_{i,j} x_j \\
+                     & = X_{k,k} x_k^2
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="done DONE">DONE</span> 1.10 [www] 統計的に独立な2つの確率変数の和の平均と分散</h3>
+<div class="outline-text-3" id="text-1-10">
+\begin{align*}
+    p(x,z) & = p_x(x) p_z(z) \\
+\end{align*}
+\begin{align*}
+    E[x+z] & = \int\int p_x(x) p_z(z) (x+z) dxdz \\
+           & = \int\int p_x(x) p_z(z) x dxdz + \int\int p_x(x) p_z(z) z dxdz \\
+           & = \int p_x(x) x dx \int p_z(z) dz + \int p_x(x) dx \int p_z(z) z dz \\
+           & = \int p_x(x) x dx + \int p_z(z) z dz \\
+           & = E[x] + E[z] \\
+\end{align*}
+\begin{align*}
+    var[x+z] & = E[(x+z)^2] - E[x+z]^2 \\
+             & = E[x^2 + 2xz + z^2] - (E[x] + E[z])^2 \\
+             & = E[x^2] + 2E[xz] + E[z^2] - E[x]^2 - 2E[x]E[z] - E[z]^2 \\
+             & = E[x^2] + 2E[x]E[z] + E[z^2] - E[x]^2 - 2E[x]E[z] - E[z]^2 \\
+             & = E[x^2] + E[z^2] - E[x]^2 - E[z]^2 \\
+             & = var[x] + var[z]
+\end{align*}
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: fi</p>
+<p class="date">Created: 2014-03-23 日 11:25</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

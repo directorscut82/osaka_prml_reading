@@ -1,0 +1,317 @@
+#+TITLE: PRML 第1章 演習 1.1-1.10
+#+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: num:nil toc:2 \n:t
+* PRML 第1章 演習 1.1-1.10
+** DONE 1.1 [www] 多項式の二乗和誤差を最小にする係数が満たす方程式
+多項式
+\begin{align*}
+    \newcommand{\w}{{\bf w}}
+    y(x,\w) = \sum_{j=0}^M w_j x^j
+\end{align*}
+二乗和誤差
+\begin{align*}
+    E(\w) = \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2
+\end{align*}
+\begin{align*}
+    \frac{∂E(\w)}{∂w_i} & = 0 \\
+    \frac{∂}{∂w_i} \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2 & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} \{y(x_n,\w) - t_n\}] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} y(x_n,\w)] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} \frac{∂}{∂w_i} (\sum_{j=0}^M w_j x_n^j)] & = 0 \\
+    \sum_{n=1}^N [\{y(x_n,\w) - t_n\} x_n^i] & = 0 \\
+    \sum_{n=1}^N [x_n^i y(x_n,\w) - x_n^i t_n] & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j) - x_n^i t_n] & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j)] - \sum_{n=1}^N x_n^i t_n & = 0 \\
+    \sum_{n=1}^N [x_n^i (\sum_{j=0}^M w_j x_n^j)] & = \sum_{n=1}^N x_n^i t_n \\
+    \sum_{j=0}^M (\sum_{n=1}^N x_n^{i+j}) w_j & = \sum_{n=1}^N x_n^i t_n \\
+    \sum_{j=0}^M A_{ij} w_j & = T_i
+\end{align*}
+\begin{align*}
+    A_{ij} & = \sum_{n=1}^N x_n^{i+j} \\
+    T_i    & = \sum_{n=1}^N x_n^i t_n
+\end{align*}
+
+** DONE 1.2 多項式の正則化された二乗和誤差を最小にする係数が満たす方程式
+正規化された二乗和誤差
+\begin{align*}
+    \tilde{E}(\w) = & \frac{1}{2} \sum_{n=1}^N \{y(x_n,\w) - t_n\}^2 + \frac{λ}{2} \|\w\|^2 \\
+                  = & E(\w) + \frac{λ}{2} \|\w\|^2
+\end{align*}
+\begin{align*}
+    \frac{∂\tilde{E}(w)}{∂w_i} = & 0 \\
+    \frac{∂}{∂w_i} (E(\w) + \frac{λ}{2} \|\w\|^2) = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + \frac{λ}{2} \frac{∂}{∂w_i} \|\w\|^2 = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + \frac{λ}{2} \frac{∂}{∂w_i} (\sum_{j=0}^M w_j^2) = & 0 \\
+    \frac{∂E(\w)}{∂w_i} + λ w_i = & 0 \\
+    \sum_{j=0}^M A_{ij} w_j - T_i + λ w_i = & 0 \\
+    \sum_{j=0}^M A_{ij} w_j = & T_i - λ w_i
+\end{align*}
+
+** DONE 1.3 3つの箱から3種類の果物を取り出すときの事前確率と事後確率
+*** りんごを選び出す確率
+確率の加法定理より
+\begin{align*}
+    p(a) = & \sum_B p(a|B)p(B) \\
+         = & p(a|r)p(r) + p(a|b)p(b) + p(a|g)p(g) \\
+         = & \frac{3}{3+4+3}0.2 + \frac{1}{1+1+0}0.2 + \frac{3}{3+3+4}0.6 \\
+         = & \frac{3}{10}\frac{2}{10} + \frac{1}{2}\frac{2}{10} + \frac{3}{10}\frac{6}{10} \\
+         = & \frac{6}{100} + \frac{10}{100} + \frac{18}{100} \\
+         = & \frac{34}{100} \\
+\end{align*}
+
+*** 選んだ果物がオレンジであったとき、それが緑の箱から取り出されたものである確率
+ベイズの定理より
+\begin{align*}
+    p(g|o) = & \frac{p(o|g)p(g)}{p(o)} \\
+\end{align*}
+確率の加法定理より
+\begin{align*}
+    p(o) = & \sum_B p(o|B)p(B) \\
+         = & p(o|r)p(r) + p(o|b)p(b) + p(o|g)p(g) \\
+         = & \frac{4}{3+4+3}0.2 + \frac{1}{1+1+0}0.2 + \frac{3}{3+3+4}0.6 \\
+         = & \frac{4}{10}\frac{2}{10} + \frac{1}{2}\frac{2}{10} + \frac{3}{10}\frac{6}{10} \\
+         = & \frac{8}{100} + \frac{10}{100} + \frac{18}{100} \\
+         = & \frac{36}{100} \\
+\end{align*}
+\begin{align*}
+    p(g|o) = & \frac{18}{100}/\frac{36}{100} \\
+           = & \frac{1}{2} \\
+\end{align*}
+
+** DONE 1.4 [www] 確率分布の変数変換
+最初に、関数\(f(x)\)の振る舞いが、
+\(x = g(y)\)という変数変換によってどのように変わるか考える。
+新しい\(y\)の関数\(\tilde{f}(y)\)を以下のように定義する。
+\begin{align*}
+    \tilde{f}(y) = f(g(y)) & \text{(2)}
+\end{align*}
+\(f(x)\)は\(\hat{x}\)で最大値を取るので、\(f'(\hat{x}) = 0\)である。
+(2)の両辺を\(y\)で微分する。
+\begin{align*}
+    \tilde{f}'(\hat{y}) = f'(g(\hat{y}))g'(\hat{y}) = 0 & \text{(3)}
+\end{align*}
+\(g'(\hat{y}) ≠ 0\)と仮定すると、\(f'(g(\hat{y})) = 0\)である。
+\(f'(\hat{x}) = 0\)だから、\(\hat{x} = g(\hat{y})\)である。
+
+次に、確率密度\(p_x(x)\)の振る舞いが、
+\(x = g(y)\)という変数変換によってどのように変わるか考える。
+新しい\(y\)の確率密度\(p_y(y)\)は、(1.27)より以下のように書ける。
+\begin{align*}
+    p_y(y) = p_x(g(y))sg'(y)
+\end{align*}
+ここで\(s∈\{-1,+1\}\)である。
+両辺を\(y\)で微分する。
+\begin{align*}
+    p_y'(y) = sp_x'(g(y))\{g'(y)\}^2 + sp_x(g(y))g''(y) & \text{(4)}
+\end{align*}
+第2項の存在により、\(\hat{x} = g(\hat{y})\)は成り立たない。
+\(g(y)\)が線形の場合は、\(g''(y) = 0\)より第2項が消えるので、
+\(\hat{x} = g(\hat{y})\)が成り立つ。
+
+** DONE 1.5 \(var[f] = E[f(x)^2] - E[f(x)]^2\) の証明
+\begin{align*}
+    var[f] & = E[(f(x) - E[f(x)])^2]    & \text{(1.38)} \\
+           & = E[f(x)^2 - 2f(x)E[f(x)] + E[f(x)]^2] \\
+           & = E[f(x)^2] - E[2f(x)E[f(x)] + E[E[f(x)]^2] \\
+           & = E[f(x)^2] - 2E[f(x)]E[f(x)] + E[f(x)]^2 \\
+           & = E[f(x)^2] - E[f(x)]^2    & \text{(1.39)}
+\end{align*}
+
+** DONE 1.6 2つの独立な確率変数の共分散が0になることの証明
+\begin{align*}
+    cov[x,y] & = E_{x,y}[{x - E[x]}{y - E[y]}] (1.42) \\
+             & = E_{x,y}[xy] - E[x]E[y]
+\end{align*}
+\(x\)と\(y\)が独立ならば、\(p(x,y) = p_x(x)p_y(y)\)
+\begin{align*}
+    E_{x,y}[xy] & = \int\int p(x,y)xydxdy \\
+                & = \int\int p_x(x)p_y(y)xydxdy \\
+                & = \int p_x(x)xdx \int p_y(y)ydy \\
+                & = E[x]E[y]
+\end{align*}
+
+** DONE 1.7 [www] 1変数ガウス分布が規格化されていることの証明
+\begin{align*}
+    I = \int_{-∞}^∞ \exp(-\frac{1}{2σ^2}x^2) dx
+\end{align*}
+\begin{align*}
+    I^2 = & \int_{-∞}^∞ \int_{-∞}^∞ \exp(- \frac{1}{2σ^2}x^2 - \frac{1}{2σ^2}y^2) dxdy \\
+        = & \int_{-∞}^∞ \int_{-∞}^∞ \exp\{- \frac{1}{2σ^2}(x^2 + y^2)\} dxdy
+\end{align*}
+直交座標から極座標に変換すると、
+\begin{align*}
+    I^2 = & \int_0^{2π} \int_0^∞ \exp(-\frac{1}{2σ^2}r^2) r drd\theta \\
+        = & 2π \int_0^∞ \exp(-\frac{1}{2σ^2}r^2) r dr
+\end{align*}
+\(u = r^2\)という変数変換を行うと、
+\begin{align*}
+    I^2 = & π \int_0^∞ \exp(-\frac{1}{2σ^2}u) du \\
+        = & π (-2σ^2) \left[ \exp(-\frac{1}{2σ^2}u) \right]_0^∞ \\
+        = & π (-2σ^2) (-1) \\
+        = & 2πσ^2 \\
+    I   = & (2πσ^2)^{1/2}
+\end{align*}
+\begin{align*}
+      & \int_{-∞}^∞ N(x|μ,σ^2) dx \\
+    = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} dx
+\end{align*}
+\(y = x-μ\) と置くと
+\begin{align*}
+    = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} dy \\
+    = & (2πσ^2)^{-1/2} (2πσ^2)^{1/2} \\
+    = & 1
+\end{align*}
+
+*** dxdy = rdrd\theta
+\begin{align*}
+    x = & r \cos \theta \\
+    y = & r \sin \theta \\
+\end{align*}
+\begin{align*}
+    dxdy = & |J|drd\theta \\
+         = & \left|\frac{∂x}{∂r}\frac{∂y}{∂\theta}
+             - \frac{∂x}{∂\theta}\frac{∂y}{∂r}\right|drd\theta \\
+         = & \left|- r \cos^2 \theta - r \sin^2 \theta\right|drd\theta \\
+         = & rdrd\theta
+\end{align*}
+
+** DONE 1.8 [www] 1変数ガウス分布の下での平均値、2次のモーメント、分散
+*** DONE 平均値 (1.49)
+(1.46) 1変数ガウス分布
+\begin{align*}
+    N(x|μ,σ^2) = (2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\}
+\end{align*}
+x の期待値
+\begin{align*}
+    E[x] = & \int_{-∞}^∞ N(x|μ,σ^2) x dx \\
+         = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} x dx
+\end{align*}
+ここで
+\begin{align*}
+     y = & x - μ \\
+    dy = & dx
+\end{align*}
+の変数変換を行うと
+\begin{align*}
+    E[x] = & (2πσ^2)^{-1/2} \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} (y+μ) dy \\
+         = & (2πσ^2)^{-1/2} \left[ \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} y dy +
+                            μ \int_{-∞}^∞ \exp\{-\frac{1}{2σ^2}y^2\} dy \right]
+\end{align*}
+括弧内の第1項は、演習1.7の r の積分と同じ形で積分範囲だけが異なる。
+\begin{align*}
+    E[x] = (2πσ^2)^{-1/2} ( 0 + μ (2πσ^2)^{1/2} ) \\
+         = μ                                         ...(1.49)
+\end{align*}
+
+*** DONE 2次のモーメント (1.50)
+(1.127) 規格化条件
+\begin{align*}
+    \int_{-∞}^∞ N(x|μ,σ^2) dx = 1
+\end{align*}
+両辺を σ^2 で微分する。
+\begin{align*}
+    \frac{∂}{∂(σ^2)} \int_{-∞}^∞ N(x|μ,σ^2) dx = 0 \\
+    \int_{-∞}^∞ \frac{∂}{∂(σ^2)} N(x|μ,σ^2) dx = 0
+\end{align*}
+\begin{align*}
+        \frac{∂}{∂(σ^2)} N(x|μ,σ^2)
+    = & \frac{∂}{∂(σ^2)} [(2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2} (x-μ)^2\}] \\
+    = & \frac{∂}{∂t} [(2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\}] \\
+    = & [\frac{∂}{∂t} (2πt)^{-1/2}] \exp\{-\frac{1}{2t} (x-μ)^2\}
+        + (2πt)^{-1/2} \frac{∂}{∂t} \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+    = & - \frac{1}{2} (2πt)^{-1/2} (2πt)^{-1} 2π \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+      & + (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} \{-\frac{1}{2t^2} (x-μ)^2\} \\
+    = & - \frac{1}{2} 2π (2πt)^{-1} (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} \\
+      & - \frac{1}{2t^2} (2πt)^{-1/2} \exp\{-\frac{1}{2t} (x-μ)^2\} (x-μ)^2 \\
+    = & - \frac{1}{2σ^2} N(x|μ,σ^2) - \frac{1}{2σ^4} N(x|μ,σ^2) (x-μ)^2
+\end{align*}
+\begin{align*}
+      0 = & \int_{-∞}^∞ \frac{∂}{∂(σ^2)} N(x|μ,σ^2) dx \\
+        = & - \frac{1}{2σ^2} \int_{-∞}^∞ N(x|μ,σ^2) dx
+            + \frac{1}{2σ^4} \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+        = & - \frac{1}{2σ^2}
+            + \frac{1}{2σ^4} \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+    σ^2 = & \int_{-∞}^∞ N(x|μ,σ^2) (x-μ)^2 dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) (x^2 - 2xμ + μ^2) dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx
+            - 2μ \int_{-∞}^∞ N(x|μ,σ^2) x dx
+            + μ^2 \int_{-∞}^∞ N(x|μ,σ^2) dx \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx - 2μ μ + μ^2 \\
+        = & \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx - μ^2 \\
+\end{align*}
+\begin{align*}
+    \int_{-∞}^∞ N(x|μ,σ^2) x^2 dx = σ^2 + μ^2
+\end{align*}
+
+*** DONE 分散 (1.51)
+\begin{align*}
+    var[x] = & E[x^2] - E[x]^2 \\
+           = & (μ^2 + σ^2) - μ^2 \\
+           = & σ^2
+\end{align*}
+
+** DONE 1.9 [www] ガウス分布のモード
+1変数ガウス分布
+\begin{align*}
+    N(x|μ,σ^2) = (2πσ^2)^{-1/2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} (1.46)
+\end{align*}
+\(x\) で微分する。
+\begin{align*}
+    N             & ∝ \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+    \frac{dN}{dx} & ∝ \frac{d}{dx} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+                  & = [\frac{d}{dx} \{-\frac{1}{2σ^2}(x-μ)^2\}] \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+                  & = -\frac{x(x-μ)}{σ^2} \exp\{-\frac{1}{2σ^2}(x-μ)^2\} \\
+\end{align*}
+モードを \(x_{mode}\) とすると、
+\begin{align*}
+    -\frac{x_{mode}(x_{mode}-μ)}{σ^2} \exp\{-\frac{1}{2σ^2}(x_{mode}-μ)^2\} = 0 \\
+    x_{mode} = 0, μ
+\end{align*}
+多変量ガウス分布
+\begin{align*}
+    N(x|μ,Σ^2) = (2π)^{-D/2} |Σ|^{-1/2} \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} (1.52)
+\end{align*}
+\(x\) で微分する。
+\begin{align*}
+    N                 & ∝ \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+    \frac{∂N}{∂x_i} & ∝ \frac{∂}{∂x_i} \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+                      & = [\frac{∂}{∂x_i} \{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\}]
+                          \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} \\
+                      & = -\frac{1}{2} [\frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\}]
+                          \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\}
+\end{align*}
+モードを \(x_{mode}\) とすると、
+\begin{align*}
+    -\frac{1}{2} [\frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\}]
+    \exp\{-\frac{1}{2} (x-μ)^T Σ^{-1} (x-μ)\} = 0 \\
+    \frac{∂}{∂x_i} \{(x-μ)^T Σ^{-1} (x-μ)\} = 0 \\
+    \frac{∂}{∂x_i} \{\sum_i \sum_j Σ^{-1}_{i,j} (x-μ)\} = 0 \\
+    Σ^{-1}_{i,i} (x_i - μ_i)^2 = 0 \\
+    2 Σ^{-1}_{i,i} (x_i - μ_i) (x_i - μ_i)^2 = 0 \\
+    x = 0, μ
+\end{align*}
+\begin{align*}
+             x^T X x & = \sum_i \sum_j x_i X_{i,j} x_j \\
+    ∂/∂x_k x^T X x & = ∂/∂x_k \sum_i \sum_j x_i X_{i,j} x_j \\
+                     & = X_{k,k} x_k^2
+\end{align*}
+
+** DONE 1.10 [www] 統計的に独立な2つの確率変数の和の平均と分散
+\begin{align*}
+    p(x,z) & = p_x(x) p_z(z) \\
+\end{align*}
+\begin{align*}
+    E[x+z] & = \int\int p_x(x) p_z(z) (x+z) dxdz \\
+           & = \int\int p_x(x) p_z(z) x dxdz + \int\int p_x(x) p_z(z) z dxdz \\
+           & = \int p_x(x) x dx \int p_z(z) dz + \int p_x(x) dx \int p_z(z) z dz \\
+           & = \int p_x(x) x dx + \int p_z(z) z dz \\
+           & = E[x] + E[z] \\
+\end{align*}
+\begin{align*}
+    var[x+z] & = E[(x+z)^2] - E[x+z]^2 \\
+             & = E[x^2 + 2xz + z^2] - (E[x] + E[z])^2 \\
+             & = E[x^2] + 2E[xz] + E[z^2] - E[x]^2 - 2E[x]E[z] - E[z]^2 \\
+             & = E[x^2] + 2E[x]E[z] + E[z^2] - E[x]^2 - 2E[x]E[z] - E[z]^2 \\
+             & = E[x^2] + E[z^2] - E[x]^2 - E[z]^2 \\
+             & = var[x] + var[z]
+\end{align*}

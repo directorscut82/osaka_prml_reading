@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第1章 演習 1.11-1.20</title>
+<!-- 2014-03-23 日 11:25 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="fi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第1章 演習 1.11-1.20</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第1章 演習 1.11-1.20</a>
+<ul>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 1.11 対数尤度関数からサンプル平均とサンプル分散を求める</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 1.12 [www] ガウス分布の下での2つのデータ点の積の平均値</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 1.13 ガウス分布の分散の推定値</a></li>
+<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 1.14 D次元多項式の2次の項の独立パラメータの数</a></li>
+<li><a href="#sec-1-5"><span class="done DONE">DONE</span> 1.15 [www] M次のD次元多項式の独立なパラメータの数</a></li>
+<li><a href="#sec-1-6"><span class="todo TODO">TODO</span> 1.16 M次までのすべての項における独立なパラメータの数</a></li>
+<li><a href="#sec-1-7"><span class="done DONE">DONE</span> 1.17 [www] ガンマ関数と階乗</a></li>
+<li><a href="#sec-1-8"><span class="todo TODO">TODO</span> 1.18 [www] D次元単位球の表面積と体積</a></li>
+<li><a href="#sec-1-9"><span class="todo TODO">TODO</span> 1.19 D次元超立方体の体積</a></li>
+<li><a href="#sec-1-10"><span class="todo TODO">TODO</span> 1.20 [www] 高次元ガウス分布の振る舞い</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第1章 演習 1.11-1.20</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 1.11 対数尤度関数からサンプル平均とサンプル分散を求める</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+(1.54) 対数尤度関数<br  />
+</p>
+\begin{align*}
+    \ln p(x|μ,σ^2) = - \frac{1}{2σ^2} \sum_{n=1}^N (x_n - μ)^2
+                    - \frac{N}{2} \ln σ^2 - \frac{N}{2} \ln (2π)
+\end{align*}
+\begin{align*}
+    \frac{∂}{∂μ} \ln p(x|μ,σ^2) ∝ & \frac{∂}{∂μ} \sum_{n=1}^N (x_n - μ)^2 \\
+                                   = &  \sum_{n=1}^N \frac{∂}{∂μ} (x_n - μ)^2 \\
+                                   = &  -2μ \sum_{n=1}^N (x_n - μ) \\
+                                   = &  -2μ [\sum_{n=1}^N x_n - Nμ] \\
+                                 0 = &  \sum_{n=1}^N μ_{ML} (x_n - μ_{ML}) \\
+                            μ_{ML} = &  0, \frac{1}{N} \sum_{n=1}^N x_n    & \text{(1.55)}
+\end{align*}
+\begin{align*}
+    \frac{∂}{∂(σ^2)} \ln p(x|μ,σ^2)
+                        = & [\frac{∂}{∂(σ^2)} -\frac{1}{2σ^2}] \sum_{n=1}^N (x_n - μ)^2
+                            - \frac{N}{2} \frac{∂}{∂(σ^2)} \ln σ^2 \\
+                        = & \frac{1}{2σ^4} \sum_{n=1}^N (x_n - μ)^2 - \frac{N}{2σ^2} \\
+                      0 = & \frac{1}{2σ_{ML}^4} \sum_{n=1}^N (x_n - μ_{ML})^2 - \frac{N}{2σ_{ML}^2} \\
+    \frac{N}{2σ_{ML}^2} = & \frac{1}{2σ_{ML}^4} \sum_{n=1}^N (x_n - μ_{ML})^2 \\
+             N σ_{ML}^2 = & \sum_{n=1}^N (x_n - μ_{ML})^2 \\
+               σ_{ML}^2 = & \frac{1}{N} \sum_{n=1}^N (x_n - μ_{ML})^2   & \text{(1.56)}
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 1.12 [www] ガウス分布の下での2つのデータ点の積の平均値</h3>
+<div class="outline-text-3" id="text-1-2">
+\begin{align*}
+    E[x]   = & ∫_{-∞}^∞ N(x|μ,σ^2)x dx   = & μ         & \text{(1.49)} \\
+    E[x^2] = & ∫_{-∞}^∞ N(x|μ,σ^2)x^2 dx = & μ^2 + σ^2 & \text{(1.50)}
+\end{align*}
+<p>
+\(n = m\)の場合、\(x_n\)と\(x_m\)は同じ試行の結果なので、\(E[x_n x_m]\)は\(E[x^2]\)と同じ。<br  />
+</p>
+\begin{align*}
+    E[x_n x_m] = μ^2 + σ^2
+\end{align*}
+<p>
+\(n ≠ m\)の場合、\(x_n\)と\(x_m\)は独立した試行の結果なので、<br  />
+</p>
+\begin{align*}
+    E[x_n x_m] = E[x_n] E[x_m]
+\end{align*}
+<p>
+\(E[x_n]\)、\(E[x_m]\)は\(E[x]\)と同じ。<br  />
+</p>
+\begin{align*}
+    E[x_n x_m] = E[x]^2 = μ^2
+\end{align*}
+<p>
+まとめると<br  />
+</p>
+\begin{align*}
+    E[x_n x_m] = μ^2 + δ_{nm}σ^2
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 1.13 ガウス分布の分散の推定値</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+ガウス分布の分散の推定量<br  />
+</p>
+\begin{align*}
+    σ_{ML}^2 = \frac{1}{N} \sum_{n=1}^N (x_n - μ_{ML})^2 & \text{(1.56)}
+\end{align*}
+<p>
+平均の最尤推定値 μ<sub>ML</sub> を真の値 μ で置き換える。<br  />
+</p>
+\begin{align*}
+    σ_{ML}^2 = \frac{1}{N} \sum_{n=1}^N (x_n - μ)^2
+\end{align*}
+<p>
+期待値をとる。<br  />
+</p>
+\begin{align*}
+    E[σ_{ML}^2] = & ∫ p(x|μ,σ^2) σ_{ML}^2 dx \\
+                = & \frac{1}{N} ∫ [\prod_{n=1}^N N(x_n|μ,σ^2)] [\sum_{n=1}^N (x_n - μ)^2] dx
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="done DONE">DONE</span> 1.14 D次元多項式の2次の項の独立パラメータの数</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+任意の\(w_{ij}\)に対して、次の方程式を満たす\(w^S_{ij}\)、\(w^A_{ij}\)が存在するか否かを問うている。<br  />
+</p>
+\begin{align*}
+      w_{ij} = & w^S_{ij} + w^A_{ij} \\
+    w^S_{ij} = & w^S_{ji} \\
+    w^A_{ij} = & -w^A_{ji} \\
+\end{align*}
+<p>
+\(w^S_{ij}\)、\(w^A_{ij}\)を以下のように定義すると、上記の条件を満たす。<br  />
+</p>
+\begin{align*}
+    w^S_{ij} = & (w_{ij} + w_{ji})/2 \\
+    w^A_{ij} = & (w_{ij} - w_{ji})/2 \\
+\end{align*}
+
+\begin{align*}
+      & \sum_{i=1}^D \sum_{j=1}^D w_{ij} x_i x_j \\
+    = & \sum_{i=1}^D \sum_{j=1}^D (w^S_{ij} + w^A_{ij}) x_i x_j \\
+    = & \sum_{i=1}^D \sum_{j=1}^D w^S_{ij} x_i x_j
+      + \sum_{i=1}^D \sum_{j=1}^D w^A_{ij} x_i x_j \\
+    = & \sum_{i=1}^D \sum_{j=1}^D w^S_{ij} x_i x_j \\
+\end{align*}
+
+<p>
+\(w^S_{ij}\)は\(D^2\)個のパラメータを含むが、<br  />
+\(w^S_{ij} = w^S_{ji}\)という\(D(D-1)/2\)個の独立な方程式を満たさなければならないので、<br  />
+独立なパラメータの数は<br  />
+</p>
+\begin{align*}
+      & D^2 - D(D-1)/2 \\
+    = & D^2/2 + D/2 \\
+    = & D(D+1)/2 \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="done DONE">DONE</span> 1.15 [www] M次のD次元多項式の独立なパラメータの数</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+D次元の多項式のM次の項<br  />
+</p>
+\begin{align*}
+    \sum_{i_1=1}^D \sum_{i_2=1}^D ... \sum_{i_M=1}^D
+        w_{i_1 i_2 ... i_M} x_{i_1} x_{i_2} ... x_{i_M}    & \text{(1.133)}
+\end{align*}
+</div>
+
+<div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1"><span class="done DONE">DONE</span> (1.134)の証明</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+以下の式が成り立つことを証明する。<br  />
+</p>
+\begin{align*}
+    \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} ... \sum_{i_M=1}^{i_{M-1}}
+        \tilde{w}_{i_1 i_2 ... i_M} x_{i_1} x_{i_2} ... x_{i_M}   & \text{(1.134)}
+\end{align*}
+
+<p>
+\(x_{i_1} x_{i_2} ... x_{i_M}\)の掛け算の順序を並べ替えたものは等しい。<br  />
+そこで、常に添字が減少する順序に並べ替えることにする。<br  />
+並べ替えた添字を\(j_1, j_2, ..., j_M\)とすると、<br  />
+</p>
+\begin{align*}
+   j_1 ≧ j_2, j_2 ≧ j_3, ..., j_{M-1} ≧ j_M
+\end{align*}
+<p>
+が成り立つ。<br  />
+この条件を満たすようにすべての項の和をとったものが(1.134)である。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2"><span class="done DONE">DONE</span> (1.135)の証明</h4>
+<div class="outline-text-4" id="text-1-5-2">
+\begin{align*}
+    n(D,M) = \sum_{i=1}^D n(i,M-1)    & \text{(1.135)}
+\end{align*}
+
+<p>
+(1.134)は冗長性のない和なので、<br  />
+その項の数がすなわち独立なパラメータの数である。<br  />
+項の数は各項を1で置き換えることにより得られる。<br  />
+</p>
+\begin{align*}
+    n(D,M)   = & \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} ... \sum_{i_M=1}^{i_{M-1}} 1 \\
+    n(i,M-1) = & \sum_{i_1=1}^i \sum_{i_2=1}^{i_1} ... \sum_{i_{(M-1)}=1}^{i_{(M-1)-1}} 1 \\
+\end{align*}
+
+<p>
+(1.135)の右辺から出発し、上の式を用いて\(n(i,M-1)\)を展開し、<br  />
+適当に添字を付け替えれば、(1.135)の左辺が得られる。<br  />
+</p>
+\begin{align*}
+      & \sum_{i=1}^D n(i,M-1) \\
+    = & \sum_{i=1}^D \sum_{i_1=1}^i \sum_{i_2=1}^{i_1} ... \sum_{i_{M-1}=1}^{i_{(M-1)-1}} 1 \\
+    = & \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} \sum_{i_3=1}^{i_2} ... \sum_{i_M=1}^{i_{M-1}} 1
+      & i→i_1, i_n→i_{n+1} \\
+    = & n(D,M) \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3"><span class="done DONE">DONE</span> (1.136)の証明</h4>
+<div class="outline-text-4" id="text-1-5-3">
+\begin{align*}
+    \sum_{i=1}^D \frac{(i+M-2)!}{(i-1)!(M-1)!} = \frac{(D+M-1)!}{(D-1)!M!} & \text{(1.136)}
+\end{align*}
+
+<p>
+\(D=1\)と任意の\(M\)の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+    左辺 = & \sum_{i=1}^D \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \sum_{i=1}^1 \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \frac{(1+M-2)!}{(1-1)!(M-1)!} \\
+         = & \frac{(M-1)!}{0!(M-1)!} \\
+         = & 1 \\
+\end{align*}
+
+\begin{align*}
+    右辺 = & \frac{(D+M-1)!}{(D-1)!M!} \\
+         = & \frac{(1+M-1)!}{(1-1)!M!} \\
+         = & \frac{M!}{0!M!} \\
+         = & 1 \\
+\end{align*}
+
+<p>
+\(D=d\)と任意の\(M\)の場合に成り立つという仮定のもとで、<br  />
+\(D=d+1\)と任意の\(M\)の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+    左辺 = & \sum_{i=1}^D \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \sum_{i=1}^{d+1} \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \frac{(d+1+M-2)!}{(d+1-1)!(M-1)!} + \sum_{i=1}^d \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \frac{(d+1+M-2)!}{(d+1-1)!(M-1)!} + \frac{(d+M-1)!}{(d-1)!M!}
+           & \text{帰納法の仮定より} \\
+         = & \frac{(d+M-1)!}{d!(M-1)!} + \frac{(d+M-1)!}{(d-1)!M!} \\
+         = & \frac{(d+M-1)!M}{d!M!} + \frac{(d+M-1)!d}{d!M!} \\
+         = & \frac{(d+M-1)!(M+d)}{d!M!} \\
+         = & \frac{(d+M)!}{d!M!} \\
+\end{align*}
+
+\begin{align*}
+    右辺 = & \frac{(D+M-1)!}{(D-1)!M!} \\
+         = & \frac{(d+1+M-1)!}{(d+1-1)!M!} \\
+         = & \frac{(d+M)!}{d!M!} \\
+\end{align*}
+
+<p>
+よって、数学的帰納法により、任意の\(D\)、\(M\)について(1.136)が成り立つ。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-5-4" class="outline-4">
+<h4 id="sec-1-5-4"><span class="done DONE">DONE</span> (1.137)の証明</h4>
+<div class="outline-text-4" id="text-1-5-4">
+\begin{align*}
+    n(D,M) = \frac{(D+M-1)!}{(D-1)!M!}    (1.137)
+\end{align*}
+
+<p>
+\(M=2\)と任意の\(D≧1\)の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+    左辺 = & n(D,M) \\
+         = & n(D,2) \\
+         = & \sum_{i_1=1}^D \sum_{i_2=1}^{i_1} 1 \\
+         = & \sum_{i_1=1}^D i_1 \\
+         = & \frac{(D+1)D}{2} \\
+\end{align*}
+
+\begin{align*}
+    右辺 = & \frac{(D+M-1)!}{(D-1)!M!} \\
+         = & \frac{(D+2-1)!}{(D-1)!2!} \\
+         = & \frac{(D+1)!}{(D-1)!2} \\
+         = & \frac{(D+1)D!D}{D!2} \\
+         = & \frac{(D+1)D}{2} \\
+\end{align*}
+
+<p>
+\(M-1\)次で成り立っているという仮定のもとで、<br  />
+\(M\)次の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+    左辺 = & n(D,M) \\
+         = & \sum_{i=1}^D n(i,M-1)                           & \text{(1.135)より} \\
+         = & \sum_{i=1}^D \frac{(i+(M-1)-1)!}{(i-1)!(M-1)!}  & \text{帰納法の仮定より} \\
+         = & \sum_{i=1}^D \frac{(i+M-2)!}{(i-1)!(M-1)!} \\
+         = & \frac{(D+M-1)!}{(D-1)!M!}                       & \text{(1.136)より} \\
+\end{align*}
+
+<p>
+よって、数学的帰納法により、任意の\(D\)、\(M\)について(1.137)が成り立つ。<br  />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="todo TODO">TODO</span> 1.16 M次までのすべての項における独立なパラメータの数</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="done DONE">DONE</span> </h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+\(M\)次までのすべての項における独立パラメータの数<br  />
+</p>
+\begin{align*}
+    N(D,M) = & \sum_{m=0}^M n(D,m)    & \text{(1.138)}
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="done DONE">DONE</span> \(N(D,M) = (D+M)!/D!M!\) (1.139)の証明</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+\(M=0\)と任意の\(D≧1\)の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+    左辺 = & N(D,0) \\
+         = & \sum_{m=0}^0 n(D,m) \\
+         = & n(D,0) \\
+         = & (D+0-1)!/(D-1)!0!    & \text{(1.137)より} \\
+         = & 1 \\
+    右辺 = & (D+0)!/D!0! \\
+         = & 1 \\
+\end{align*}
+
+<p>
+\(M\)次で成り立つという仮定のもとで\(M+1\)次の場合に成り立つことを示す。<br  />
+</p>
+\begin{align*}
+          & N(D,M+1) \\
+        = & \sum_{m=0}^{M+1} n(D,m) \\
+        = & n(D,M+1) + \sum_{m=0}^M n(D,m) \\
+        = & n(D,M+1) + N(D,M) \\
+        = & n(D,M+1) + \frac{(D+M)!}{D!M!}                           & \text{帰納法の仮定より} \\
+        = & \frac{(D+(M+1)-1)!}{(D-1)!(M+1)!} + \frac{(D+M)!}{D!M!}  & \text{(1.137)より} \\
+        = & \frac{D(D+M)!}{D!(M+1)!} + \frac{(D+M)!(M+1)}{D!(M+1)!} \\
+        = & \frac{(D+(M+1))!}{D!(M+1)!} \\
+\end{align*}
+
+<p>
+よって、数学的帰納法により、任意の\(D\)、\(M\)について(1.139)が成り立つ。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3"><span class="todo TODO">TODO</span> </h4>
+<div class="outline-text-4" id="text-1-6-3">
+\begin{align*}
+    D≫M のとき O(N(D,M)) = & D^M \\
+    M≫D のとき O(N(D,M)) = & M^D \\
+\end{align*}
+
+\begin{align*}
+    N(D,M) = & (D+M)!/D!M! \\
+           = & \prod_{i=D+M}^{} \\
+\end{align*}
+<p>
+\(D≫M\)のとき<br  />
+</p>
+\begin{align*}
+    N(D,M) ≒ & (D+M)^(D+M)e^{-(D+M)}/D^De^{-D}M! \\
+            = & (D+M)^(D+M)e^{-M}/D^DM! \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4"><span class="done DONE">DONE</span> </h4>
+<div class="outline-text-4" id="text-1-6-4">
+<p>
+&gt;&gt;&gt; import math<br  />
+&gt;&gt;&gt; math.factorial(10+3)/math.factorial(10)/math.factorial(3)<br  />
+286L<br  />
+&gt;&gt;&gt; math.factorial(100+3)/math.factorial(100)/math.factorial(3)<br  />
+176851L<br  />
+</p>
+
+<p>
+10<sup>3</sup>=1000<br  />
+100<sup>3</sup>=1000000<br  />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="done DONE">DONE</span> 1.17 [www] ガンマ関数と階乗</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+ガンマ関数<br  />
+</p>
+\begin{align*}
+    Γ(x) = ∫_0^∞ u^{x-1}e^{-u} du
+\end{align*}
+
+<p>
+部分積分の公式<br  />
+</p>
+\begin{align*}
+    ∫_a^b f(x)g'(x)dx = [f(x)g(x)]_a^b - ∫_a^b f'(x)g(x)dx
+\end{align*}
+
+\begin{align*}
+    Γ(x+1) = & ∫_0^∞ u^xe^{-u} du \\
+           = & -[u^xe^{-u}]_0^∞ - x ∫_0^∞ u^{x-1}e^{-u} du \\
+           = & x Γ(x)
+\end{align*}
+
+\begin{align*}
+    Γ(1) = & ∫_0^∞ e^{-u} du \\
+         = & -[e^{-u}]_0^∞ \\
+         = & -(e^{-∞} - e^0) \\
+         = & -(0 - 1) \\
+         = & 1
+\end{align*}
+
+\begin{align*}
+    Γ(x+1) = & x Γ(x) \\
+    Γ(1)   = & 1
+\end{align*}
+<p>
+これは \(x!\) の定義そのものである。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="todo TODO">TODO</span> 1.18 [www] D次元単位球の表面積と体積</h3>
+<div class="outline-text-3" id="text-1-8">
+\begin{align*}
+    \prod_{i=1}^D ∫_{-∞}^∞ e^{-x_i^2} dx_i = S_D ∫_0^∞ e^{-r^2}r^{D-1} dr    & \text{(1.142)}
+\end{align*}
+</div>
+
+<div id="outline-container-sec-1-8-1" class="outline-4">
+<h4 id="sec-1-8-1"><span class="done DONE">DONE</span> \(S_D = \frac{2π^{D/2}}{Γ(D/2)}\) の証明</h4>
+<div class="outline-text-4" id="text-1-8-1">
+\begin{align*}
+    ∫_{-∞}^∞ exp(-x^2/2σ^2)dx = (2πσ^2)^{1/2}    & \text{(1.126)}
+\end{align*}
+<p>
+\(σ^2 = 1/2\)を代入すると<br  />
+</p>
+\begin{align*}
+    ∫_{-∞}^∞ exp(-x^2)dx = π^{1/2}
+\end{align*}
+
+<p>
+(1.142)左辺<br  />
+</p>
+\begin{align*}
+    \prod_{i=1}^D ∫_{-∞}^∞ e^{-x_i^2} dx_i = & \prod_{i=1}^D π^{1/2} \\
+                                              = & π^{D/2}
+\end{align*}
+
+<p>
+(1.142)右辺の積分で、\(r^2=u\)とおくと\(du=2rdr\)<br  />
+</p>
+\begin{align*}
+    ∫_0^∞ e^{-r^2}r^{D-1} dr = & ∫_0^∞ \frac{e^{-u}r^{D-1}}{2r} du \\
+                               = & ∫_0^∞ \frac{e^{-u}r^{D-2}}{2} du \\
+                               = & \frac{1}{2} ∫_0^∞ e^{-u}u^{D/2-1} du \\
+                               = & \frac{Γ(D/2)}{2}
+\end{align*}
+<p>
+これらを(1.142)に代入すると<br  />
+</p>
+\begin{align*}
+    π^{D/2} = & S_D \frac{Γ(D/2)}{2} \\
+        S_D = & \frac{2π^{D/2}}{Γ(D/2)}
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-8-2" class="outline-4">
+<h4 id="sec-1-8-2"><span class="todo TODO">TODO</span> \(V_D = \frac{S_D}{D}\) の証明</h4>
+<div class="outline-text-4" id="text-1-8-2">
+\begin{align*}
+    V_D = & S_D ∫_0^1 r^{D-1} dr \\
+        = & S_D \left[ \frac{r^D}{D} \right]_0^1 \\
+        = & \frac{S_D}{D} \\
+\end{align*}
+
+<p>
+:TODO: $ V<sub>D</sub> = &amp; S<sub>D</sub> ∫<sub>0</sub><sup>1</sup> r<sup>D-1</sup> dr $ これはなぜ？<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-8-3" class="outline-4">
+<h4 id="sec-1-8-3"><span class="done DONE">DONE</span> \(D=2\)および\(D=3\)の場合</h4>
+<div class="outline-text-4" id="text-1-8-3">
+<p>
+\(D=2\)のとき<br  />
+</p>
+\begin{align*}
+    S_D = & 2π^{D/2}/Γ(D/2) \\
+        = & 2π^{2/2}/Γ(2/2) \\
+        = & 2π
+\end{align*}
+\begin{align*}
+    V_D = & S_D/D \\
+        = & 2π/2 \\
+        = & π
+\end{align*}
+
+<p>
+\(D=3\)のとき<br  />
+</p>
+\begin{align*}
+    S_D = & 2π^{D/2}/Γ(D/2) \\
+        = & 2π^{3/2}/Γ(3/2) \\
+        = & 2π^{3/2}/\sqrt{π}/2 \\
+        = & 2π^{3/2}π^{-1/2}/2 \\
+        = & 4π
+\end{align*}
+\begin{align*}
+    V_D = & S_D/D \\
+        = & 4π/3
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="todo TODO">TODO</span> 1.19 D次元超立方体の体積</h3>
+<div class="outline-text-3" id="text-1-9">
+</div><div id="outline-container-sec-1-9-1" class="outline-4">
+<h4 id="sec-1-9-1"><span class="done DONE">DONE</span> </h4>
+<div class="outline-text-4" id="text-1-9-1">
+\begin{align*}
+    \text{立方体の体積} = & \prod_{i=1}^D ∫_{-a}^{a} dx_i \\
+                        = & (2a)^D
+\end{align*}
+
+\begin{align*}
+        \frac{ \text{球の体積} }{ \text{立方体の体積} }
+    = & \frac{ 2π^{D/2}a^D }{ DΓ(D/2)(2a)^D } \\
+    = & \frac{ 2π^{D/2} }{ DΓ(D/2)2^D } \\
+    = & \frac{ π^{D/2} }{ D2^{D-1}Γ(D/2) } \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-9-2" class="outline-4">
+<h4 id="sec-1-9-2"><span class="todo TODO">TODO</span> </h4>
+<div class="outline-text-4" id="text-1-9-2">
+<p>
+スターリングの公式<br  />
+\(x≫1\)のとき<br  />
+</p>
+\begin{align*}
+    Γ(x+1) ≒ (2π)^{1/2}e^{-x}x^{x+1/2}
+\end{align*}
+
+<p>
+\(D→∞\)のとき<br  />
+</p>
+\begin{align*}
+      & \frac{ π^{D/2} }{ D2^{D-1}Γ(D/2) } \\
+    = & \frac{ π^{D/2} }{ D2^{D-1}(2π)^{1/2}e^{-D/2}(D/2)^{D/2+1/2} } \\
+    = & \frac{ π^{D/2} }{ D2^{D-1}(2π)^{1/2}e^{-D/2}(D/2)^{(D+1)/2} } \\
+    = & \frac{ π^{D/2}e^{D/2}2^{(D+1)/2} }{ D2^{D-1}(2π)^{1/2}D^{(D+1)/2} } \\
+    = & \frac{ π^{D/2}e^{D/2}2^{(D+1)/2} }{ 2^{D-1}(2π)^{1/2}D^{(D+3)/2} } \\
+    = & \frac{ π^{(D-1)/2}e^{D/2}2^{-D/2+1} }{ D^{(D+3)/2} } \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-9-3" class="outline-4">
+<h4 id="sec-1-9-3"><span class="done DONE">DONE</span> </h4>
+<div class="outline-text-4" id="text-1-9-3">
+<p>
+立方体の中心から1つの頂点までの距離<br  />
+</p>
+\begin{align*}
+    d_1 = & a \\
+    d_D = & \sqrt{d_{D-1}^2 + a^2} \\
+    d_D = & \sqrt{Da^2} \\
+    d_D = & a\sqrt{D} \\
+\end{align*}
+<p>
+中心から側面までの距離で割った比<br  />
+</p>
+\begin{align*}
+    d_D/a = & \sqrt{D}
+\end{align*}
+<p>
+\(D→∞\)のとき\(d_D/a→∞\)。<br  />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="todo TODO">TODO</span> 1.20 [www] 高次元ガウス分布の振る舞い</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+D次元ガウス分布<br  />
+</p>
+\begin{align*}
+    p(x) = & 1/(2πσ^2)^{D/2} exp(-||x||^2/2σ^2)    & \text{(1.147)}
+\end{align*}
+\begin{align*}
+    p(r) = & S_Dr^{D-1}/(2πσ^2)^{D/2} exp(-r^2/2σ^2)    & \text{(1.148)}
+\end{align*}
+
+<p>
+(1.147)を極座標に変換する。<br  />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: fi</p>
+<p class="date">Created: 2014-03-23 日 11:25</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

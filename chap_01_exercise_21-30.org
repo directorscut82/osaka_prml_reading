@@ -1,0 +1,307 @@
+#+TITLE: PRML 第1章 演習 1.21-1.30
+#+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: num:nil toc:2 \n:t
+* PRML 第1章 演習 1.21-1.30
+** DONE 1.21 \(p(\text{誤り})≦∫\{p(x,C_1)p(x,C_2)\}^{1/2}dx\)の証明
+*** DONE \(a≦b\)ならば\(a≦(ab)^{1/2}\)
+\begin{align*}
+              a ≦ & b \\
+            a^2 ≦ & ab            & \text{ \(a\)は非負だから} \\
+    (a^2)^{1/2} ≦ & (ab)^{1/2}    & \text{ \(f(x) = x^{1/2}\)は単調増加だから} \\
+              a ≦ & (ab)^{1/2} \\
+\end{align*}
+
+*** DONE \(p(\text{誤り})≦∫\{p(x,C_1)p(x,C_2)\}^{1/2}dx\)の証明
+誤識別率が最小になるように決定領域を選ぶと、
+\begin{align*}
+    x ∈ R_1 ⇒ p(x,C_2) ≦ p(x,C_1) ⇒ p(x,C_2) ≦ \{p(x,C_1)p(x,C_2)\}^{1/2} \\
+    x ∈ R_2 ⇒ p(x,C_1) ≦ p(x,C_2) ⇒ p(x,C_1) ≦ \{p(x,C_1)p(x,C_2)\}^{1/2} \\
+\end{align*}
+ここで\(a≦b\)ならば\(a≦(ab)^{1/2}\)を用いている。
+それぞれの範囲で\(x\)について積分すると
+\begin{align*}
+    ∫_{R_1} p(x,C_2) dx ≦ ∫_{R_1} \{p(x,C_1)p(x,C_2)\}^{1/2} dx \\
+    ∫_{R_2} p(x,C_1) dx ≦ ∫_{R_2} \{p(x,C_1)p(x,C_2)\}^{1/2} dx \\
+\end{align*}
+両辺を足して
+\begin{align*}
+    ∫_{R_1} p(x,C_2) dx + ∫_{R_2} p(x,C_1) dx
+                   ≦ & ∫_{R_1} \{p(x,C_1)p(x,C_2)\}^{1/2} dx +
+                        ∫_{R_2} \{p(x,C_1)p(x,C_2)\}^{1/2} dx \\
+    p(\text{誤り}) ≦ & ∫ \{p(x,C_1)p(x,C_2)\}^{1/2} dx
+\end{align*}
+
+** DONE 1.22 [www] 損失行列\(L_{kj}=1-I_{kj}\)の期待値の最小化と事後確率の最大化
+(1.81)で与えられる
+\begin{align*}
+    \sum_k L_{kj}p(C_k|x) \\
+\end{align*}
+この量が最小になるクラス j に x を割り当てるのが
+期待損失を最小化する決定規則である。
+\(L_{kj} = 1-I_{kj}\)を代入すると
+\begin{align*}
+        \sum_k L_{kj}p(C_k|x)
+    = & \sum_k (1-I_{kj})p(C_k|x) \\
+    = & \sum_k p(C_k|x) - p(C_j|x) \\
+\end{align*}
+この量が最小になるという事は、
+第1項の和は決定規則によらず一定だから、
+第2項\(p(C_j|x)\)が最大になるように割り当てるということである。
+
+この損失行列は、
+正解か誤りかのみで損失を評価し、
+正解および誤りの内容を評価しない
+損失行列であると解釈できる。
+
+** TODO 1.23 損失行列とクラスの確率分布が与えられたときに期待損失を最小にする決定規準
+期待損失
+\begin{align*}
+    E[L] = \sum_k \sum_j \int_{R_j} L_{kj} p(x,C_k) dx    & \text{(1.80)}
+\end{align*}
+これを最小化するには、各\(x\)ごとに
+\begin{align*}
+    \sum_k L_{kj} p(x,C_k)
+\end{align*}
+が最小になる\(j\)を求め、\(R_j\)が\(x\)を含むように\(R_j\)を決めればよい。
+乗法定理\(p(x,C_k) = p(x|C_k)p(C_k)\)を用いて
+\begin{align*}
+    \sum_k L_{kj} p(x|C_k)p(C_k)
+\end{align*}
+
+** DONE 1.24 [www] 棄却オプションがある場合に期待損失を最小とする決定規準
+*** 期待損失を最小とする決定規準
+与えられた\(x\)に対して
+式(1.81)の量\(\sum_k L_{kj} p(C_k|x)\)が最小になるようなクラス\(j\)を見つける。
+その量が\(λ\)より小さければ\(x\)をクラス\(j\)に割り当て、
+さもなくば棄却する。
+
+*** \(L_{kj}=1-I_{kj}\)ならば、1.5.3節の棄却規準に帰着することの証明
+\(L_{kj}=1-I_{kj}\)ならば、
+式(1.81)の量は以下のように表される。
+\begin{align*}
+      & \sum_k L_{kj} p(C_k|x) \\
+    = & \sum_k (1 - I_{kj}) p(C_k|x) \\
+    = & \sum_k p(C_k|x) - \sum_k I_{kj} p(C_k|x) \\
+    = & 1 - p(C_j|x) \\
+\end{align*}
+この量が最小になる\(j\)は、\(p(C_j|x)\)が最大になる\(j\)である。
+期待損失を最小とする決定規準は、
+\(1 - p(C_j|x)\)の最小値が\(λ\)より小さければ、
+\(x\)をクラス\(j\)に割り当て、さもなくば棄却する、ということになる。
+これは、
+\(p(C_j|x)\)の最大値が\(1 - λ\)より大きければ、
+\(x\)をクラス\(j\)に割り当て、さもなくば棄却する、ということと同値である。
+\begin{align*}
+    1 - p(C_j|x) ≦ & λ \\
+        p(C_j|x) ≧ & 1 - λ \\
+\end{align*}
+
+*** \(λ\)と棄却しきい値\(θ\)との関係
+\begin{align*}
+    θ = 1 - λ
+\end{align*}
+
+** DONE 1.25 [www] 多変数の目的変数の回帰問題
+\begin{align*}
+    \newcommand{\x}{{\bf x}}
+    \newcommand{\y}{{\bf y}}
+    \newcommand{\t}{{\bf t}}
+    E[L(\t,\y(\x))] = ∫∫ \|\y(\x)-\t\|^2 p(\x,\t) d\x d\t \\
+\end{align*}
+付録Dより、\(F[y]=∫_{x_1}^{x_2}G(y(x),x)dx\)ならば、停留条件は\(\frac{∂G(y(x),x)}{∂y(x)}=0\)。
+ここで\(G(\y(\x),\x)=∫\|\y(\x)-\t\|^2p(\x,\t)d\t\)だから、
+\begin{align*}
+    \frac{∂}{∂\y(\x)} ∫\|\y(\x)-\t\|^2p(\x,\t)d\t = & 0 \\
+    \frac{∂}{∂y_i(\x)} ∫(\sum_j(y_j(\x)-t_j)^2)p(\x,\t)d\t = & 0 \\
+    2 ∫(y_i(\x)-t_i)p(\x,\t)d\t = & 0 \\
+    ∫(y_i(\x)-t_i)p(\x,\t)d\t = & 0 \\
+    ∫y_i(\x)p(\x,\t)d\t = & ∫t_i p(\x,\t)d\t \\
+    y_i(\x)∫p(\x,\t)d\t = & ∫t_i p(\x,\t)d\t \\
+            y_i(\x)p(\x) = & ∫t_i p(\x,\t)d\t \\
+                 y_i(\x) = & ∫t_i \frac{p(\x,\t)}{p(\x)}d\t \\
+                         = & ∫t_i p(\x|\t)d\t \\
+                         = & E_\t[t_i|\x] \\
+                  \y(\x) = & E_\t[\t|\x] \\
+\end{align*}
+
+** DONE 1.26 多変数の目的変数の回帰問題
+\begin{align*}
+    E[L(\t,\y(\x))] = & ∫∫\|\y(\x)-\t\|^2p(\x,\t)d\x d\t \\
+                    = & ∫∫(\sum_i (y_i(\x)-t_i)^2)p(\x,\t)d\x d\t \\
+                    = & ∫∫(\sum_i (y_i(\x) - E[t_i|\x] + E[t_i|\x] - t_i)^2)p(\x,\t)d\x d\t \\
+                    = & ∫∫(\sum_i (A_i^2 + 2A_iB_i + B_i^2))p(\x,\t)d\x d\t \\
+\end{align*}
+ここで
+\begin{align*}
+    A_i = & (y_i(\x) - E[t_i|\x]) \\
+    B_i = & (E[t_i|\x] - t_i) \\
+\end{align*}
+
+\begin{align*}
+        ∫∫\sum_i A_i^2p(\x,\t)d\x d\t
+    = & \sum_i ∫∫A_i^2p(\x,\t)d\x d\t \\
+    = & \sum_i ∫∫A_i^2p(\x,\t)d\t d\x \\
+    = & \sum_i ∫A_i^2∫p(\x,\t)d\t d\x \\
+    = & \sum_i ∫A_i^2p(\x)d\x \\
+\end{align*}
+
+\begin{align*}
+        ∫∫\sum_i 2A_iB_ip(\x,\t)d\x d\t
+    = & 2\sum_i ∫∫A_iB_ip(\x,\t)d\x d\t \\
+    = & 2\sum_i ∫∫A_i(E[t_i|\x] - t_i)p(\x,\t)d\t d\x \\
+    = & 2\sum_i ∫∫(E[t_i|\x]A_i - t_iA_i)p(\x,\t)d\t d\x \\
+    = & 2\sum_i ∫(∫E[t_i|\x]A_ip(\x,\t)d\t - ∫t_iA_ip(\x,\t)d\t)d\x \\
+    = & 2\sum_i ∫(E[t_i|\x]A_i∫p(\x,\t)d\t - A_i∫t_ip(\x,\t)d\t)d\x \\
+    = & 2\sum_i ∫(E[t_i|\x]A_ip(\x) - A_i∫t_ip(\x,\t)d\t)d\x \\
+    = & 2\sum_i ∫(E[t_i|\x]A_ip(\x) - A_i∫t_ip(\t|\x)d\t p(\x))d\x \\
+    = & 2\sum_i ∫(E[t_i|\x]A_ip(\x) - A_iE[t_i|\x]p(\x))d\x \\
+    = & 0 \\
+\end{align*}
+
+\begin{align*}
+        ∫∫\sum_i (E[t_i|\x] - t_i)^2p(\x,\t)d\x d\t
+    = & \sum_i ∫∫(E[t_i|\x] - t_i)^2p(\x,\t)d\x d\t \\
+    = & \sum_i ∫∫(E[t_i|\x] - t_i)^2p(\x,\t)d\t d\x \\
+    = & \sum_i ∫∫(t_i - E[t_i|\x])^2p(\x,\t)d\t d\x \\
+    = & \sum_i ∫∫(t_i - E[t_i|\x])^2p(\t|\x)p(\x)d\t d\x \\
+    = & \sum_i ∫∫(t_i - E[t_i|\x])^2p(\t|\x)d\t p(\x)d\x \\
+    = & \sum_i ∫var[t_i|\x]p(\x)d\x
+\end{align*}
+ここで
+\begin{align*}
+    var[t_i|\x] = ∫(t_i - E[t_i|\x])^2p(\t|\x)d\t
+\end{align*}
+まとめると
+\begin{align*}
+    E[L(\t,\y(\x))] = & \sum_i ∫(y_i(\x) - E[t_i|\x])^2p(\x)d\x +
+                        \sum_i ∫var[t_i|\x]p(\x)d\x \\
+\end{align*}
+
+期待二乗損失\(E[L(\t,\y(\x))]\)を最小にする\(\y(\x)\)は\(\y(\x) = E[\t|\x]\)である。
+
+** TODO 1.27 [www] ミンコフスキー損失を用いた回帰
+ミンコフスキー損失
+\begin{align*}
+    E[L_q] = & ∫∫|y(\x)-t|^qp(\x,t) d\x dt & \text{(1.91)}
+\end{align*}
+
+\begin{align*}
+    E[L_q] = &   ∫∫_{t< y(\x)} (y(\x)-t)^q p(\x,t) d\x dt
+             & - ∫∫_{t≧y(\x)} (y(\x)-t)^q p(\x,t) d\x dt
+    \frac{δE[L_q]}{δy(\x)}
+           = &   q ∫∫_{t< y(\x)} (y(\x)-t)^{q-1} p(\x,t) d\x dt
+             & - q ∫∫_{t≧y(\x)} (y(\x)-t)^{q-1} p(\x,t) d\x dt
+\end{align*}
+
+\(q = 1\)の場合。
+\begin{align*}
+    E[L_1] = &   ∫∫_{t< y(\x)} (y(\x)-t) p(\x,t) d\x dt
+             & - ∫∫_{t≧y(\x)} (y(\x)-t) p(\x,t) d\x dt
+    \frac{δE[L_1]}{δy(\x)}
+           = &   ∫∫_{t< y(\x)} p(\x,t) d\x dt
+             & - ∫∫_{t≧y(\x)} p(\x,t) d\x dt
+    δE[L_1]/δy(\x) = & 0 \\
+    ∫∫_{t< y(\x)} p(\x,t) d\x dt - ∫∫_{t≧y(\x)} p(\x,t) d\x dt = & 0 \\
+    ∫∫_{t< y(\x)} p(\x,t) d\x dt = ∫∫_{t≧y(\x)} p(\x,t) d\x dt
+\end{align*}
+
+\(q = 0\)の場合。
+\begin{align*}
+    E[L_0] = & ∫∫ p(\x,t) d\x dt \\
+    \frac{δE[L_0]}{δy(\x)} = 0 \\
+    δE[L_1]/δy(\x) = & 0 \\
+    ∫∫_{t< y(\x)} p(\x,t) d\x dt - ∫∫_{t≧y(\x)} p(\x,t) d\x dt = & 0 \\
+    ∫∫_{t< y(\x)} p(\x,t) d\x dt = ∫∫_{t≧y(\x)} p(\x,t) d\x dt
+\end{align*}
+
+** TODO 1.28 \(h\)と\(p\)の間の関数関係\(h(p)\)
+\begin{align*}
+    p(x,y) = p(x)p(y) ⇒ h(x,y) = h(x) + h(y)
+\end{align*}
+
+\begin{align*}
+    h(x,y) = & \tilde{h}(p(x,y)) \\
+    h(x)   = & \tilde{h}(p(x)) \\
+    h(y)   = & \tilde{h}(p(y)) \\
+\end{align*}
+
+*** DONE \(h(p^2) = 2h(p)\)
+\begin{align*}
+    h(p^2) = & h(pp) \\
+           = & h(p)h(p) \\
+           = & 2h(p) \\
+\end{align*}
+
+*** DONE \(h(p^n) = nh(p) ⇒ h(p^{n+1}) = (n+1)h(p)\)
+\begin{align*}
+    h(p^{n+1}) = & h(pp^n) \\
+               = & h(p)h(p^n) \\
+               = & h(p)nh(p) \\
+               = & (n+1)h(p) \\
+\end{align*}
+
+*** TODO \(h(p^{n/m}) = (n/m)h(p)\)
+TODO
+
+*** TODO \(h(p) ∝ ln p\)
+TODO
+
+** DONE 1.29 [www] \(H[x]≦\ln M\)の証明
+\begin{align*}
+    H[x] = &  - \sum_{i=1}^M p(x_i) \ln p(x_i) \\
+\end{align*}
+\(-\ln x\)は真に凸な関数だから、イェンセンの不等式を用いて、
+\begin{align*}
+    H[x] ≦ & - \ln \sum_{i=1}^M p(x_i)^2
+\end{align*}
+ここで\(\sum_{i=1}^M p(x_i)^2\)を最大にする\(p(x_i)\)は
+\begin{align*}
+    \frac{∂}{∂p(x_i)} [\sum_{i=1}^M p(x_i)^2 - λ(\sum_{i=1}^M p(x_i) - 1)] = & 0 \\
+                                                                2 p(x_i) - λ = & 0 \\
+                                                                      p(x_i) = & λ/2 \\
+\end{align*}
+\(\sum_{i=1}^M p(x_i) = 1\)より
+\begin{align*}
+    p(x_i) = 1/M
+\end{align*}
+\begin{align*}
+    H[x] ≦ & - \ln \sum_{i=1}^M (1/M) (1/M) \\
+          = & \ln M
+\end{align*}
+
+** DONE 1.30 二つのガウス分布のKLダイバージェンス
+\begin{align*}
+    p(x) = & N(x|μ,σ^2) = \frac{1}{(2πσ^2)^{1/2}} \exp\{-\frac{1}{2σ^2} (x-μ)^2\} \\
+    q(x) = & N(x|m,s^2) = \frac{1}{(2πs^2)^{1/2}} \exp\{-\frac{1}{2s^2} (x-m)^2\} \\
+\end{align*}
+
+\begin{align*}
+    KL(p\|q) = & - \int p(x) \ln \frac{q(x)}{p(x)} dx \\
+             = & - \int p(x) \ln q(x) dx + \int p(x) \ln p(x) dx \\
+\end{align*}
+
+\begin{align*}
+        - \int p(x) \ln q(x) dx
+    = & - \int p(x) \ln \left[\frac{1}{(2πs^2)^{1/2}} \exp\{-\frac{1}{2s^2} (x-m)^2\}\right] dx \\
+    = & - \int p(x) \left[\ln \frac{1}{(2πs^2)^{1/2}} - \frac{1}{2s^2} (x-m)^2\right] dx \\
+    = & - \int p(x) \ln \frac{1}{(2πs^2)^{1/2}} dx + \int p(x) \frac{1}{2s^2} (x-m)^2 dx \\
+    = & - \ln \frac{1}{(2πs^2)^{1/2}} + \frac{1}{2s^2} \int p(x) (x-m)^2 dx \\
+    = & \frac{1}{2} \ln (2πs^2) + \frac{1}{2s^2} \int p(x) (x-m)^2 dx \\
+    = & \frac{1}{2} \ln (2πs^2) + \frac{1}{2s^2} \int p(x) (x^2 - 2xm + m^2) dx \\
+    = & \frac{1}{2} \ln (2πs^2)
+        + \frac{1}{2s^2} \{\int p(x) x^2 dx - 2m \int p(x) x dx + m^2 \int p(x)  dx\} \\
+    = & \frac{1}{2} \ln (2πs^2) + \frac{1}{2s^2} \{μ^2 + σ^2 - 2mμ + m^2\} \\
+    = & \frac{1}{2} \ln (2πs^2) + \frac{1}{2s^2} \{(μ - m)^2 + σ^2\} \\
+\end{align*}
+
+\begin{align*}
+        - \int p(x) \ln p(x) dx
+    = & \frac{1}{2} \ln (2πσ^2) + \frac{1}{2σ^2} \{(μ - μ)^2 + σ^2\} \\
+    = & \frac{1}{2} \ln (2πσ^2) + \frac{1}{2} \\
+\end{align*}
+
+\begin{align*}
+    KL(p\|q) = & \frac{1}{2} \ln (2πs^2) + \frac{1}{2s^2} \{(μ - m)^2 + σ^2\}
+                 - (\frac{1}{2} \ln (2πσ^2) + \frac{1}{2}) \\
+             = & \frac{s}{σ} + \frac{1}{2s^2} \{(μ - m)^2 + σ^2\} - \frac{1}{2} \\
+\end{align*}

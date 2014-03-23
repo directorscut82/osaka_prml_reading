@@ -1,0 +1,181 @@
+#+TITLE: PRML 第1章 演習 1.31-1.41
+#+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: num:nil toc:2 \n:t
+* PRML 第1章 演習 1.31-1.41
+** TODO 1.31 [www] H[x,y] ≦ H[x] + H[y] の証明
+同時確率分布の微分エントロピーの定義
+    H[x,y] = - \int\int p(x,y) ln p(x,y) dydx
+
+p(x,y) = p(x)p(y) ならば
+    H[x,y] = - \int\int p(x,y) ln p(x)p(y) dydx
+           = - \int\int p(x,y) {ln p(x) + ln p(y)} dydx
+           = - \int\int p(x,y) ln p(x) dydx - \int\int p(x,y) ln p(y) dydx
+           = H[x] + H[y]
+
+    H[x,y] =  - \int\int p(x,y) ln p(x,y) dydx
+イェンセンの不等式より
+    H[x,y] ≦ - ln \int\int p(x,y) p(x,y) dydx
+\int\int p(x,y) dydx = 1 という制約のもとで
+上の式の左辺を最大にする p(x,y) は p(x)p(y)??????
+
+** TODO 1.32
+** TODO 1.33
+** DONE 1.34 [www] 微分エントロピーを最大にする分布がガウス分布であることの証明
+付録Dより、\(F[y] = ∫_{x_1}^{x_2} G(y(x),y'(x),x) dx\)の停留点は \\
+\(\frac{∂G}{∂y} - \frac{d}{dx}\frac{∂G}{∂y'} = 0\)を満たす\(y(x)\)である。 \\
+(1.108)の上の式をp(x)の汎関数F[p]とする。
+\begin{align*}
+    F[p] = & - ∫_{-∞}^∞ p(x) \ln p(x) dx
+             + λ_1 \left( ∫_{-∞}^∞ p(x) dx - 1 \right) \\
+           & + λ_2 \left( ∫_{-∞}^∞ x p(x) dx - μ \right)
+             + λ_3 \left( ∫_{-∞}^∞ (x - μ)^2 p(x) dx - σ^2 \right)
+\end{align*}
+すると
+\begin{align*}
+    G(p(x),p'(x),x) = - p(x) \ln p(x) + λ_1 p(x) + λ_2 x p(x) + λ_3 (x - μ)^2 p(x)
+\end{align*}
+停留点は
+\begin{align*}
+    0 = & \frac{∂G}{∂p} G(p(x),p'(x),x) \\
+    0 = & \frac{∂G}{∂p} \{ - p(x) \ln p(x) + λ_1 p(x) + λ_2 x p(x) + λ_3 (x - μ)^2 p(x) \} \\
+    0 = & - \ln p(x) - 1 + λ_1 + λ_2 x + λ_3 (x - μ)^2 \\
+    p(x) = & \exp \{ - 1 + λ_1 + λ_2 x + λ_3 (x - μ)^2 \}    & \text{(1.108)} \\
+\end{align*}
+これを少し変形し
+\begin{align*}
+    p(x) = \exp \{ - 1 + λ_1 + λ_2 x \} \exp\{ λ_3 (x - μ)^2 \} \\
+\end{align*}
+ガウス分布の式
+\begin{align*}
+    N(x|μ,σ^2) = (2π σ^2)^{-1/2} \exp \{ - \frac{1}{2 σ^2} (x - μ)^2 \}
+\end{align*}
+と比較すると、
+\begin{align*}
+    λ_1 = & 1 - \frac{1}{2} \ln (2π σ^2) \\
+    λ_2 = & 0 \\
+    λ_3 = & - \frac{1}{2 σ^2} \\
+\end{align*}
+と置けば両者は一致し、(1.105)-(1.107)を満たす。
+
+*** WWWの解答
+(1.108)の上の式をp(x)の汎関数F[p]とする。
+\begin{align*}
+    F[p] = & - ∫_{-∞}^∞ p(x) \ln p(x) dx
+             + λ_1 \left( ∫_{-∞}^∞ p(x) dx - 1 \right) \\
+           & + λ_2 \left( ∫_{-∞}^∞ x p(x) dx - μ \right)
+             + λ_3 \left( ∫_{-∞}^∞ (x - μ)^2 p(x) dx - σ^2 \right)
+\end{align*}
+変分
+\begin{align*}
+    \frac{δF}{δp(x)} = & - \frac{δ}{δp(x)} ∫_{-∞}^∞ p(x) \ln p(x) dx
+                         + λ_1 \frac{δ}{δp(x)} ∫_{-∞}^∞ p(x) dx \\
+                       & + λ_2 \frac{δ}{δp(x)} ∫_{-∞}^∞ x p(x) dx
+                         + λ_3 \frac{δ}{δp(x)} ∫_{-∞}^∞ (x - μ)^2 p(x) dx
+\end{align*}
+\begin{align*}
+    I[p(x)] = ∫ p(x) f(x) dx
+\end{align*}
+\begin{align*}
+    I[p(x) + εη(x)] = & ∫ \{p(x) + εη(x)\} f(x) dx \\
+                    = & ∫ p(x) f(x) dx + ε ∫ η(x) f(x) dx \\
+                    = & I[p(x)] + ε ∫ η(x) f(x) dx \\
+\end{align*}
+付録D (D.3)式
+\begin{align*}
+    F[y(x) + εη(x)] = F[y(x)] + ε ∫ \frac{δF}{δy(x)} η(x) dx + O(ε^2)
+\end{align*}
+と比較すると
+\begin{align*}
+    \frac{δI}{δp(x)} = f(x)
+\end{align*}
+
+\begin{align*}
+    J[p(x)] = ∫ p(x) \ln p(x) dx
+\end{align*}
+\begin{align*}
+    J[p(x) + εη(x)]
+    = & ∫ \{p(x) + εη(x)\} \ln \{p(x) + εη(x)\} dx \\
+    = & ∫ \{p(x) + εη(x)\} \{\ln p(x) + \ln^{(1)}(p(x)) εη(x) + O(ε^2) \} dx \\
+    = & ∫ \{p(x) + εη(x)\} \{\ln p(x) + \frac{1}{p(x)} εη(x) + O(ε^2) \} dx \\
+    = & ∫ [p(x) \ln p(x) + ε \{η(x) \ln p(x) + p(x) \frac{1}{p(x)} η(x) \} + O(ε^2) ] dx \\
+    = & ∫ [p(x) \ln p(x) + ε \{\ln p(x) + 1 \} η(x) + O(ε^2) ] dx \\
+    = & ∫ p(x) \ln p(x) dx + ε ∫ \{ \ln p(x) + 1 \} η(x) dx + O(ε^2) \\
+    = & J[p(x)] + ε ∫ \{ \ln p(x) + 1 \} η(x) dx + O(ε^2) \\
+\end{align*}
+付録D (D.3)式と比較すると
+\begin{align*}
+    \frac{δJ}{δp(x)} = \ln p(x) + 1
+\end{align*}
+
+これらを用いて
+\begin{align*}
+    \frac{δF}{δp(x)} = - \ln p(x) - 1 + λ_1 + λ_2 x + λ_3 (x - μ)^2
+\end{align*}
+停留点は
+\begin{align*}
+    0 = & - \ln p(x) - 1 + λ_1 + λ_2 x + λ_3 (x - μ)^2 = 0 \\
+    p(x) = & \exp \{ - 1 + λ_1 + λ_2 x + λ_3 (x - μ)^2 \}    & \text{(1.108)} \\
+\end{align*}
+
+** TODO 1.35 [www]
+** DONE 1.36 凸⇔2階微分が正
+\begin{align*}
+    ∀a.∀b.∀λ∈[0,1]. f(λa + (1 - λ)b) ≦ λf(a) + (1 - λ)f(b) ⇔ ∀x. d^2f(x)/dx2 > 0 \\
+\end{align*}
+
+\begin{align*}
+    \frac{df(x)}{dx}
+        = & \lim_{ε_1→0} \frac{{f(x+ε_1) - f(x)}}{ε_1} \\
+    \frac{d^2f(x)}{dx^2}
+        = & \lim_{ε_2→0} \frac{f'(x+ε_2)}{ε_2} \\
+        = & \lim_{ε_2→0} \lim_{ε_1→0} \frac{f(x+ε_2+ε_1) - f(x+ε_2) - f(x+ε_1) + f(x)}{ε_1ε_2} \\
+\end{align*}
+\(x = a\)、\(x+ε_2+ε_1 = b\)とすると
+\begin{align*}
+    &  x + ε_2 = λ a + (1 - λ )b  &  λ  = \frac{x + ε_2 - b}{a - b} = \frac{ε_1}{ε_2+ε_1} \\
+    &  x + ε_1 = λ'a + (1 - λ')b  &  λ' = \frac{x + ε_1 - b}{a - b} = \frac{ε_2}{ε_2+ε_1} \\
+\end{align*}
+\begin{align*}
+    f(x + ε_2) ≦ & \frac{ε_1}{ε_2 + ε_1}f(x) + \frac{ε_2}{ε_2 + ε_1}f(x + ε_2 + ε_1) \\
+    f(x + ε_1) ≦ & \frac{ε_2}{ε_2 + ε_1}f(x) + \frac{ε_1}{ε_2 + ε_1}f(x + ε_2 + ε_1) \\
+    f(x + ε_2) + f(x + ε_1) ≦ &   \frac{ε_1}{ε_2 + ε_1}f(x) + \frac{ε_2}{ε_2 + ε_1}f(x + ε_2 + ε_1) \\
+                             & + \frac{ε_2}{ε_2 + ε_1}f(x) + \frac{ε_1}{ε_2 + ε_1}f(x + ε_2 + ε_1) \\
+    f(x + ε_2) + f(x + ε_1) ≦ & f(x) + f(x + ε_2 + ε_1) \\
+    \frac{d^2f(x)}{dx^2} ≧ & 0 \\
+\end{align*}
+
+** DONE 1.37 H[x,y] = H[y|x] + H[x] (1.112) の証明
+条件付きエントロピーの定義(1.111)より
+    H[y|x] = -\int\int p(y,x) ln p(y|x) dydx
+確率の乗法定理 p(x,y) = p(y|x)p(x) より
+    H[y|x] = -\int\int p(y,x) ln p(x,y)/p(x) dydx
+           = -\int\int p(x,y) ln p(x,y)/p(x) dydx
+           = -\int\int p(x,y) {ln p(x,y) - ln p(x)} dydx
+           = -\int\int p(x,y) ln p(x,y) dydx + \int\int p(x,y) ln p(x) dydx
+ここで
+    H[x,y] = -\int\int p(x,y) ln p(x,y) dydx
+    H[x]   = -\int\int p(x,y) ln p(x) dydx
+これらの定義を用いると、
+    H[y|x] = - H[x,y] + H[x]
+    H[x,y] = H[y|x] + H[x]
+
+** TODO 1.38 [www] イェンセンの不等式
+    f(λa + (1 - λ)b) ≦ λf(a) + (1 - λ)f(b)    (1.114)
+
+    f(Σ_{i=1}^M λ_i x_i) ≦ Σ_{i=1}^M λ_i f(x_i)    (1.115)
+
+** TODO 1.39
+** TODO 1.40
+** DONE 1.41 [www] 相互情報量\(I[x,y] = H[x] - H[x|y]\)の証明
+相互情報量の定義(1.120)より
+\begin{align*}
+    I[x,y] = & KL(p(x,y)||p(x)p(y))
+           = & - \int\int p(x,y) \ln(p(x)p(y)/p(x,y)) dxdy
+\end{align*}
+乗法定理\(p(x,y)=p(x|y)p(y)\)より
+\begin{align*}
+    I[x,y] = & - \int\int p(x,y) \ln(p(x)/p(x|y)) dxdy
+           = & - \int\int p(x,y) \ln(p(x))dxdy + \int\int p(x,y)ln(p(x|y)) dxdy
+           = & H[x] - H[x|y]
+\end{align*}
+同時確率分布の対称性より\(I[x,y] = H[y] - H[y|x]\)も成り立つ。
