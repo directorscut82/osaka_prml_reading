@@ -1,6 +1,6 @@
 #+TITLE: index
 * 第1章 演習
-** PRML 第1章 演習 1.1-1.10 [chap_01_exercise_01-10.html]
-** PRML 第1章 演習 1.11-1.20 [chap_01_exercise_11-20.html]
-** PRML 第1章 演習 1.21-1.30 [chap_01_exercise_21-30.html]
-** PRML 第1章 演習 1.31-1.41 [chap_01_exercise_31-41.html]
+** [[./chap_01_exercise_01-10.html][PRML 第1章 演習 1.1-1.10]]
+** [[./chap_01_exercise_11-20.html][PRML 第1章 演習 1.11-1.20]]
+** [[./chap_01_exercise_21-30.html][PRML 第1章 演習 1.21-1.30]]
+** [[./chap_01_exercise_31-41.html][PRML 第1章 演習 1.31-1.41]]
