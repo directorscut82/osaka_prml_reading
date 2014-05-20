@@ -1,4 +1,5 @@
 #+TITLE: index
+#+OPTIONS: author:nil timestamp:nil
 * 第1章 演習
 ** [[./chap_01_exercise_01-10.html][PRML 第1章 演習 1.1-1.10]]
 ** [[./chap_01_exercise_11-20.html][PRML 第1章 演習 1.11-1.20]]

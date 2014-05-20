@@ -1,5 +1,6 @@
 #+TITLE: PRML 第1章 演習 1.21-1.30
 #+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: author:nil timestamp:nil
 #+OPTIONS: num:nil toc:2 \n:t
 * PRML 第1章 演習 1.21-1.30
 ** DONE 1.21 \(p(\text{誤り})≦∫\{p(x,C_1)p(x,C_2)\}^{1/2}dx\)の証明

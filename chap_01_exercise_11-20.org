@@ -1,5 +1,6 @@
 #+TITLE: PRML 第1章 演習 1.11-1.20
 #+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: author:nil timestamp:nil
 #+OPTIONS: num:nil toc:2 \n:t
 * PRML 第1章 演習 1.11-1.20
 ** DONE 1.11 対数尤度関数からサンプル平均とサンプル分散を求める

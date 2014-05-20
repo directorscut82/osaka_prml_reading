@@ -1,5 +1,6 @@
 #+TITLE: PRML 第1章 演習 1.31-1.41
 #+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+OPTIONS: author:nil timestamp:nil
 #+OPTIONS: num:nil toc:2 \n:t
 * PRML 第1章 演習 1.31-1.41
 ** TODO 1.31 [www] H[x,y] ≦ H[x] + H[y] の証明
