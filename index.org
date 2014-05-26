@@ -1,7 +1,11 @@
 #+TITLE: index
 #+OPTIONS: author:nil timestamp:nil
-* 第1章 演習
-** [[./chap_01_exercise_01-10.html][PRML 第1章 演習 1.1-1.10]]
-** [[./chap_01_exercise_11-20.html][PRML 第1章 演習 1.11-1.20]]
-** [[./chap_01_exercise_21-30.html][PRML 第1章 演習 1.21-1.30]]
-** [[./chap_01_exercise_31-41.html][PRML 第1章 演習 1.31-1.41]]
+* PRML
+- 第1章 演習
+  - [[./chap_01_exercise_01-10.html][PRML 第1章 演習 1.1-1.10]]
+  - [[./chap_01_exercise_11-20.html][PRML 第1章 演習 1.11-1.20]]
+  - [[./chap_01_exercise_21-30.html][PRML 第1章 演習 1.21-1.30]]
+  - [[./chap_01_exercise_31-41.html][PRML 第1章 演習 1.31-1.41]]
+
+* Pythonによるデータ分析入門
+- [[./PythonForDataAnalysis_2.3.html][2.3 データ分析の例 : アメリカの赤ちゃんに名付けられた名前リスト (1880-2010)]]
