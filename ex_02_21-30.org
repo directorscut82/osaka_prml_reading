@@ -1,0 +1,90 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第2章 演習 2.21-2.30
+* PRML 第2章 演習 2.21-2.30
+** DONE 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明
+分割行列の逆行列の公式
+\begin{align*}
+    \l(\begin{array}{cc}
+        A & B \\
+        C & D \\
+    \end{array}\r)^{-1}
+    =
+    \l(\begin{array}{cc}
+        M         & -MBD^{-1} \\
+        -D^{-1}CM & D^{-1} + CMBD^{-1} \\
+    \end{array}\r)^{-1}
+\end{align*}
+ただし
+\begin{align*}
+    M = (A - BD^{-1}C)^{-1}
+\end{align*}
+(2.104)
+\begin{align*}
+    R = \l(\begin{array}{cc}
+            Λ + A^TLA & -A^TL \\
+            -LA       & L     \\
+        \end{array}\r)^{-1}
+\end{align*}
+
+\begin{align*}
+    (R^{-1})_{11}
+      = & M \\
+      = & (Λ + A^TLA - (-A^TL)L^{-1}(-LA))^{-1} \\
+      = & (Λ + A^TLA - A^TLL^{-1}LA)^{-1} \\
+      = & (Λ + A^TLA - A^TLA)^{-1} \\
+      = & Λ^{-1} \\
+\end{align*}
+
+\begin{align*}
+    (R^{-1})_{12}
+      = & -MBD^{-1} \\
+      = & -(Λ^{-1})(-A^TL)(L)^{-1} \\
+      = & Λ^{-1}A^TLL^{-1} \\
+      = & Λ^{-1}A^T \\
+\end{align*}
+
+\begin{align*}
+    (R^{-1})_{21}
+      = & -D^{-1}CM \\
+      = & -(L)^{-1}(-LA)(Λ^{-1}) \\
+      = & L^{-1}LAΛ^{-1} \\
+      = & AΛ^{-1} \\
+\end{align*}
+
+\begin{align*}
+    (R^{-1})_{22}
+      = & D^{-1} + CMBD^{-1} \\
+      = & (L)^{-1} + (-LA)(Λ^{-1})(-A^TL)(L)^{-1} \\
+      = & L^{-1} + LAΛ^{-1}A^TLL^{-1} \\
+      = & L^{-1} + LAΛ^{-1}A^T \\
+\end{align*}
+
+** DONE 2.30 ガウス分布の同時分布の平均値
+(2.107)
+\begin{align*}
+    E[z] = R^{-1} \l( \begin{array}{c}
+                      Λμ - A^TLb \\
+                      Lb         \\
+                  \end{array} \r)
+\end{align*}
+(2.105)
+\begin{align*}
+    R^{-1} = \l( \begin{array}{cc}
+                 Λ^{-1}  & Λ^{-1}A^T           \\
+                 AΛ^{-1} & L^{-1} + AΛ^{-1}A^T \\
+             \end{array} \r)
+\end{align*}
+
+\begin{align*}
+    E[z]_1 = & Λ^{-1}(Λμ - A^TLb) + Λ^{-1}A^TLb \\
+           = & Λ^{-1}Λμ - Λ^{-1}A^TLb + Λ^{-1}A^TLb \\
+           = & μ \\
+\end{align*}
+
+\begin{align*}
+    E[z]_2 = & AΛ^{-1}(Λμ - A^TLb) + (L^{-1} + AΛ^{-1}A^T)Lb \\
+           = & AΛ^{-1}Λμ - AΛ^{-1}A^TLb + L^{-1}Lb + AΛ^{-1}A^TLb \\
+           = & Aμ - AΛ^{-1}A^TLb + b + AΛ^{-1}A^TLb \\
+           = & Aμ+ b \\
+\end{align*}
+

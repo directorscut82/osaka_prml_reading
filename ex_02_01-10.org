@@ -1,0 +1,262 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第2章 演習 2.1-2.10
+* PRML 第2章 演習 2.1-2.10
+** DONE 2.1 [www] ベルヌーイ分布が正規化されていること、平均、分散、エントロピー
+*** DONE 正規化されていること
+\begin{align*}
+    \sum_{x=0}^1 p(x|\mu) = p(0|\mu) + p(1|\mu) = \mu + (1 - \mu) = 1
+\end{align*}
+
+*** DONE 平均
+\begin{align*}
+    E[x] = \sum_{x=0}^1 x p(x|\mu) = 0 + p(1|\mu) = \mu
+\end{align*}
+
+*** DONE 分散
+\begin{align*}
+    var[x] = & \sum_{x=0}^1 (x - E[x])^2 p(x|\mu) \\
+           = & \sum_{x=0}^1 (x - \mu)^2 p(x|\mu) \\
+           = & (-\mu)^2 p(0|\mu) + (1 - \mu)^2 p(1|\mu) \\
+           = & (-\mu)^2 (1 - \mu) + (1 - \mu)^2 \mu \\
+           = & \mu^2 - \mu^3 + \mu - 2 \mu^2 + \mu^3 \\
+           = & \mu^2 + \mu - 2 \mu^2 \\
+           = & \mu (1 - \mu) \\
+\end{align*}
+
+*** DONE エントロピー
+\begin{align*}
+    H[x] = & - \sum_{x=0}^1 p(x|\mu) \ln p(x|\mu) \\
+         = & - p(0|\mu) \ln p(0|\mu) - p(1|\mu) \ln p(1|\mu) \\
+         = & - (1 - \mu) \ln (1 - \mu) - \mu \ln \mu \\
+         = & - \mu \ln \mu - (1 - \mu) \ln (1 - \mu) \\
+\end{align*}
+
+** DONE 2.2 ベルヌーイ分布の\(x \in \{-1, 1\}\)を用いた表現
+*** DONE 正規化されていること
+\begin{align*}
+      & \sum_{x \in \{-1, 1\}} p(x|\mu) \\
+    = & \sum_{x \in \{-1, 1\}} \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+                               \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+    = & \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+      + \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+    = & \f{1 - \mu}{2} + \f{1 + \mu}{2} \\
+    = & 1 \\
+\end{align*}
+
+*** DONE 平均
+\begin{align*}
+    E[x] = & \sum_{x \in \{-1, 1\}} x p(x|\mu) \\
+         = & \sum_{x \in \{-1, 1\}} x \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+                                      \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+         = & - \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+             + \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+         = & - \f{1 - \mu}{2} + \f{1 + \mu}{2} \\
+         = & \mu \\
+\end{align*}
+
+*** DONE 分散
+\begin{align*}
+    var[x] = & \sum_{x \in \{-1, 1\}} (x - E[x])^2 p(x|\mu) \\
+           = & \sum_{x \in \{-1, 1\}} (x - \mu)^2 p(x|\mu) \\
+           = & \sum_{x \in \{-1, 1\}} (x - \mu)^2
+               \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+               \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+           = & (-1 - \mu)^2 \l(\f{1 - \mu}{2}\r)^{1}
+                            \l(\f{1 + \mu}{2}\r)^{0}
+             + ( 1 - \mu)^2 \l(\f{1 - \mu}{2}\r)^{0}
+                            \l(\f{1 + \mu}{2}\r)^{1} \\
+           = & (1 + 2 \mu + \mu^2) \f{1 - \mu}{2}
+             + (1 - 2 \mu + \mu^2) \f{1 + \mu}{2} \\
+           = &       \l(\f{1 - \mu}{2} + \f{1 + \mu}{2}\r)
+             + 2 \mu \l(\f{1 - \mu}{2} - \f{1 + \mu}{2}\r)
+             + \mu^2 \l(\f{1 - \mu}{2} + \f{1 + \mu}{2}\r) \\
+           = & 1 + 2 \mu (-\mu) + \mu^2 \\
+           = & 1 - \mu^2 \\
+\end{align*}
+
+*** DONE エントロピー
+\begin{align*}
+    H[x] = & - \sum_{x \in \{-1, 1\}} p(x|\mu) \ln p(x|\mu) \\
+         = &     \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+             \ln \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+           +     \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1}
+             \ln \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+         = & \f{1 - \mu}{2} \ln \f{1 - \mu}{2}
+           + \f{1 + \mu}{2} \ln \f{1 + \mu}{2} \\
+         = & \f{1 - \mu}{2} [\ln (1 - \mu) - \ln 2]
+           + \f{1 + \mu}{2} [\ln (1 + \mu) - \ln 2] \\
+         = & \f{1 - \mu}{2} \ln (1 - \mu)
+           + \f{1 + \mu}{2} \ln (1 + \mu) - \ln 2 \\
+\end{align*}
+
+** DONE 2.3 [www] 二項分布が正規化されていることの証明
+*** DONE \(\binom{N}{m} + \binom{N}{m-1} = \binom{N+1}{m}\) の証明
+二項係数の定義(2.10)
+\begin{align*}
+    \binom{N}{m} = \f{N!}{(N-m)!m!}
+\end{align*}
+より
+\begin{align*}
+      & \binom{N}{m} + \binom{N}{m-1} \\
+    = & \f{N!}{(N-m)!m!} + \f{N!}{(N-m+1)!(m-1)!} \\
+    = & \f{N!(N-m+1)}{(N-m+1)!m!} + \f{N!m}{(N-m+1)!m!} \\
+    = & \f{N!(N+1)}{(N-m+1)!m!} \\
+    = & \f{(N+1)!}{((N+1)-m)!m!} \\
+    = & \binom{N+1}{m} \\
+\end{align*}
+
+*** DONE 二項定理 \((1+x)^N = \sum_{m=0}^N \binom{N}{m} x^m\) の証明
+Nに関する数学的帰納法で証明する。
+N=0の場合、両辺とも1となり成り立つ。
+次に、Nについて成り立つという仮定のもとでN+1について成り立つことを示す。
+\begin{align*}
+       & \sum_{m=0}^{N+1} \binom{N+1}{m} x^m \\
+     = & \sum_{m=0}^{N+1} \l\{ \binom{N}{m} + \binom{N}{m-1} \r\} x^m \\
+     = & \sum_{m=0}^{N+1} \binom{N}{m} x^m
+       + \sum_{m=0}^{N+1} \binom{N}{m-1} x^m \\
+     = & \sum_{m=0}^N \binom{N}{m} x^m
+       + \sum_{m=0}^N \binom{N}{m} x^{m+1} \\
+     = & \sum_{m=0}^N \binom{N}{m} x^m
+       + x \sum_{m=0}^N \binom{N}{m} x^m \\
+     = & (1+x)^N + x (1+x)^N \\
+     = & (1+x) (1+x)^N \\
+     = & (1+x)^{N+1} \\
+\end{align*}
+よって、0以上の任意のNについて所要の定理が成り立つ。
+
+*** DONE \(\sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = 1\) の証明
+\begin{align*}
+      & \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} \\
+    = & (1-\mu)^N \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{-m} \\
+    = & (1-\mu)^N \sum_{m=0}^N \binom{N}{m} \l(\f{\mu}{1-\mu}\r)^m \\
+    = & (1-\mu)^N \l(1 + \f{\mu}{1-\mu}\r)^N \\
+    = & 1 \\
+\end{align*}
+
+** DONE 2.4 二項分布の平均、分散
+*** DONE 平均
+二項分布が正規化されていることを表す式(2.264)の両辺を\(\mu\)で微分する。
+\begin{align*}
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & 1 \\
+    \p{}{\mu} \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & \p{}{\mu} 1 \\
+    \sum_{m=0}^N \binom{N}{m} \p{}{\mu} \l\{ \mu^m (1-\mu)^{N-m} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ \p{}{\mu} \mu^m (1-\mu)^{N-m} + \mu^m \p{}{\mu} (1-\mu)^{N-m} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ m \mu^{m-1} (1-\mu)^{N-m} - \mu^m (N-m) (1-\mu)^{N-m-1} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m \mu^{-1} - (N-m) (1-\mu)^{-1} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m (1-\mu) - (N-m) \mu \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m - N \mu \r\} = & 0 \\
+    \E[m] - N \mu = & 0 \\
+    \E[m] = & N \mu \\
+\end{align*}
+
+*** DONE 分散
+二項分布が正規化されていることを表す式(2.264)の両辺を\(\mu\)で2階微分する。
+\begin{align*}
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & 1 \\
+    \sum_{m=0}^N \binom{N}{m} \f{\partial^2}{\partial \mu^2} \mu^m (1-\mu)^{N-m} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ m (m-1) \mu^{m-2} (1-\mu)^{N-m}
+           - 2 m (N-m) \mu^{m-1} (1-\mu)^{N-m-1} \\
+           + (N-m) (N-m-1) \mu^m (1-\mu)^{N-m-2} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m}
+        \l\{ m (m-1) \mu^{-2}
+           - 2 m (N-m) \mu^{-1} (1-\mu)^{-1} \\
+           + (N-m) (N-m-1) (1-\mu)^{-2} \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ m (m-1) (1-\mu)^2
+           - 2 m (N-m) \mu (1-\mu)
+           + (N-m) (N-m-1) \mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (1-\mu)^2 m^2 - (1-\mu)^2 m
+           + 2\mu(1-\mu) m^2 - 2N\mu(1-\mu) m
+           + \mu^2 m^2 - (2N-1)\mu^2 m + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l[ \{ (1-\mu)^2 + 2\mu(1-\mu) + \mu^2 \} m^2
+          - \{ (1-\mu)^2 + 2N\mu(1-\mu) + (2N-1)\mu^2 \} m
+          + N(N-1)\mu^2 \r] = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ ( 1 - 2\mu + \mu^2 + 2\mu - 2\mu^2 + \mu^2 ) m^2
+           - ( 1 - 2\mu + \mu^2 + 2N\mu - 2N\mu^2 + 2N\mu^2 - \mu^2 ) m
+           + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ m^2 - (1 + 2\mu(N-1)) m + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (m - N\mu)^2 + (2\mu-1)m - N\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (m - \E[m])^2 + (2\mu-1)m - N\mu^2 \r\} = & 0 \\
+    var[m] + (2\mu-1)\E[m] - N\mu^2 = & 0 \\
+    var[m] + (2\mu-1)N\mu - N\mu^2 = & 0 \\
+    var[m] = & - (2\mu-1)N\mu + N\mu^2 \\
+           = & N\mu(1-\mu) \\
+\end{align*}
+
+** TODO 2.5 [www] ベータ分布が正規化されていることの証明
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \exp(-x) x^{a-1} dx \int_0^\infty \exp(-y) y^{b-1} dy \\
+                       = & \int_0^\infty \int_0^\infty \exp(-x-y) x^{a-1} y^{b-1} dy dx \\
+\end{align*}
+\(t = y + x\)とおく。
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_x^\infty \exp(-t) x^{a-1} (t-x)^{b-1} dt dx \\
+                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dt dx \\
+                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dx dt \\
+\end{align*}
+\(x = t\mu\)とおく。
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_0^\infty
+                               \exp(-t-t\mu) (t\mu)^{a-1} (t-2t\mu)^{b-1} t d\mu dt \\
+                       = & \int_0^\infty \exp(-t) t^{(a+b)-1} dt
+                           \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
+                       = & \Gamma(a+b) \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
+\end{align*}
+
+** DONE 2.6 ベータ分布の平均、分散、モード
+*** DONE 平均
+\begin{align*}
+    \E[\mu] = & \int_0^1 \mu \Beta(\mu|a,b) d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu \mu^{a-1} (1-\mu)^{b-1} d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^a (1-\mu)^{b-1} d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{\Gamma(a+1)\Gamma(b)}{\Gamma(a+b+1)} \\
+\end{align*}
+\(\Gamma(x+1)=x\Gamma(x)\)を用いて
+\begin{align*}
+    \E[\mu] = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{a\Gamma(a)\Gamma(b)}{(a+b)\Gamma(a+b)} \\
+            = & \f{a}{a+b} \\
+\end{align*}
+
+*** DONE 分散
+\begin{align*}
+    var[\mu] = & \E[(\mu-\E[\mu])^2] \\
+             = & \E[\mu^2] - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^2 \mu^{a-1} (1-\mu)^{b-1} d\mu
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^{a+1} (1-\mu)^{b-1} d\mu
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{\Gamma(a+2)\Gamma(b)}{\Gamma(a+b+2)}
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}
+                 \f{(a+1)a\Gamma(a)\Gamma(b)}{(a+b+1)(a+b)\Gamma(a+b)}
+                 - \E[\mu]^2 \\
+             = & \f{(a+1)a}{(a+b+1)(a+b)} - \f{a^2}{(a+b)^2} \\
+             = & \f{(a+1)a(a+b) - a^2(a+b+1)}{(a+b)^2(a+b+1)} \\
+             = & \f{a^3 + a^2b + a^2 + ab - a^3 - a^2b - a^2}{(a+b)^2(a+b+1)} \\
+             = & \f{ab}{(a+b)^2(a+b+1)} \\
+\end{align*}
+
+*** DONE モード
+\begin{align*}
+    \p{}{\mu} \Beta(\mu|a,b) = & 0 \\
+    \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \p{}{\mu} [\mu^{a-1} (1-\mu)^{b-1}] = & 0 \\
+    \p{}{\mu} [\mu^{a-1} (1-\mu)^{b-1}] = & 0 \\
+    (a-1)\mu^{a-2}(1-\mu)^{b-1} - (b-1)\mu^{a-1}(1-\mu)^{b-2} = & 0 \\
+    (a-1)(1-\mu) - (b-1)\mu = & 0 \\
+    (a-1) - (a-1)\mu - (b-1)\mu = & 0 \\
+    \mu = & \f{a-1}{a+b-2} \\
+\end{align*}
+
+** TODO 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明

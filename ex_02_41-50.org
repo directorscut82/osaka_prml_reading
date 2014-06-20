@@ -1,0 +1,152 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第2章 演習 2.41-2.50
+* PRML 第2章 演習 2.41-2.50
+** DONE 2.41 ガンマ分布が正規化されていることの証明
+ガンマ分布
+\begin{align*}
+    \Gam(λ|a,b) = & \f{1}{Γ(a)} b^a λ^{a-1} \exp(-bλ) \\
+\end{align*}
+
+ガンマ関数の定義
+\begin{align*}
+    Γ(x) = & \int_0^\infty u^{x-1} e^{-u} du \\
+\end{align*}
+
+ガンマ分布を\(λ\)で積分する。
+\begin{align*}
+      & \int_0^\infty \Gam(λ|a,b) dλ \\
+    = & \f{1}{Γ(a)} b^a \int_0^infty λ^{a-1} \exp(-bλ) dλ \\
+\end{align*}
+\(u = bλ\)と置く。
+\begin{align*}
+    = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^{a-1}}{b^{a-1}} \exp(-u) b du \\
+    = & \f{1}{Γ(a)} b^a \f{1}{b^a} \int_0^\infty u^{a-1} \exp(-u) du \\
+    = & \f{1}{Γ(a)} b^a \f{1}{b^a} Γ(a) \\
+    = & 1 \\
+\end{align*}
+
+** DONE 2.42 ガンマ分布の平均、分散、モード
+*** DONE 平均
+\begin{align*}
+    \E[λ] = & \int_0^\infty λ \Gam(λ|a,b) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty λ λ^{a-1} \exp(-bλ) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty λ^a \exp(-bλ) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^a}{b^a} \exp(-u) \f{1}{b} du \\
+          = & \f{1}{Γ(a)} b^a \f{1}{b^{a+1}} \int_0^\infty u^a \exp(-u) du \\
+          = & \f{1}{Γ(a)} \f{1}{b} Γ(a+1) \\
+          = & \f{1}{Γ(a)} \f{1}{b} a Γ(a) \\
+          = & \f{a}{b} \\
+\end{align*}
+
+*** DONE 分散
+\begin{align*}
+    var[λ] = & \E[λ^2] - \E[λ]^2 \\
+\end{align*}
+
+\begin{align*}
+     \E[λ^2] = & \int_0^\infty λ^2 \Gam(λ|a,b) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty λ^2 λ^{a-1} \exp(-bλ) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty λ^{a+1} \exp(-bλ) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^{a+1}}{b^{a+1}} \exp(-u) \f{1}{b} du \\
+             = & \f{1}{Γ(a)} b^a \f{1}{b^{a+2}} \int_0^\infty u^{a+1} \exp(-u) du \\
+             = & \f{1}{Γ(a)} \f{1}{b^2} Γ(a+2) \\
+             = & \f{1}{Γ(a)} \f{1}{b^2} (a+1) a Γ(a) \\
+             = & \f{a(a+1)}{b^2} \\
+\end{align*}
+
+\begin{align*}
+    var[λ] = & \E[λ^2] - \E[λ]^2 \\
+           = & \f{a(a+1)}{b^2} - \f{a^2}{b^2} \\
+           = & \f{a}{b^2} \\
+\end{align*}
+
+*** DONE モード
+\begin{align*}
+    \p{}{λ} \Gam(λ|a,b) = & 0 \\
+    \f{1}{Γ(a)} b^a \p{}{λ} [ λ^{a-1} \exp(-bλ) ] = & 0 \\
+    \p{}{λ} [ λ^{a-1} \exp(-bλ) ] = & 0 \\
+    (a-1) λ^{a-2} \exp(-bλ) - b λ^{a-1} \exp(-bλ) = & 0 \\
+    (a-1) - b λ = & 0 \\
+    λ = & \f{a-1}{b} \\
+\end{align*}
+** TODO 2.43 \(q\)次形式に一般化したガウス関数
+\begin{align*}
+    p(x|σ^2,q) = \f{q}{2 (2σ^2)^{1/q} Γ(1/q)} \exp\l( -\f{|x|^q}{2σ^2} \r) \\
+\end{align*}
+
+*** DONE 正規化されていることの証明
+\begin{align*}
+      & \int_{-\infty}^\infty p(x|σ^2,q) dx \\
+    = & \f{q}{2 (2σ^2)^{1/q} Γ(1/q)} \int_{-\infty}^\infty \exp\l( -\f{|x|^q}{2σ^2} \r) dx \\
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \int_0^\infty \exp\l( -\f{x^q}{2σ^2} \r) dx \\
+\end{align*}
+ここで以下の変数変換を行う。
+\begin{align*}
+    y = & \f{x^q}{2σ^2} \\
+    x = & {(2σ^2 y)}^{1/q} \\
+    \f{dx}{dy} = & \f{{(2σ^2)}^{1/q} y^{1/q-1}}{q} \\
+\end{align*}
+すると
+\begin{align*}
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \f{{(2σ^2)}^{1/q}}{q} \int_0^\infty y^{1/q-1} \exp(-y) dy \\
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \f{{(2σ^2)}^{1/q}}{q} Γ(1/q) \\
+    = & 1 \\
+\end{align*}
+
+*** DONE \(q=2\)のときガウス分布になることの証明
+\begin{align*}
+    p(x|σ^2,q=2) = & \f{2}{2 (2σ^2)^{1/2} Γ(1/2)} \exp\l( -\f{|x|^2}{2σ^2} \r) \\
+                 = & \f{1}{(2πσ^2)^{1/2}} \exp\l( -\f{x^2}{2σ^2} \r) \\
+\end{align*}
+\(Γ(1/2)\)の計算は以下の通り。
+\begin{align*}
+    Γ(1/2) = & \int_0^\infty u^{1/2-1} \exp(-u) du \\
+           = & \int_0^\infty u^{-1/2} \exp(-u) du \\
+\end{align*}
+\(v^2=u\)と置くと
+\begin{align*}
+           = & \int_0^\infty v^{-1} \exp(-v^2) 2vdv \\
+           = & 2 \int_0^\infty \exp(-v^2) dv \\
+           = & \int_{-\infty}^\infty \exp(-v^2) dv \\
+           = & \sqrt{π}
+\end{align*}
+\(\int_{-\infty}^\infty \exp(-v^2) dv\)はガウス積分と呼ばれる。
+計算の仕方は演習1.7を参照。
+
+*** TODO 対数尤度関数
+\begin{align*}
+    t = & y(\x,\w) + ε \\
+    ε = & t - y(\x,\w) = p(x|σ^2,q) \\
+\end{align*}
+
+尤度関数
+\begin{align*}
+    p(\tt|\X,\w,σ^2) = \prod_{n=1}^N 
+\end{align*}
+
+** 2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明
+平均\(μ\)と分散\(τ^{-1}\)が与えられたときに観測値集合\(\xx=\{x_1,...,x_N\}\)が生じる確率である
+尤度関数は以下のように書ける。
+\begin{align*}
+    p(\xx|μ,τ^{-1}) = \prod_{n=1}^N \N(x_n|μ,τ^{-1}) \\
+\end{align*}
+
+平均\(μ\)と分散\(τ^{-1}\)の事前分布にガウス-ガンマ分布を選ぶ。
+\begin{align*}
+    p(μ,τ^{-1}) = \N(μ|μ_0,τ^{-1}) \Gam(τ|a,b) \\
+\end{align*}
+事後分布は尤度関数と事前分布の積に比例する。
+\begin{align*}
+    p(μ,τ^{-1}|\xx) \propto & p(\xx|μ,τ^{-1}) p(μ,τ^{-1}) \\
+    = & \prod_{n=1}^N \N(x_n|μ,τ^{-1}) \N(μ|μ_0,τ^{-1}) \Gam(τ|a,b) \\
+\end{align*}
+
+
+
+
+** 2.45 ウィシャート分布が多変量ガウス分布の精度行列の事前分布であることの証明
+** 2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明
+** 2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明
+** 2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明
+** 2.49 多変量スチューデントt分布の平均、共分散、モード
+** 2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明

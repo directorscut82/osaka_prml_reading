@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第2章 演習 2.41-2.50</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第2章 演習 2.41-2.50</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第2章 演習 2.41-2.50</a>
+<ul>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 2.41 ガンマ分布が正規化されていることの証明</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.42 ガンマ分布の平均、分散、モード</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.43 \(q\)次形式に一般化したガウス関数</a></li>
+<li><a href="#sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</a></li>
+<li><a href="#sec-1-5">2.45 ウィシャート分布が多変量ガウス分布の精度行列の事前分布であることの証明</a></li>
+<li><a href="#sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</a></li>
+<li><a href="#sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</a></li>
+<li><a href="#sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</a></li>
+<li><a href="#sec-1-9">2.49 多変量スチューデントt分布の平均、共分散、モード</a></li>
+<li><a href="#sec-1-10">2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\A}{{\rm \bf A}}
+\newcommand{\I}{{\rm \bf I}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\X}{{\rm \bf X}}
+\newcommand{\x}{{\rm \bf x}}
+\newcommand{\xx}{{\bf \sf x}}
+\newcommand{\u}{{\rm \bf u}}
+\newcommand{\Λ}{{\bf Λ}}
+\newcommand{\μ}{{\bf μ}}
+\newcommand{\η}{{\bf η}}
+\newcommand{\Σ}{{\bf Σ}}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\Bern}{{\rm Bern}}
+\newcommand{\Beta}{{\rm Beta}}
+\newcommand{\Bin}{{\rm Bin}}
+\newcommand{\Gam}{{\rm Gam}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\cov}{{\rm cov}}
+\newcommand{\mode}{{\rm mode}}
+\end{align*}
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第2章 演習 2.41-2.50</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 2.41 ガンマ分布が正規化されていることの証明</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+ガンマ分布<br  />
+</p>
+\begin{align*}
+    \Gam(λ|a,b) = & \f{1}{Γ(a)} b^a λ^{a-1} \exp(-bλ) \\
+\end{align*}
+
+<p>
+ガンマ関数の定義<br  />
+</p>
+\begin{align*}
+    Γ(x) = & \int_0^\infty u^{x-1} e^{-u} du \\
+\end{align*}
+
+<p>
+ガンマ分布を\(λ\)で積分する。<br  />
+</p>
+\begin{align*}
+      & \int_0^\infty \Gam(λ|a,b) dλ \\
+    = & \f{1}{Γ(a)} b^a \int_0^infty λ^{a-1} \exp(-bλ) dλ \\
+\end{align*}
+<p>
+\(u = bλ\)と置く。<br  />
+</p>
+\begin{align*}
+    = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^{a-1}}{b^{a-1}} \exp(-u) b du \\
+    = & \f{1}{Γ(a)} b^a \f{1}{b^a} \int_0^\infty u^{a-1} \exp(-u) du \\
+    = & \f{1}{Γ(a)} b^a \f{1}{b^a} Γ(a) \\
+    = & 1 \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 2.42 ガンマ分布の平均、分散、モード</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="done DONE">DONE</span> 平均</h4>
+<div class="outline-text-4" id="text-1-2-1">
+\begin{align*}
+    \E[λ] = & \int_0^\infty λ \Gam(λ|a,b) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty λ λ^{a-1} \exp(-bλ) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty λ^a \exp(-bλ) dλ \\
+          = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^a}{b^a} \exp(-u) \f{1}{b} du \\
+          = & \f{1}{Γ(a)} b^a \f{1}{b^{a+1}} \int_0^\infty u^a \exp(-u) du \\
+          = & \f{1}{Γ(a)} \f{1}{b} Γ(a+1) \\
+          = & \f{1}{Γ(a)} \f{1}{b} a Γ(a) \\
+          = & \f{a}{b} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="done DONE">DONE</span> 分散</h4>
+<div class="outline-text-4" id="text-1-2-2">
+\begin{align*}
+    var[λ] = & \E[λ^2] - \E[λ]^2 \\
+\end{align*}
+
+\begin{align*}
+     \E[λ^2] = & \int_0^\infty λ^2 \Gam(λ|a,b) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty λ^2 λ^{a-1} \exp(-bλ) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty λ^{a+1} \exp(-bλ) dλ \\
+             = & \f{1}{Γ(a)} b^a \int_0^\infty \f{u^{a+1}}{b^{a+1}} \exp(-u) \f{1}{b} du \\
+             = & \f{1}{Γ(a)} b^a \f{1}{b^{a+2}} \int_0^\infty u^{a+1} \exp(-u) du \\
+             = & \f{1}{Γ(a)} \f{1}{b^2} Γ(a+2) \\
+             = & \f{1}{Γ(a)} \f{1}{b^2} (a+1) a Γ(a) \\
+             = & \f{a(a+1)}{b^2} \\
+\end{align*}
+
+\begin{align*}
+    var[λ] = & \E[λ^2] - \E[λ]^2 \\
+           = & \f{a(a+1)}{b^2} - \f{a^2}{b^2} \\
+           = & \f{a}{b^2} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="done DONE">DONE</span> モード</h4>
+<div class="outline-text-4" id="text-1-2-3">
+\begin{align*}
+    \p{}{λ} \Gam(λ|a,b) = & 0 \\
+    \f{1}{Γ(a)} b^a \p{}{λ} [ λ^{a-1} \exp(-bλ) ] = & 0 \\
+    \p{}{λ} [ λ^{a-1} \exp(-bλ) ] = & 0 \\
+    (a-1) λ^{a-2} \exp(-bλ) - b λ^{a-1} \exp(-bλ) = & 0 \\
+    (a-1) - b λ = & 0 \\
+    λ = & \f{a-1}{b} \\
+\end{align*}
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 2.43 \(q\)次形式に一般化したガウス関数</h3>
+<div class="outline-text-3" id="text-1-3">
+\begin{align*}
+    p(x|σ^2,q) = \f{q}{2 (2σ^2)^{1/q} Γ(1/q)} \exp\l( -\f{|x|^q}{2σ^2} \r) \\
+\end{align*}
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="done DONE">DONE</span> 正規化されていることの証明</h4>
+<div class="outline-text-4" id="text-1-3-1">
+\begin{align*}
+      & \int_{-\infty}^\infty p(x|σ^2,q) dx \\
+    = & \f{q}{2 (2σ^2)^{1/q} Γ(1/q)} \int_{-\infty}^\infty \exp\l( -\f{|x|^q}{2σ^2} \r) dx \\
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \int_0^\infty \exp\l( -\f{x^q}{2σ^2} \r) dx \\
+\end{align*}
+<p>
+ここで以下の変数変換を行う。<br  />
+</p>
+\begin{align*}
+    y = & \f{x^q}{2σ^2} \\
+    x = & {(2σ^2 y)}^{1/q} \\
+    \f{dx}{dy} = & \f{{(2σ^2)}^{1/q} y^{1/q-1}}{q} \\
+\end{align*}
+<p>
+すると<br  />
+</p>
+\begin{align*}
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \f{{(2σ^2)}^{1/q}}{q} \int_0^\infty y^{1/q-1} \exp(-y) dy \\
+    = & \f{q}{(2σ^2)^{1/q} Γ(1/q)} \f{{(2σ^2)}^{1/q}}{q} Γ(1/q) \\
+    = & 1 \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="done DONE">DONE</span> \(q=2\)のときガウス分布になることの証明</h4>
+<div class="outline-text-4" id="text-1-3-2">
+\begin{align*}
+    p(x|σ^2,q=2) = & \f{2}{2 (2σ^2)^{1/2} Γ(1/2)} \exp\l( -\f{|x|^2}{2σ^2} \r) \\
+                 = & \f{1}{(2πσ^2)^{1/2}} \exp\l( -\f{x^2}{2σ^2} \r) \\
+\end{align*}
+<p>
+\(Γ(1/2)\)の計算は以下の通り。<br  />
+</p>
+\begin{align*}
+    Γ(1/2) = & \int_0^\infty u^{1/2-1} \exp(-u) du \\
+           = & \int_0^\infty u^{-1/2} \exp(-u) du \\
+\end{align*}
+<p>
+\(v^2=u\)と置くと<br  />
+</p>
+\begin{align*}
+           = & \int_0^\infty v^{-1} \exp(-v^2) 2vdv \\
+           = & 2 \int_0^\infty \exp(-v^2) dv \\
+           = & \int_{-\infty}^\infty \exp(-v^2) dv \\
+           = & \sqrt{π}
+\end{align*}
+<p>
+\(\int_{-\infty}^\infty \exp(-v^2) dv\)はガウス積分と呼ばれる。<br  />
+計算の仕方は演習1.7を参照。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="todo TODO">TODO</span> 対数尤度関数</h4>
+<div class="outline-text-4" id="text-1-3-3">
+\begin{align*}
+    t = & y(\x,\w) + ε \\
+    ε = & t - y(\x,\w) = p(x|σ^2,q) \\
+\end{align*}
+
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+    p(\tt|\X,\w,σ^2) = \prod_{n=1}^N 
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+平均\(μ\)と分散\(τ^{-1}\)が与えられたときに観測値集合\(\xx=\{x_1,...,x_N\}\)が生じる確率である<br  />
+尤度関数は以下のように書ける。<br  />
+</p>
+\begin{align*}
+    p(\xx|μ,τ^{-1}) = \prod_{n=1}^N \N(x_n|μ,τ^{-1}) \\
+\end{align*}
+
+<p>
+平均\(μ\)と分散\(τ^{-1}\)の事前分布にガウス-ガンマ分布を選ぶ。<br  />
+</p>
+\begin{align*}
+    p(μ,τ^{-1}) = \N(μ|μ_0,τ^{-1}) \Gam(τ|a,b) \\
+\end{align*}
+<p>
+事後分布は尤度関数と事前分布の積に比例する。<br  />
+</p>
+\begin{align*}
+    p(μ,τ^{-1}|\xx) \propto & p(\xx|μ,τ^{-1}) p(μ,τ^{-1}) \\
+    = & \prod_{n=1}^N \N(x_n|μ,τ^{-1}) \N(μ|μ_0,τ^{-1}) \Gam(τ|a,b) \\
+\end{align*}
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">2.45 ウィシャート分布が多変量ガウス分布の精度行列の事前分布であることの証明</h3>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</h3>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</h3>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</h3>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9">2.49 多変量スチューデントt分布の平均、共分散、モード</h3>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10">2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

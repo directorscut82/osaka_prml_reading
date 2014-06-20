@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第2章 演習 2.1-2.10</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第2章 演習 2.1-2.10</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第2章 演習 2.1-2.10</a>
+<ul>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 2.1 [www] ベルヌーイ分布が正規化されていること、平均、分散、エントロピー</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.2 ベルヌーイ分布の\(x \in \{-1, 1\}\)を用いた表現</a></li>
+<li><a href="#sec-1-3"><span class="done DONE">DONE</span> 2.3 [www] 二項分布が正規化されていることの証明</a></li>
+<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 2.4 二項分布の平均、分散</a></li>
+<li><a href="#sec-1-5"><span class="todo TODO">TODO</span> 2.5 [www] ベータ分布が正規化されていることの証明</a></li>
+<li><a href="#sec-1-6"><span class="done DONE">DONE</span> 2.6 ベータ分布の平均、分散、モード</a></li>
+<li><a href="#sec-1-7"><span class="todo TODO">TODO</span> 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\A}{{\rm \bf A}}
+\newcommand{\I}{{\rm \bf I}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\X}{{\rm \bf X}}
+\newcommand{\x}{{\rm \bf x}}
+\newcommand{\xx}{{\bf \sf x}}
+\newcommand{\u}{{\rm \bf u}}
+\newcommand{\Λ}{{\bf Λ}}
+\newcommand{\μ}{{\bf μ}}
+\newcommand{\η}{{\bf η}}
+\newcommand{\Σ}{{\bf Σ}}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\Bern}{{\rm Bern}}
+\newcommand{\Beta}{{\rm Beta}}
+\newcommand{\Bin}{{\rm Bin}}
+\newcommand{\Gam}{{\rm Gam}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\cov}{{\rm cov}}
+\newcommand{\mode}{{\rm mode}}
+\end{align*}
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第2章 演習 2.1-2.10</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 2.1 [www] ベルヌーイ分布が正規化されていること、平均、分散、エントロピー</h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="done DONE">DONE</span> 正規化されていること</h4>
+<div class="outline-text-4" id="text-1-1-1">
+\begin{align*}
+    \sum_{x=0}^1 p(x|\mu) = p(0|\mu) + p(1|\mu) = \mu + (1 - \mu) = 1
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="done DONE">DONE</span> 平均</h4>
+<div class="outline-text-4" id="text-1-1-2">
+\begin{align*}
+    E[x] = \sum_{x=0}^1 x p(x|\mu) = 0 + p(1|\mu) = \mu
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="done DONE">DONE</span> 分散</h4>
+<div class="outline-text-4" id="text-1-1-3">
+\begin{align*}
+    var[x] = & \sum_{x=0}^1 (x - E[x])^2 p(x|\mu) \\
+           = & \sum_{x=0}^1 (x - \mu)^2 p(x|\mu) \\
+           = & (-\mu)^2 p(0|\mu) + (1 - \mu)^2 p(1|\mu) \\
+           = & (-\mu)^2 (1 - \mu) + (1 - \mu)^2 \mu \\
+           = & \mu^2 - \mu^3 + \mu - 2 \mu^2 + \mu^3 \\
+           = & \mu^2 + \mu - 2 \mu^2 \\
+           = & \mu (1 - \mu) \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-1-4" class="outline-4">
+<h4 id="sec-1-1-4"><span class="done DONE">DONE</span> エントロピー</h4>
+<div class="outline-text-4" id="text-1-1-4">
+\begin{align*}
+    H[x] = & - \sum_{x=0}^1 p(x|\mu) \ln p(x|\mu) \\
+         = & - p(0|\mu) \ln p(0|\mu) - p(1|\mu) \ln p(1|\mu) \\
+         = & - (1 - \mu) \ln (1 - \mu) - \mu \ln \mu \\
+         = & - \mu \ln \mu - (1 - \mu) \ln (1 - \mu) \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 2.2 ベルヌーイ分布の\(x \in \{-1, 1\}\)を用いた表現</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="done DONE">DONE</span> 正規化されていること</h4>
+<div class="outline-text-4" id="text-1-2-1">
+\begin{align*}
+      & \sum_{x \in \{-1, 1\}} p(x|\mu) \\
+    = & \sum_{x \in \{-1, 1\}} \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+                               \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+    = & \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+      + \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+    = & \f{1 - \mu}{2} + \f{1 + \mu}{2} \\
+    = & 1 \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="done DONE">DONE</span> 平均</h4>
+<div class="outline-text-4" id="text-1-2-2">
+\begin{align*}
+    E[x] = & \sum_{x \in \{-1, 1\}} x p(x|\mu) \\
+         = & \sum_{x \in \{-1, 1\}} x \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+                                      \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+         = & - \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+             + \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+         = & - \f{1 - \mu}{2} + \f{1 + \mu}{2} \\
+         = & \mu \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="done DONE">DONE</span> 分散</h4>
+<div class="outline-text-4" id="text-1-2-3">
+\begin{align*}
+    var[x] = & \sum_{x \in \{-1, 1\}} (x - E[x])^2 p(x|\mu) \\
+           = & \sum_{x \in \{-1, 1\}} (x - \mu)^2 p(x|\mu) \\
+           = & \sum_{x \in \{-1, 1\}} (x - \mu)^2
+               \l(\f{1 - \mu}{2}\r)^{(1 - x)/2}
+               \l(\f{1 + \mu}{2}\r)^{(1 + x)/2} \\
+           = & (-1 - \mu)^2 \l(\f{1 - \mu}{2}\r)^{1}
+                            \l(\f{1 + \mu}{2}\r)^{0}
+             + ( 1 - \mu)^2 \l(\f{1 - \mu}{2}\r)^{0}
+                            \l(\f{1 + \mu}{2}\r)^{1} \\
+           = & (1 + 2 \mu + \mu^2) \f{1 - \mu}{2}
+             + (1 - 2 \mu + \mu^2) \f{1 + \mu}{2} \\
+           = &       \l(\f{1 - \mu}{2} + \f{1 + \mu}{2}\r)
+             + 2 \mu \l(\f{1 - \mu}{2} - \f{1 + \mu}{2}\r)
+             + \mu^2 \l(\f{1 - \mu}{2} + \f{1 + \mu}{2}\r) \\
+           = & 1 + 2 \mu (-\mu) + \mu^2 \\
+           = & 1 - \mu^2 \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="done DONE">DONE</span> エントロピー</h4>
+<div class="outline-text-4" id="text-1-2-4">
+\begin{align*}
+    H[x] = & - \sum_{x \in \{-1, 1\}} p(x|\mu) \ln p(x|\mu) \\
+         = &     \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+             \ln \l(\f{1 - \mu}{2}\r)^{1} \l(\f{1 + \mu}{2}\r)^{0}
+           +     \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1}
+             \ln \l(\f{1 - \mu}{2}\r)^{0} \l(\f{1 + \mu}{2}\r)^{1} \\
+         = & \f{1 - \mu}{2} \ln \f{1 - \mu}{2}
+           + \f{1 + \mu}{2} \ln \f{1 + \mu}{2} \\
+         = & \f{1 - \mu}{2} [\ln (1 - \mu) - \ln 2]
+           + \f{1 + \mu}{2} [\ln (1 + \mu) - \ln 2] \\
+         = & \f{1 - \mu}{2} \ln (1 - \mu)
+           + \f{1 + \mu}{2} \ln (1 + \mu) - \ln 2 \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="done DONE">DONE</span> 2.3 [www] 二項分布が正規化されていることの証明</h3>
+<div class="outline-text-3" id="text-1-3">
+</div><div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="done DONE">DONE</span> \(\binom{N}{m} + \binom{N}{m-1} = \binom{N+1}{m}\) の証明</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+二項係数の定義(2.10)<br  />
+</p>
+\begin{align*}
+    \binom{N}{m} = \f{N!}{(N-m)!m!}
+\end{align*}
+<p>
+より<br  />
+</p>
+\begin{align*}
+      & \binom{N}{m} + \binom{N}{m-1} \\
+    = & \f{N!}{(N-m)!m!} + \f{N!}{(N-m+1)!(m-1)!} \\
+    = & \f{N!(N-m+1)}{(N-m+1)!m!} + \f{N!m}{(N-m+1)!m!} \\
+    = & \f{N!(N+1)}{(N-m+1)!m!} \\
+    = & \f{(N+1)!}{((N+1)-m)!m!} \\
+    = & \binom{N+1}{m} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2"><span class="done DONE">DONE</span> 二項定理 \((1+x)^N = \sum_{m=0}^N \binom{N}{m} x^m\) の証明</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Nに関する数学的帰納法で証明する。<br  />
+N=0の場合、両辺とも1となり成り立つ。<br  />
+次に、Nについて成り立つという仮定のもとでN+1について成り立つことを示す。<br  />
+</p>
+\begin{align*}
+       & \sum_{m=0}^{N+1} \binom{N+1}{m} x^m \\
+     = & \sum_{m=0}^{N+1} \l\{ \binom{N}{m} + \binom{N}{m-1} \r\} x^m \\
+     = & \sum_{m=0}^{N+1} \binom{N}{m} x^m
+       + \sum_{m=0}^{N+1} \binom{N}{m-1} x^m \\
+     = & \sum_{m=0}^N \binom{N}{m} x^m
+       + \sum_{m=0}^N \binom{N}{m} x^{m+1} \\
+     = & \sum_{m=0}^N \binom{N}{m} x^m
+       + x \sum_{m=0}^N \binom{N}{m} x^m \\
+     = & (1+x)^N + x (1+x)^N \\
+     = & (1+x) (1+x)^N \\
+     = & (1+x)^{N+1} \\
+\end{align*}
+<p>
+よって、0以上の任意のNについて所要の定理が成り立つ。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3"><span class="done DONE">DONE</span> \(\sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = 1\) の証明</h4>
+<div class="outline-text-4" id="text-1-3-3">
+\begin{align*}
+      & \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} \\
+    = & (1-\mu)^N \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{-m} \\
+    = & (1-\mu)^N \sum_{m=0}^N \binom{N}{m} \l(\f{\mu}{1-\mu}\r)^m \\
+    = & (1-\mu)^N \l(1 + \f{\mu}{1-\mu}\r)^N \\
+    = & 1 \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="done DONE">DONE</span> 2.4 二項分布の平均、分散</h3>
+<div class="outline-text-3" id="text-1-4">
+</div><div id="outline-container-sec-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="done DONE">DONE</span> 平均</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+二項分布が正規化されていることを表す式(2.264)の両辺を\(\mu\)で微分する。<br  />
+</p>
+\begin{align*}
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & 1 \\
+    \p{}{\mu} \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & \p{}{\mu} 1 \\
+    \sum_{m=0}^N \binom{N}{m} \p{}{\mu} \l\{ \mu^m (1-\mu)^{N-m} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ \p{}{\mu} \mu^m (1-\mu)^{N-m} + \mu^m \p{}{\mu} (1-\mu)^{N-m} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ m \mu^{m-1} (1-\mu)^{N-m} - \mu^m (N-m) (1-\mu)^{N-m-1} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m \mu^{-1} - (N-m) (1-\mu)^{-1} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m (1-\mu) - (N-m) \mu \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \mu^m (1-\mu)^{N-m} \l\{ m - N \mu \r\} = & 0 \\
+    \E[m] - N \mu = & 0 \\
+    \E[m] = & N \mu \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="done DONE">DONE</span> 分散</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+二項分布が正規化されていることを表す式(2.264)の両辺を\(\mu\)で2階微分する。<br  />
+</p>
+\begin{align*}
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = & 1 \\
+    \sum_{m=0}^N \binom{N}{m} \f{\partial^2}{\partial \mu^2} \mu^m (1-\mu)^{N-m} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m}
+        \l\{ m (m-1) \mu^{m-2} (1-\mu)^{N-m}
+           - 2 m (N-m) \mu^{m-1} (1-\mu)^{N-m-1} \\
+           + (N-m) (N-m-1) \mu^m (1-\mu)^{N-m-2} \r\} = & 0 \\
+    \sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m}
+        \l\{ m (m-1) \mu^{-2}
+           - 2 m (N-m) \mu^{-1} (1-\mu)^{-1} \\
+           + (N-m) (N-m-1) (1-\mu)^{-2} \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ m (m-1) (1-\mu)^2
+           - 2 m (N-m) \mu (1-\mu)
+           + (N-m) (N-m-1) \mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (1-\mu)^2 m^2 - (1-\mu)^2 m
+           + 2\mu(1-\mu) m^2 - 2N\mu(1-\mu) m
+           + \mu^2 m^2 - (2N-1)\mu^2 m + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l[ \{ (1-\mu)^2 + 2\mu(1-\mu) + \mu^2 \} m^2
+          - \{ (1-\mu)^2 + 2N\mu(1-\mu) + (2N-1)\mu^2 \} m
+          + N(N-1)\mu^2 \r] = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ ( 1 - 2\mu + \mu^2 + 2\mu - 2\mu^2 + \mu^2 ) m^2
+           - ( 1 - 2\mu + \mu^2 + 2N\mu - 2N\mu^2 + 2N\mu^2 - \mu^2 ) m
+           + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ m^2 - (1 + 2\mu(N-1)) m + N(N-1)\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (m - N\mu)^2 + (2\mu-1)m - N\mu^2 \r\} = & 0 \\
+    \sum_{m=0}^N \Bin(m|N,\mu)
+        \l\{ (m - \E[m])^2 + (2\mu-1)m - N\mu^2 \r\} = & 0 \\
+    var[m] + (2\mu-1)\E[m] - N\mu^2 = & 0 \\
+    var[m] + (2\mu-1)N\mu - N\mu^2 = & 0 \\
+    var[m] = & - (2\mu-1)N\mu + N\mu^2 \\
+           = & N\mu(1-\mu) \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="todo TODO">TODO</span> 2.5 [www] ベータ分布が正規化されていることの証明</h3>
+<div class="outline-text-3" id="text-1-5">
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \exp(-x) x^{a-1} dx \int_0^\infty \exp(-y) y^{b-1} dy \\
+                       = & \int_0^\infty \int_0^\infty \exp(-x-y) x^{a-1} y^{b-1} dy dx \\
+\end{align*}
+<p>
+\(t = y + x\)とおく。<br  />
+</p>
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_x^\infty \exp(-t) x^{a-1} (t-x)^{b-1} dt dx \\
+                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dt dx \\
+                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dx dt \\
+\end{align*}
+<p>
+\(x = t\mu\)とおく。<br  />
+</p>
+\begin{align*}
+    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_0^\infty
+                               \exp(-t-t\mu) (t\mu)^{a-1} (t-2t\mu)^{b-1} t d\mu dt \\
+                       = & \int_0^\infty \exp(-t) t^{(a+b)-1} dt
+                           \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
+                       = & \Gamma(a+b) \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="done DONE">DONE</span> 2.6 ベータ分布の平均、分散、モード</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="done DONE">DONE</span> 平均</h4>
+<div class="outline-text-4" id="text-1-6-1">
+\begin{align*}
+    \E[\mu] = & \int_0^1 \mu \Beta(\mu|a,b) d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu \mu^{a-1} (1-\mu)^{b-1} d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^a (1-\mu)^{b-1} d\mu \\
+            = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{\Gamma(a+1)\Gamma(b)}{\Gamma(a+b+1)} \\
+\end{align*}
+<p>
+\(\Gamma(x+1)=x\Gamma(x)\)を用いて<br  />
+</p>
+\begin{align*}
+    \E[\mu] = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{a\Gamma(a)\Gamma(b)}{(a+b)\Gamma(a+b)} \\
+            = & \f{a}{a+b} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="done DONE">DONE</span> 分散</h4>
+<div class="outline-text-4" id="text-1-6-2">
+\begin{align*}
+    var[\mu] = & \E[(\mu-\E[\mu])^2] \\
+             = & \E[\mu^2] - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^2 \mu^{a-1} (1-\mu)^{b-1} d\mu
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1 \mu^{a+1} (1-\mu)^{b-1} d\mu
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \f{\Gamma(a+2)\Gamma(b)}{\Gamma(a+b+2)}
+                 - \E[\mu]^2 \\
+             = & \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}
+                 \f{(a+1)a\Gamma(a)\Gamma(b)}{(a+b+1)(a+b)\Gamma(a+b)}
+                 - \E[\mu]^2 \\
+             = & \f{(a+1)a}{(a+b+1)(a+b)} - \f{a^2}{(a+b)^2} \\
+             = & \f{(a+1)a(a+b) - a^2(a+b+1)}{(a+b)^2(a+b+1)} \\
+             = & \f{a^3 + a^2b + a^2 + ab - a^3 - a^2b - a^2}{(a+b)^2(a+b+1)} \\
+             = & \f{ab}{(a+b)^2(a+b+1)} \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3"><span class="done DONE">DONE</span> モード</h4>
+<div class="outline-text-4" id="text-1-6-3">
+\begin{align*}
+    \p{}{\mu} \Beta(\mu|a,b) = & 0 \\
+    \f{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \p{}{\mu} [\mu^{a-1} (1-\mu)^{b-1}] = & 0 \\
+    \p{}{\mu} [\mu^{a-1} (1-\mu)^{b-1}] = & 0 \\
+    (a-1)\mu^{a-2}(1-\mu)^{b-1} - (b-1)\mu^{a-1}(1-\mu)^{b-2} = & 0 \\
+    (a-1)(1-\mu) - (b-1)\mu = & 0 \\
+    (a-1) - (a-1)\mu - (b-1)\mu = & 0 \\
+    \mu = & \f{a-1}{a+b-2} \\
+\end{align*}
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第2章 演習 2.31-2.40</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第2章 演習 2.31-2.40</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第2章 演習 2.31-2.40</a>
+<ul>
+<li><a href="#sec-1-1">2.31</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.38 ガウス分布を事前分布に選んだ場合の事後分布がガウス分布であることの証明</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.39</a></li>
+<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 2.40 共分散が既知の多変量ガウス分布の平均のベイズ推定</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\A}{{\rm \bf A}}
+\newcommand{\I}{{\rm \bf I}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\X}{{\rm \bf X}}
+\newcommand{\x}{{\rm \bf x}}
+\newcommand{\xx}{{\bf \sf x}}
+\newcommand{\u}{{\rm \bf u}}
+\newcommand{\Λ}{{\bf Λ}}
+\newcommand{\μ}{{\bf μ}}
+\newcommand{\η}{{\bf η}}
+\newcommand{\Σ}{{\bf Σ}}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\Bern}{{\rm Bern}}
+\newcommand{\Beta}{{\rm Beta}}
+\newcommand{\Bin}{{\rm Bin}}
+\newcommand{\Gam}{{\rm Gam}}
+\newcommand{\St}{{\rm St}}
+\newcommand{\cov}{{\rm cov}}
+\newcommand{\mode}{{\rm mode}}
+\end{align*}
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第2章 演習 2.31-2.40</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">2.31</h3>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 2.38 ガウス分布を事前分布に選んだ場合の事後分布がガウス分布であることの証明</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+平均\(\mu\)が与えられたときに観測値集合\(\xx=\{x_1,...,x_N\}\)が生じる確率である<br  />
+尤度関数は次のように書ける。<br  />
+</p>
+\begin{align*}
+    p(\xx|\mu) = & \prod_{n=1}^N p(x_n|\mu) \\
+               = & \prod_{n=1}^N \f{1}{(2\pi\sigma^2)^{1/2}}
+                       \exp \l\{ -\f{1}{2\sigma^2} (x_n - \mu)^2 \r\} \\
+               = & \f{1}{(2\pi\sigma^2)^{N/2}}
+                       \exp \l\{ -\f{1}{2\sigma^2} \sum_{n=1}^N (x_n - \mu)^2 \r\} \\
+\end{align*}
+
+<p>
+事前分布にガウス分布を選ぶ。<br  />
+</p>
+\begin{align*}
+    p(\mu) = & N(\mu|\mu_0,\sigma_0) \\
+           = & \f{1}{(2\pi\sigma_0^2)^{1/2}}
+                   \exp \l\{ -\f{1}{2\sigma_0^2} (\mu - \mu_0)^2 \r\} \\
+\end{align*}
+
+<p>
+事後分布は尤度関数と事前分布の積に比例する。<br  />
+</p>
+\begin{align*}
+    p(\mu|\xx) \propto & p(\xx|\mu) p(\mu) \\
+    = & \f{1}{(2\pi\sigma^2)^{N/2}}
+            \exp \l\{ -\f{1}{2\sigma^2} \sum_{n=1}^N (x_n - \mu)^2 \r\}
+        \f{1}{(2\pi\sigma_0^2)^{N/2}}
+            \exp \l\{ -\f{1}{2\sigma_0^2} (\mu - \mu_0)^2 \r\} \\
+    = & \f{1}{(2\pi\sigma^2)^{N/2}} \f{1}{(2\pi\sigma_0^2)^{N/2}}
+            \exp \l\{ - \f{1}{2\sigma^2} \sum_{n=1}^N (x_n - \mu)^2
+                      - \f{1}{2\sigma_0^2} (\mu - \mu_0)^2 \r\} \\
+\end{align*}
+
+<p>
+指数部分を計算すると<br  />
+</p>
+\begin{align*}
+      & - \f{1}{2 σ^2} \sum_{n=1}^N (x_n - \mu)^2
+        - \f{1}{2 σ_0^2} (\mu - \mu_0)^2 \\
+    = & - \f{1}{2} \l[ \f{1}{σ^2} \sum_{n=1}^N (x_n^2 - 2 x_n \mu + \mu^2)
+                     + \f{1}{σ_0^2} (\mu^2 - 2 \mu \mu_0 + \mu_0^2) \r] \\
+    = & - \f{1}{2} \l[   \l( \f{N}{σ^2} + \f{1}{σ_0^2} \r) \mu^2
+                     - 2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n   + \f{1}{σ_0^2} \mu_0   \r) \mu
+                     +   \l( \f{1}{σ^2} \sum_{n=1}^N x_n^2 + \f{1}{σ_0^2} \mu_0^2 \r) \r] \\
+    = & - \f{1}{2 σ_N^2} \l[ \mu^2
+               - 2 σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n   + \f{1}{σ_0^2} \mu_0   \r) \mu
+               +   σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n^2 + \f{1}{σ_0^2} \mu_0^2 \r) \r] \\
+    = & - \f{1}{2 σ_N^2} \l[
+                 \l\{ \mu - σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n + \f{1}{σ_0^2} \mu_0 \r) \r\}^2
+               - \l\{ σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n + \f{1}{σ_0^2} \mu_0 \r) \r\}^2
+               +   σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n^2 + \f{1}{σ_0^2} \mu_0^2 \r) \r] \\
+    = & - \f{1}{2 σ_N^2}
+          \l[ \mu - σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n + \f{1}{σ_0^2} \mu_0 \r) \r]^2
+        + const. \\
+    = & - \f{1}{2 σ_N^2} (\mu - \mu_N)^2 + const. \\
+\end{align*}
+<p>
+よって、事後分布はガウス分布\(\N(\mu|\mu_N,σ_N^2)\)になる。<br  />
+平均\(\mu_N\)、分散\(σ_N^2\)は以下で与えられる。<br  />
+</p>
+\begin{align*}
+    \f{1}{σ_N^2} = & \f{1}{σ_0^2} + \f{N}{σ^2} \\
+\end{align*}
+
+\begin{align*}
+    \mu_N = & σ_N^2 \l( \f{1}{σ^2} \sum_{n=1}^N x_n + \f{1}{σ_0^2} \mu_0 \r) \\
+          = & \l( \f{1}{σ_0^2} + \f{N}{σ^2} \r)^{-1}
+              \l( \f{N \mu_{ML}}{σ^2} + \f{\mu_0}{σ_0^2} \r) \\
+          = & \f{σ_0^2 σ^2}{σ^2 + N σ_0^2}
+              \l( \f{N \mu_{ML}}{σ^2} + \f{\mu_0}{σ_0^2} \r) \\
+          = & \f{σ^2}{N σ_0^2 + σ^2} \mu_0 + \f{N σ_0^2}{N σ_0^2 + σ^2} \mu_{ML} \\
+\end{align*}
+
+\begin{align*}
+    \mu_{ML} = & \f{1}{N} \sum_{n=1}^N x_n \\
+\end{align*}
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 2.39</h3>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="done DONE">DONE</span> 2.40 共分散が既知の多変量ガウス分布の平均のベイズ推定</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+平均\(\μ\)が与えられたときに観測値集合\(\X=\{\x_1,...,\x_N\}\)が生じる確率である<br  />
+尤度関数は次のように書ける。<br  />
+</p>
+\begin{align*}
+    p(\X|\μ) = & \prod_{n=1}^N p(\x_n|\μ) \\
+             = & \prod_{n=1}^N \f{1}{(2π)^{D/2}|\Σ|^{1/2}}
+                     \exp\l\{ -\f{1}{2} (\x_n - \μ)^T \Σ^{-1} (\x_n - \μ) \r\} \\
+             = & \f{1}{(2π)^{ND/2}|\Σ|^{N/2}}
+                     \exp\l\{ - \f{1}{2} \sum_{n=1}^N (\x_n - \μ)^T \Σ^{-1} (\x_n - \μ) \r\} \\
+\end{align*}
+
+<p>
+平均\(\μ\)の事前分布にガウス分布を選ぶ。<br  />
+</p>
+\begin{align*}
+    p(\μ) = & \N(\μ|\μ_0,\Σ_0) \\
+          = & \f{1}{(2π)^{D/2}|\Σ_0|^{1/2}}
+                  \exp\l\{ - \f{1}{2} (\μ - \μ_0)^T \Σ_0^{-1} (\μ - \μ_0) \r\} \\
+\end{align*}
+
+<p>
+事後分布は尤度関数と事前分布の積に比例する。<br  />
+</p>
+\begin{align*}
+    p(\μ|\X) \propto & p(\X|\μ) p(\μ) \\
+    = & \f{1}{(2π)^{ND/2}|\Σ|^{N/2}}
+            \exp\l\{ - \f{1}{2} \sum_{n=1}^N (\x_n - \μ)^T \Σ^{-1} (\x_n - \μ) \r\}
+        \f{1}{(2π)^{D/2}|\Σ_0|^{1/2}}
+            \exp\l\{ - \f{1}{2} (\μ - \μ_0)^T \Σ_0^{-1} (\μ - \μ_0) \r\} \\
+    = & \f{1}{(2π)^{ND/2}|\Σ|^{N/2}} \f{1}{(2π)^{D/2}|\Σ_0|^{1/2}}
+            \exp\l[ - \f{1}{2} \l\{ \sum_{n=1}^N (\x_n - \μ)^T \Σ^{-1} (\x_n - \μ)
+                                 + (\μ - \μ_0)^T \Σ_0^{-1} (\μ - \μ_0) \r\} \r] \\
+\end{align*}
+
+<p>
+指数部分を取り出して計算すると<br  />
+</p>
+\begin{align*}
+      & - \f{1}{2} \l\{ \sum_{n=1}^N (\x_n - \μ)^T \Σ^{-1} (\x_n - \μ)
+                      + (\μ - \μ_0)^T \Σ_0^{-1} (\μ - \μ_0) \r\} \\
+    = & - \f{1}{2} \l\{ \sum_{n=1}^N ( \x_n^T \Σ^{-1} \x_n - 2 \μ^T \Σ^{-1} \x_n + \μ^T \Σ^{-1} \μ )
+                      + ( \μ^T \Σ^{-1}_0 \μ - 2 \μ^T \Σ^{-1}_0 \μ_0 + \μ_0^T \Σ^{-1}_0 \μ_0 ) \r\} \\
+    = & - \f{1}{2} \l\{ \μ^T (N \Σ^{-1} + \Σ^{-1}_0) \μ
+                      - 2 \μ^T (\Σ^{-1} \sum_{n=1}^N \x_n + \Σ^{-1}_0 \μ_0)
+                      + \sum_{n=1}^N \x_n^T \Σ^{-1} \x_n + \μ_0^T \Σ^{-1}_0 \μ_0 \r\} \\
+    = & - \f{1}{2} \l\{ (\μ - \μ_N)^T \Σ_N^{-1} (\μ - \μ_N) - \μ_N^T \Σ^{-1}_N \μ_N
+                      + \sum_{n=1}^N \x_n^T \Σ^{-1} \x_n + \μ_0^T \Σ^{-1}_0 \μ_0 \r\} \\
+    = & - \f{1}{2} (\μ - \μ_N)^T \Σ_N^{-1} (\μ - \μ_N) + const. \\
+\end{align*}
+<p>
+ただし<br  />
+</p>
+\begin{align*}
+    \Σ_N^{-1} = & \Σ^{-1}_0 + N \Σ^{-1} \\
+    \μ_N      = & (\Σ^{-1}_0 + N \Σ^{-1})^{-1} (\Σ^{-1} N \μ_{ML} + \Σ^{-1}_0 \μ_0) \\
+    \μ_{ML}   = & \f{1}{N} \sum_{n=1}^N \x_n \\
+\end{align*}
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
