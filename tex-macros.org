@@ -8,7 +8,9 @@
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
 \newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
 \newcommand{\I}{{\rm \bf I}}
+\newcommand{\W}{{\rm \bf W}}
 \newcommand{\w}{{\rm \bf w}}
 \newcommand{\X}{{\rm \bf X}}
 \newcommand{\x}{{\rm \bf x}}
@@ -21,11 +23,13 @@
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\Bern}{{\rm Bern}}
-\newcommand{\Beta}{{\rm Beta}}
-\newcommand{\Bin}{{\rm Bin}}
-\newcommand{\Gam}{{\rm Gam}}
-\newcommand{\St}{{\rm St}}
-\newcommand{\cov}{{\rm cov}}
-\newcommand{\mode}{{\rm mode}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
 \end{align*}

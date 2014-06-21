@@ -186,7 +186,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.42 ガンマ分布の平均、分散、モード</a></li>
 <li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.43 \(q\)次形式に一般化したガウス関数</a></li>
 <li><a href="#sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</a></li>
-<li><a href="#sec-1-5">2.45 ウィシャート分布が多変量ガウス分布の精度行列の事前分布であることの証明</a></li>
+<li><a href="#sec-1-5"><span class="done DONE">DONE</span> 2.45 ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることの証明</a></li>
 <li><a href="#sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</a></li>
 <li><a href="#sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</a></li>
 <li><a href="#sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</a></li>
@@ -204,7 +204,9 @@ for the JavaScript code in this tag.
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
 \newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
 \newcommand{\I}{{\rm \bf I}}
+\newcommand{\W}{{\rm \bf W}}
 \newcommand{\w}{{\rm \bf w}}
 \newcommand{\X}{{\rm \bf X}}
 \newcommand{\x}{{\rm \bf x}}
@@ -217,13 +219,15 @@ for the JavaScript code in this tag.
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\Bern}{{\rm Bern}}
-\newcommand{\Beta}{{\rm Beta}}
-\newcommand{\Bin}{{\rm Bin}}
-\newcommand{\Gam}{{\rm Gam}}
-\newcommand{\St}{{\rm St}}
-\newcommand{\cov}{{\rm cov}}
-\newcommand{\mode}{{\rm mode}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第2章 演習 2.41-2.50</h2>
@@ -418,6 +422,7 @@ for the JavaScript code in this tag.
 \begin{align*}
     p(μ,τ^{-1}) = \N(μ|μ_0,τ^{-1}) \Gam(τ|a,b) \\
 \end{align*}
+
 <p>
 事後分布は尤度関数と事前分布の積に比例する。<br  />
 </p>
@@ -431,7 +436,76 @@ for the JavaScript code in this tag.
 
 
 <div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5">2.45 ウィシャート分布が多変量ガウス分布の精度行列の事前分布であることの証明</h3>
+<h3 id="sec-1-5"><span class="done DONE">DONE</span> 2.45 ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることの証明</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+本文p.97で1変数ガウス分布の場合について行なった議論を<br  />
+多変量ガウス分布の場合に一般化する。<br  />
+</p>
+
+<p>
+精度行列\(\Λ\)が与えられたときに観測値集合\(\X=\{x_1,...,x_N\}\)が生じる確率である<br  />
+尤度関数は次のように書ける。<br  />
+</p>
+\begin{align*}
+    p(\X|\Λ) \propto & \prod_{n=1}^N \N(\x_n|\μ,\Λ^{-1}) \\
+    = & \prod_{n=1}^N \f{1}{(2π)^{D/2}} \f{1}{|\Λ^{-1}|^{1/2}}
+            \exp\l\{ -\f{1}{2} (\x_n - \μ)^T \Λ (\x_n - \μ) \r\} \\
+    = & \prod_{n=1}^N \f{1}{(2π)^{D/2}} |\Λ|^{1/2}
+            \exp\l\{ -\f{1}{2} (\x_n - \μ)^T \Λ (\x_n - \μ) \r\}
+                      & |\A^{-1}| = |\A|^{-1} \\
+    = & \f{1}{(2π)^{ND/2}} |\Λ|^{N/2}
+            \exp\l\{ -\f{1}{2} \sum_{n=1}^N (\x_n - \μ)^T \Λ (\x_n - \μ) \r\} \\
+\end{align*}
+
+<p>
+精度行列\(\Λ\)の事前分布としてウィシャート分布を選ぶ。<br  />
+</p>
+\begin{align*}
+    \mathcal{W}(\Λ|\W,ν) = & B|\Λ|^{(ν-D-1)/2} \exp\l( -\f{1}{2} \Tr(\W^{-1} \Λ) \r) \\
+    B(\W,ν) = & |\W|^{-ν/2} \l( 2^{νD/2}π^{D(D-1)/4} \prod_{i=1}^D Γ\l(\f{ν+1-i}{2}\r) \r)^{-1} \\
+\end{align*}
+
+<p>
+精度行列\(\Λ\)の事後分布は尤度関数と事前分布の積に比例する。<br  />
+</p>
+\begin{align*}
+              p(\Λ|\X)
+    \propto & p(\X|\Λ) \mathcal{W}(\Λ|\W,ν) \\
+    \propto & |\Λ|^{N/2} \exp\l\{ -\f{1}{2} \sum_{n=1}^N (\x_n - \μ)^T \Λ (\x_n - \μ) \r\}
+              |\Λ|^{(ν-D-1)/2} \exp\l( -\f{1}{2} \Tr(\W^{-1} \Λ) \r) \\
+          = & |\Λ|^{(ν+N-D-1)/2} \exp\l[ -\f{1}{2} \l\{ \sum_{n=1}^N (\x_n - \μ)^T \Λ (\x_n - \μ)
+                                                      + \Tr(\W^{-1} \Λ) \r\} \r] \\
+          = & |\Λ|^{(ν+N-D-1)/2} \exp\l[ -\f{1}{2}
+                  \l\{ \Tr\l( \sum_{n=1}^N (\x_n - \μ)(\x_n - \μ)^T \Λ \r)
+                     + \Tr(\W^{-1} \Λ) \r\} \r] \\
+          = & |\Λ|^{(ν+N-D-1)/2} \exp\l[ -\f{1}{2}
+                  \Tr\l\{ \l( \sum_{n=1}^N (\x_n - \μ)(\x_n - \μ)^T + \W^{-1} \r) \Λ \r\} \r] \\
+          = & |\Λ|^{(ν_N-D-1)/2} \exp\l[ -\f{1}{2} \Tr(\W_N^{-1} \Λ) \r] \\
+    \propto & \mathcal{W}(\Λ|\W_N,ν_N) \\
+\end{align*}
+<p>
+事後分布が再びウィシャート分布の形になったので、<br  />
+ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることが言える。<br  />
+ここで<br  />
+</p>
+\begin{align*}
+    ν_N = & ν + N \\
+    \W_N^{-1} = & \sum_{n=1}^N (\x_n - \μ)(\x_n - \μ)^T + \W^{-1} \\
+\end{align*}
+
+<p>
+ここで以下の性質を用いた。<br  />
+</p>
+\begin{align*}
+    \Tr(\X \A) = & \sum_i (\X \A)_{ii} = \sum_i \sum_k X_{ik} A_{ki} \\
+    \x^T \A \x = & \sum_i \sum_k x_i A_{ik} x_k \\
+\end{align*}
+<p>
+よって、\(\X = \x \x^T\)すなわち\(X_{ik} = x_i x_k\)と置けば、<br  />
+\(\Tr(\X \A)=\x^T \A \x\)となる。<br  />
+</p>
+</div>
 </div>
 <div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</h3>
