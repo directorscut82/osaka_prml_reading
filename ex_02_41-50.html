@@ -185,13 +185,13 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1"><span class="done DONE">DONE</span> 2.41 ガンマ分布が正規化されていることの証明</a></li>
 <li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.42 ガンマ分布の平均、分散、モード</a></li>
 <li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.43 \(q\)次形式に一般化したガウス関数</a></li>
-<li><a href="#sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</a></li>
+<li><a href="#sec-1-4"><span class="todo TODO">TODO</span> 2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</a></li>
 <li><a href="#sec-1-5"><span class="done DONE">DONE</span> 2.45 ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることの証明</a></li>
 <li><a href="#sec-1-6"><span class="done DONE">DONE</span> 2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</a></li>
-<li><a href="#sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</a></li>
-<li><a href="#sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</a></li>
-<li><a href="#sec-1-9">2.49 多変量スチューデントt分布の平均、共分散、モード</a></li>
-<li><a href="#sec-1-10">2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</a></li>
+<li><a href="#sec-1-7"><span class="done DONE">DONE</span> 2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</a></li>
+<li><a href="#sec-1-8"><span class="todo TODO">TODO</span> 2.48 スチューデントのt分布の多変量形式の導出とそれが正規化されていることの証明</a></li>
+<li><a href="#sec-1-9"><span class="todo TODO">TODO</span> 2.49 多変量スチューデントt分布の平均、共分散、モード</a></li>
+<li><a href="#sec-1-10"><span class="todo TODO">TODO</span> 2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</a></li>
 </ul>
 </li>
 </ul>
@@ -406,7 +406,7 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</h3>
+<h3 id="sec-1-4"><span class="todo TODO">TODO</span> 2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 平均\(μ\)と分散\(τ^{-1}\)が与えられたときに観測値集合\(\xx=\{x_1,...,x_N\}\)が生じる確率である<br  />
@@ -432,9 +432,6 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
-
-
-
 <div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5"><span class="done DONE">DONE</span> 2.45 ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることの証明</h3>
 <div class="outline-text-3" id="text-1-5">
@@ -549,20 +546,37 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
-
-
-
 <div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</h3>
+<h3 id="sec-1-7"><span class="done DONE">DONE</span> 2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</h3>
+<div class="outline-text-3" id="text-1-7">
+\begin{align*}
+    \St(x|μ,λ,ν) \propto & \l[ 1 + \f{λ(x - μ)^2}{ν} \r]^{-(ν+1)/2} \\
+                 = & \exp\l( -\f{ν+1}{2} \ln\l[ 1 + \f{λ(x - μ)^2}{ν} \r] \r) \\
+\end{align*}
+<p>
+対数関数は1の周辺で以下のようにテーラー展開できる。<br  />
+</p>
+\begin{align*}
+    \ln(1 + ε) = ε + O(ε^2) \\
+\end{align*}
+<p>
+\(ν→∞\)のとき、上の展開を適用できる。<br  />
+</p>
+\begin{align*}
+      & \exp\l( -\f{ν+1}{2} \ln\l[ 1 + \f{λ(x - μ)^2}{ν} \r] \r) \\
+    = & \exp\l( -\f{ν+1}{2} \l[ \f{λ(x - μ)^2}{ν} + O(ν^{-2}) \r] \r) \\
+    = & \exp\l( - \f{λ(x - μ)^2}{2} + O(ν^{-1}) \r) \\
+\end{align*}
+</div>
 </div>
 <div id="outline-container-sec-1-8" class="outline-3">
-<h3 id="sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</h3>
+<h3 id="sec-1-8"><span class="todo TODO">TODO</span> 2.48 スチューデントのt分布の多変量形式の導出とそれが正規化されていることの証明</h3>
 </div>
 <div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9">2.49 多変量スチューデントt分布の平均、共分散、モード</h3>
+<h3 id="sec-1-9"><span class="todo TODO">TODO</span> 2.49 多変量スチューデントt分布の平均、共分散、モード</h3>
 </div>
 <div id="outline-container-sec-1-10" class="outline-3">
-<h3 id="sec-1-10">2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</h3>
+<h3 id="sec-1-10"><span class="todo TODO">TODO</span> 2.50 多変量スチューデントt分布が\(ν→∞\)の極限で多変量ガウス分布になることの証明</h3>
 </div>
 </div>
 </div>
