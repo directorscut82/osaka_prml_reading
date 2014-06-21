@@ -187,7 +187,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.43 \(q\)次形式に一般化したガウス関数</a></li>
 <li><a href="#sec-1-4">2.44 1変数ガウス分布のベイズ推定で事後分布がガウス-ガンマ分布になることの証明</a></li>
 <li><a href="#sec-1-5"><span class="done DONE">DONE</span> 2.45 ウィシャート分布が多変量ガウス分布の精度行列の共役事前分布であることの証明</a></li>
-<li><a href="#sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</a></li>
+<li><a href="#sec-1-6"><span class="done DONE">DONE</span> 2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</a></li>
 <li><a href="#sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</a></li>
 <li><a href="#sec-1-8">2.48 スチューデントのt分布の多変量形式の導出と正規化されていることの証明</a></li>
 <li><a href="#sec-1-9">2.49 多変量スチューデントt分布の平均、共分散、モード</a></li>
@@ -508,8 +508,50 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6">2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</h3>
+<h3 id="sec-1-6"><span class="done DONE">DONE</span> 2.46 [www] ガウス-ガンマ分布の周辺分布がスチューデントのt分布になることの証明</h3>
+<div class="outline-text-3" id="text-1-6">
+\begin{align*}
+    p(x|μ,a,b) = & \int_0^∞ \N(x|μ,τ^{-1}) \Gam(τ|a,b) dτ \\
+               = & \int_0^∞ \f{b^a e^{-bτ} τ^{a-1}}{Γ(a)} \l(\f{τ}{2π}\r)^{1/2}
+                       \exp\l\{ -\f{τ}{2} (x - μ)^2 \r\} dτ \\
+               = & \f{b^a}{Γ(a)} \l(\f{1}{2π}\r)^{1/2}
+                       \int_0^∞ τ^{a-1/2} \exp\l\{ -τ \l( b + \f{(x - μ)^2}{2} \r) \r\} dτ \\
+\end{align*}
+
+\begin{align*}
+    z = & τ \l[ b + \f{(x - μ)^2}{2} \r] \\
+    τ = & \f{z}{b + (x - μ)^2/2} \\
+    \f{dτ}{dz} = & \f{1}{b + (x - μ)^2/2} \\
+\end{align*}
+
+\begin{align*}
+    p(x|μ,a,b) = & \f{b^a}{Γ(a)} \l(\f{1}{2π}\r)^{1/2}
+                       \int_0^∞ \l[ \f{z}{b + (x - μ)^2/2} \r]^{a-1/2}
+                                 \exp(z) \f{1}{b + (x - μ)^2/2} dz \\
+               = & \f{b^a}{Γ(a)} \l(\f{1}{2π}\r)^{1/2} \l[ b + \f{(x - μ)^2}{2} \r]^{-a-1/2}
+                       \int_0^∞ z^{a-1/2} \exp(z) dz \\
+               = & \f{b^a}{Γ(a)} \l(\f{1}{2π}\r)^{1/2}
+                       \l[ b + \f{(x - μ)^2}{2} \r]^{-a-1/2} Γ(a+1/2) \\
+\end{align*}
+
+\begin{align*}
+    ν = & 2a  & a = & ν/2 \\
+    λ = & a/b & b = & a/λ = ν/2λ \\
+\end{align*}
+
+\begin{align*}
+    p(x|μ,a,b) = & \f{(ν/2λ)^{ν/2}}{Γ(ν/2)} \l(\f{1}{2π}\r)^{1/2}
+                       \l[ ν/2λ + \f{(x - μ)^2}{2} \r]^{-ν/2-1/2} Γ(ν/2+1/2) \\
+               = & \f{Γ(ν/2+1/2)}{Γ(ν/2)} (2λ/ν)^{(-ν/2-1/2)+1/2} \l(\f{1}{2π}\r)^{1/2}
+                       \l[ ν/2λ + \f{(x - μ)^2}{2} \r]^{-ν/2-1/2} \\
+               = & \f{Γ(ν/2+1/2)}{Γ(ν/2)} \l(\f{λ}{πν}\r)^{1/2}
+                       \l[ 1 + \f{λ(x - μ)^2}{ν} \r]^{-ν/2-1/2} \\
+\end{align*}
 </div>
+</div>
+
+
+
 <div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7">2.47 [www] t分布が\(ν→∞\)の極限でガウス分布になることの証明</h3>
 </div>
