@@ -17,6 +17,7 @@
 \newcommand{\xx}{{\bf \sf x}}
 \newcommand{\u}{{\rm \bf u}}
 \newcommand{\Λ}{{\bf Λ}}
+\newcommand{\α}{{\bf α}}
 \newcommand{\μ}{{\bf μ}}
 \newcommand{\η}{{\bf η}}
 \newcommand{\Σ}{{\bf Σ}}
@@ -30,6 +31,7 @@
 \newcommand{\Bern}{\mathrm{Bern}}
 \newcommand{\Beta}{\mathrm{Beta}}
 \newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
 \newcommand{\Gam}{\mathrm{Gam}}
 \newcommand{\St}{\mathrm{St}}
 \end{align*}

@@ -186,9 +186,12 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.2 ベルヌーイ分布の\(x \in \{-1, 1\}\)を用いた表現</a></li>
 <li><a href="#sec-1-3"><span class="done DONE">DONE</span> 2.3 [www] 二項分布が正規化されていることの証明</a></li>
 <li><a href="#sec-1-4"><span class="done DONE">DONE</span> 2.4 二項分布の平均、分散</a></li>
-<li><a href="#sec-1-5"><span class="todo TODO">TODO</span> 2.5 [www] ベータ分布が正規化されていることの証明</a></li>
+<li><a href="#sec-1-5"><span class="done DONE">DONE</span> 2.5 [www] ベータ分布が正規化されていることの証明</a></li>
 <li><a href="#sec-1-6"><span class="done DONE">DONE</span> 2.6 ベータ分布の平均、分散、モード</a></li>
 <li><a href="#sec-1-7"><span class="todo TODO">TODO</span> 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明</a></li>
+<li><a href="#sec-1-8"><span class="todo TODO">TODO</span> 2.8 周辺分布の平均と分散</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 2.9 [www] ディリクレ分布が正規化されていることの証明</a></li>
+<li><a href="#sec-1-10"><span class="todo TODO">TODO</span> 2.10 ディリクレ分布の平均、分散、共分散</a></li>
 </ul>
 </li>
 </ul>
@@ -201,26 +204,32 @@ for the JavaScript code in this tag.
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
 \newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
 \newcommand{\I}{{\rm \bf I}}
+\newcommand{\W}{{\rm \bf W}}
 \newcommand{\w}{{\rm \bf w}}
 \newcommand{\X}{{\rm \bf X}}
 \newcommand{\x}{{\rm \bf x}}
 \newcommand{\xx}{{\bf \sf x}}
 \newcommand{\u}{{\rm \bf u}}
 \newcommand{\Λ}{{\bf Λ}}
+\newcommand{\α}{{\bf α}}
 \newcommand{\μ}{{\bf μ}}
 \newcommand{\η}{{\bf η}}
 \newcommand{\Σ}{{\bf Σ}}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\Bern}{{\rm Bern}}
-\newcommand{\Beta}{{\rm Beta}}
-\newcommand{\Bin}{{\rm Bin}}
-\newcommand{\Gam}{{\rm Gam}}
-\newcommand{\St}{{\rm St}}
-\newcommand{\cov}{{\rm cov}}
-\newcommand{\mode}{{\rm mode}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第2章 演習 2.1-2.10</h2>
@@ -483,29 +492,41 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </div>
 </div>
 <div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><span class="todo TODO">TODO</span> 2.5 [www] ベータ分布が正規化されていることの証明</h3>
+<h3 id="sec-1-5"><span class="done DONE">DONE</span> 2.5 [www] ベータ分布が正規化されていることの証明</h3>
 <div class="outline-text-3" id="text-1-5">
+<p>
+ガンマ関数の定義<br  />
+</p>
 \begin{align*}
-    \Gamma(a)\Gamma(b) = & \int_0^\infty \exp(-x) x^{a-1} dx \int_0^\infty \exp(-y) y^{b-1} dy \\
-                       = & \int_0^\infty \int_0^\infty \exp(-x-y) x^{a-1} y^{b-1} dy dx \\
+    Γ(a) = & ∫_0^∞ \exp(-x) x^{a-1} dx \\
+\end{align*}
+<p>
+より<br  />
+</p>
+\begin{align*}
+    Γ(a)Γ(b) = & ∫_0^∞ \exp(-x) x^{a-1} dx ∫_0^∞ \exp(-y) y^{b-1} dy \\
+             = & ∫_0^∞ ∫_0^∞ \exp(-x-y) x^{a-1} y^{b-1} dy dx \\
 \end{align*}
 <p>
 \(t = y + x\)とおく。<br  />
 </p>
 \begin{align*}
-    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_x^\infty \exp(-t) x^{a-1} (t-x)^{b-1} dt dx \\
-                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dt dx \\
-                       = & \int_0^\infty \int_0^\infty \exp(-t-x) x^{a-1} (t-2x)^{b-1} dx dt \\
+    Γ(a)Γ(b) = & ∫_0^∞ ∫_x^∞ \exp(-t) x^{a-1} (t-x)^{b-1} dt dx \\
 \end{align*}
 <p>
-\(x = t\mu\)とおく。<br  />
+積分範囲に注意して積分順序を変更する。<br  />
 </p>
 \begin{align*}
-    \Gamma(a)\Gamma(b) = & \int_0^\infty \int_0^\infty
-                               \exp(-t-t\mu) (t\mu)^{a-1} (t-2t\mu)^{b-1} t d\mu dt \\
-                       = & \int_0^\infty \exp(-t) t^{(a+b)-1} dt
-                           \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
-                       = & \Gamma(a+b) \int_0^\infty \exp(1+\mu) \mu^{a-1} (1-2\mu)^{b-1} d\mu \\
+    Γ(a)Γ(b) = & ∫_0^∞ ∫_0^t \exp(-t) x^{a-1} (t-x)^{b-1} dx dt \\
+\end{align*}
+<p>
+\(x = tμ\)とおく。<br  />
+</p>
+\begin{align*}
+    Γ(a)Γ(b) = & ∫_0^∞ ∫_0^1 \exp(-t) (tμ)^{a-1} (t-tμ)^{b-1} t dμ dt \\
+             = & ∫_0^∞ \exp(-t) t^{(a+b)-1} dt ∫_0^1 μ^{a-1} (1-μ)^{b-1} dμ \\
+             = & Γ(a+b) ∫_0^1 μ^{a-1} (1-μ)^{b-1} dμ \\
+    ∫_0^1 μ^{a-1} (1-μ)^{b-1} dμ = & \f{Γ(a)Γ(b)}{Γ(a+b)} \\
 \end{align*}
 </div>
 </div>
@@ -569,6 +590,140 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </div>
 <div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明</h3>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="todo TODO">TODO</span> 2.8 周辺分布の平均と分散</h3>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 2.9 [www] ディリクレ分布が正規化されていることの証明</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+ディリクレ分布 p.75 (2.38)<br  />
+</p>
+\begin{align*}
+    \Dir(\μ|\α) = & \f{Γ(α_0)}{Γ(α_1) \cdots Γ(α_K)} \prod_{k=1}^K μ_k^{α_k-1}
+\end{align*}
+<p>
+ただし以下の制約がある。<br  />
+</p>
+\begin{align*}
+    0 ≦ μ_i ≦ 1 (i = 1,...,K) \\
+    \sum_{k=1}^M μ_k = 1 \\
+\end{align*}
+
+<p>
+\(M-1\)変数の場合に正規化されているとの仮定の下で、<br  />
+\(M\)変数の場合に正規化されていることを証明する。<br  />
+</p>
+
+<p>
+\(M\)変数のディリクレ分布から、<br  />
+\(\sum_{k=1}^M μ_k = 1\)の制約を用いて\(μ_M\)を除去すると、<br  />
+以下の\(M-1\)変数の確率分布が得られる。<br  />
+</p>
+\begin{align*}
+    p_M(μ_1,...,μ_{M-1})
+        = & C_M \prod_{k=1}^{M-1} μ_k^{α_k-1} \l( 1 - \sum_{j=1}^{M-1} μ_j \r)^{α_M-1} \\
+\end{align*}
+<p>
+ここで<br  />
+</p>
+\begin{align*}
+    C_M = \f{Γ(α_1 + \cdots + α_M)}{Γ(α_1) \cdots Γ(α_M)} \\
+\end{align*}
+<p>
+ただし以下の制約がある。<br  />
+</p>
+\begin{align*}
+    0 ≦ μ_i ≦ 1 (i = 1,...,M-1) \\
+    \sum_{k=1}^{M-1} μ_k ≦ 1 \\
+\end{align*}
+
+<p>
+確率分布\(p_M\)を変数\(μ_{M-1}\)で積分すると、\(M-2\)変数の周辺分布が得られる。<br  />
+\(μ_{M-1}\)の積分範囲は、上記の制約により、0から\(1 - \sum_{j=1}^{M-2} μ_j\)までとなる。<br  />
+</p>
+\begin{align*}
+      & p_{M-1}(μ_1,...,μ_{M-2}) \\
+    = & ∫_0^{1 - \sum_{j=1}^{M-2} μ_j} p_M(μ_1,...,μ_{M-1}) dμ_{M-1} \\
+    = & C_M \l[ \prod_{k=1}^{M-2} μ_k^{α_k-1} \r]
+        ∫_0^{1 - \sum_{j=1}^{M-2} μ_j} μ_{M-1}^{α_{M-1}-1}
+        \l( 1 - \sum_{j=1}^{M-1} μ_j \r)^{α_M-1} dμ_{M-1} \\
+\end{align*}
+<p>
+ここで次の変数変換を行う。<br  />
+</p>
+\begin{align*}
+    μ_{M-1} = & t \l( 1 - \sum_{j=1}^{M-2} μ_j \r) \\
+\end{align*}
+
+\begin{align*}
+    1 - \sum_{j=1}^{M-1} μ_j
+    = & 1 - \sum_{j=1}^{M-2} μ_j - μ_{M-1} \\
+    = & \l( 1 - \sum_{j=1}^{M-2} μ_j \r) - t \l( 1 - \sum_{j=1}^{M-2} μ_j \r) \\
+    = & (1 - t) \l( 1 - \sum_{j=1}^{M-2} μ_j \r) \\
+\end{align*}
+<p>
+すると<br  />
+</p>
+\begin{align*}
+      & p_{M-1}(μ_1,...,μ_{M-2}) \\
+    = & C_M \l[ \prod_{k=1}^{M-2} μ_k^{α_k-1} \r]
+        ∫_0^1 \l\{ t \l( 1 - \sum_{j=1}^{M-2} μ_j \r) \r\}^{α_{M-1}-1}
+               \l\{ (1 - t) \l( 1 - \sum_{j=1}^{M-2} μ_j \r) \r\}^{α_M-1}
+               \l( 1 - \sum_{j=1}^{M-2} μ_j \r) dt \\
+    = & C_M \l[ \prod_{k=1}^{M-2} μ_k^{α_k-1} \r]
+        \l( 1 - \sum_{j=1}^{M-2} μ_j \r)^{α_{M-1}+α_M-1}
+        ∫_0^1 t^{α_{M-1}-1} (1 - t)^{α_M-1} dt \\
+    = & C_M \l[ \prod_{k=1}^{M-2} μ_k^{α_k-1} \r]
+        \l( 1 - \sum_{j=1}^{M-2} μ_j \r)^{α_{M-1}+α_M-1}
+        \f{Γ(α_{M-1})Γ(α_M)}{Γ(α_{M-1}+α_M)} \\
+\end{align*}
+<p>
+こうして得られた周辺分布\(p_{M-1}(μ_1,...,μ_{M-2})\)は、<br  />
+\(\α'=(α_1,...,α_{M-2},α_{M-1}+α_M)^T\)をパラメータとする<br  />
+\(M-1\)変数のディリクレ分布から変数を一つ除去した確率分布の形をしている。<br  />
+</p>
+
+<p>
+一方、同じパラメータ\(\α'=(α_1,...,α_{M-2},α_{M-1}+α_M)^T\)を持つ<br  />
+\(M-1\)変数のディリクレ分布から、\(\sum_{k=1}^{M-1} μ_k = 1\)の制約を用いて変数を一つ除去すると、<br  />
+以下の確率分布が得られる。<br  />
+</p>
+\begin{align*}
+    p'_{M-1}(μ_1,...,μ_{M-2})
+        = & C'_{M-1} \prod_{k=1}^{M-2} μ_k^{α_k-1}
+            \l( 1 - \sum_{j=1}^{M-2} μ_j \r)^{α_{M-1}+α_M-1} \\
+\end{align*}
+<p>
+ただし<br  />
+</p>
+\begin{align*}
+    C'_{M-1} = & \f{Γ(α_1 + \cdots + α_{M-2} + (α_{M-1}+α_M))}
+                   {Γ(α_1) \cdots Γ(α_{M-2}) Γ(α_{M-1}+α_M)} \\
+\end{align*}
+<p>
+帰納法の仮定により、この確率分布は正規化されている。<br  />
+</p>
+
+<p>
+上記の\(p_{M-1}\)の定数部分は<br  />
+</p>
+\begin{align*}
+      & C_M \f{Γ(α_{M-1}) Γ(α_M)}{Γ(α_{M-1} + α_M)} \\
+    = & \f{Γ(α_1 + \cdots + α_M)}{Γ(α_1) \cdots Γ(α_M)}
+        \f{Γ(α_{M-1}) Γ(α_M)}{Γ(α_{M-1} + α_M)} \\
+    = & \f{Γ(α_1 + \cdots + α_{M-2} + (α_{M-1} + α_M))}
+          {Γ(α_1) \cdots Γ(α_{M-2}) Γ(α_{M-1} + α_M)} \\
+    = & C'_{M-1}
+\end{align*}
+<p>
+よって、\(M\)変数のディリクレ分布は正規化されている。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="todo TODO">TODO</span> 2.10 ディリクレ分布の平均、分散、共分散</h3>
 </div>
 </div>
 </div>
