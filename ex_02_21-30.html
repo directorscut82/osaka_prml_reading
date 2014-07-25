@@ -182,8 +182,16 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">PRML 第2章 演習 2.21-2.30</a>
 <ul>
-<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</a></li>
-<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</a></li>
+<li><a href="#sec-1-1"><span class="todo TODO">TODO</span> 2.21 \(D×D\)の実対称行列の独立なパラメータの数</a></li>
+<li><a href="#sec-1-2"><span class="todo TODO">TODO</span> 2.22 [www] 対称行列の逆行列も対称であることの証明</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.23 マハラノビス距離が定数になる超楕円体の内部の体積</a></li>
+<li><a href="#sec-1-4"><span class="todo TODO">TODO</span> 2.24 [www] 分割された行列の逆行列に関する公式の証明</a></li>
+<li><a href="#sec-1-5"><span class="todo TODO">TODO</span> 2.25 多変量ガウス分布の変数集合を3分割したときの周辺化された条件付き分布</a></li>
+<li><a href="#sec-1-6"><span class="todo TODO">TODO</span> 2.26 Woodbury行列反転公式の証明</a></li>
+<li><a href="#sec-1-7"><span class="todo TODO">TODO</span> 2.27 2つの独立な確率ベクトルの和の平均が、個別の平均の和となることの証明</a></li>
+<li><a href="#sec-1-8"><span class="todo TODO">TODO</span> 2.28 [www] 2分割された平均ベクトルと共分散行列から周辺分布と条件付き分布を求める</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</a></li>
+<li><a href="#sec-1-10"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</a></li>
 </ul>
 </li>
 </ul>
@@ -196,33 +204,63 @@ for the JavaScript code in this tag.
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
 \newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
 \newcommand{\I}{{\rm \bf I}}
+\newcommand{\W}{{\rm \bf W}}
 \newcommand{\w}{{\rm \bf w}}
 \newcommand{\X}{{\rm \bf X}}
 \newcommand{\x}{{\rm \bf x}}
 \newcommand{\xx}{{\bf \sf x}}
 \newcommand{\u}{{\rm \bf u}}
 \newcommand{\Λ}{{\bf Λ}}
+\newcommand{\α}{{\bf α}}
 \newcommand{\μ}{{\bf μ}}
 \newcommand{\η}{{\bf η}}
 \newcommand{\Σ}{{\bf Σ}}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\Bern}{{\rm Bern}}
-\newcommand{\Beta}{{\rm Beta}}
-\newcommand{\Bin}{{\rm Bin}}
-\newcommand{\Gam}{{\rm Gam}}
-\newcommand{\St}{{\rm St}}
-\newcommand{\cov}{{\rm cov}}
-\newcommand{\mode}{{\rm mode}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第2章 演習 2.21-2.30</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</h3>
-<div class="outline-text-3" id="text-1-1">
+<h3 id="sec-1-1"><span class="todo TODO">TODO</span> 2.21 \(D×D\)の実対称行列の独立なパラメータの数</h3>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="todo TODO">TODO</span> 2.22 [www] 対称行列の逆行列も対称であることの証明</h3>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 2.23 マハラノビス距離が定数になる超楕円体の内部の体積</h3>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="todo TODO">TODO</span> 2.24 [www] 分割された行列の逆行列に関する公式の証明</h3>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="todo TODO">TODO</span> 2.25 多変量ガウス分布の変数集合を3分割したときの周辺化された条件付き分布</h3>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="todo TODO">TODO</span> 2.26 Woodbury行列反転公式の証明</h3>
+</div>
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.27 2つの独立な確率ベクトルの和の平均が、個別の平均の和となることの証明</h3>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="todo TODO">TODO</span> 2.28 [www] 2分割された平均ベクトルと共分散行列から周辺分布と条件付き分布を求める</h3>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</h3>
+<div class="outline-text-3" id="text-1-9">
 <p>
 分割行列の逆行列の公式<br  />
 </p>
@@ -287,9 +325,9 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</h3>
+<div class="outline-text-3" id="text-1-10">
 <p>
 (2.107)<br  />
 </p>
