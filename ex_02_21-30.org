@@ -4,7 +4,58 @@
 ** TODO 2.21 \(D×D\)の実対称行列の独立なパラメータの数
 ** TODO 2.22 [www] 対称行列の逆行列も対称であることの証明
 ** TODO 2.23 マハラノビス距離が定数になる超楕円体の内部の体積
-** TODO 2.24 [www] 分割された行列の逆行列に関する公式の証明
+** DONE 2.24 [www] 分割された行列の逆行列に関する公式の証明
+(2.76)の右辺に\(
+    \l(\begin{array}{cc}
+        A & B \\
+        C & D \\
+    \end{array}\r)
+\)を掛ける。
+
+\begin{align*}
+    X = &
+    \l(\begin{array}{cc}
+        A & B \\
+        C & D \\
+    \end{array}\r)
+    \l(\begin{array}{cc}
+        M         & -MBD^{-1} \\
+        -D^{-1}CM & D^{-1} + D^{-1}CMBD^{-1} \\
+    \end{array}\r) \\
+    = &
+    \l(\begin{array}{cc}
+        AM - BD^{-1}CM & -AMBD^{-1} + B(D^{-1} + D^{-1}CMBD^{-1}) \\
+        CM - DD^{-1}CM & -CMBD^{-1} + D(D^{-1} + D^{-1}CMBD^{-1}) \\
+    \end{array}\r)
+\end{align*}
+
+\begin{align*}
+    X_{11} = & AM - BD^{-1}CM \\
+           = & (A - BD^{-1}C)M \\
+           = & (A - BD^{-1}C)(A - BD^{-1}C)^{-1} \\
+           = & I \\
+\end{align*}
+
+\begin{align*}
+    X_{12} = & -AMBD^{-1} + B(D^{-1} + D^{-1}CMBD^{-1}) \\
+           = & -AMBD^{-1} + BD^{-1} + BD^{-1}CMBD^{-1} \\
+           = & -(A - BD^{-1}C)MBD^{-1} + BD^{-1} \\
+           = & -(A - BD^{-1}C)(A - BD^{-1}C)^{-1}BD^{-1} + BD^{-1} \\
+           = & -BD^{-1} + BD^{-1} \\
+           = & O \\
+\end{align*}
+
+\begin{align*}
+    X_{21} = & CM - DD^{-1}CM \\
+           = & O \\
+\end{align*}
+
+\begin{align*}
+    X_{22} = & -CMBD^{-1} + D(D^{-1} + D^{-1}CMBD^{-1}) \\
+           = & -CMBD^{-1} + I + CMBD^{-1} \\
+           = & I \\
+\end{align*}
+
 ** TODO 2.25 多変量ガウス分布の変数集合を3分割したときの周辺化された条件付き分布
 ** TODO 2.26 Woodbury行列反転公式の証明
 ** TODO 2.27 2つの独立な確率ベクトルの和の平均が、個別の平均の和となることの証明
