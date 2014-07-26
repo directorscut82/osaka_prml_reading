@@ -188,7 +188,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-4">2.54 フォン・ミーゼス分布の最大値と最小値</a></li>
 <li><a href="#sec-1-5">2.55 フォン・ミーゼス分布の集中度の最尤推定</a></li>
 <li><a href="#sec-1-6">2.56 [www] ベータ分布、ガンマ分布、フォン・ミーゼス分布の指数型分布族の一般形への変形</a></li>
-<li><a href="#sec-1-7">2.57 多変量ガウス分布の指数型分布族の一般形への変形</a></li>
+<li><a href="#sec-1-7"><span class="todo TODO">TODO</span> 2.57 多変量ガウス分布の指数型分布族の一般形への変形</a></li>
 <li><a href="#sec-1-8">2.58 指数型分布族で\(\ln g(\η)\)の2階微分が\(\u(\x)\)の共分散になることの証明</a></li>
 <li><a href="#sec-1-9">2.59 \(f(x)\)が正規化されていれば密度も正規化されていることの証明</a></li>
 <li><a href="#sec-1-10">2.60 [www] ヒストグラム型の密度モデルの最尤推定</a></li>
@@ -205,26 +205,32 @@ for the JavaScript code in this tag.
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
 \newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
 \newcommand{\I}{{\rm \bf I}}
+\newcommand{\W}{{\rm \bf W}}
 \newcommand{\w}{{\rm \bf w}}
 \newcommand{\X}{{\rm \bf X}}
 \newcommand{\x}{{\rm \bf x}}
 \newcommand{\xx}{{\bf \sf x}}
 \newcommand{\u}{{\rm \bf u}}
 \newcommand{\Λ}{{\bf Λ}}
+\newcommand{\α}{{\bf α}}
 \newcommand{\μ}{{\bf μ}}
 \newcommand{\η}{{\bf η}}
 \newcommand{\Σ}{{\bf Σ}}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\Bern}{{\rm Bern}}
-\newcommand{\Beta}{{\rm Beta}}
-\newcommand{\Bin}{{\rm Bin}}
-\newcommand{\Gam}{{\rm Gam}}
-\newcommand{\St}{{\rm St}}
-\newcommand{\cov}{{\rm cov}}
-\newcommand{\mode}{{\rm mode}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第2章 演習 2.51-2.61</h2>
@@ -248,7 +254,42 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-6">2.56 [www] ベータ分布、ガンマ分布、フォン・ミーゼス分布の指数型分布族の一般形への変形</h3>
 </div>
 <div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7">2.57 多変量ガウス分布の指数型分布族の一般形への変形</h3>
+<h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.57 多変量ガウス分布の指数型分布族の一般形への変形</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+指数型分布族の一般形<br  />
+</p>
+\begin{align*}
+    p(\x|\η) = h(\x) g(\η) \exp\{ \η^T \u(\x) \} \\
+\end{align*}
+
+<p>
+多変量ガウス分布<br  />
+</p>
+\begin{align*}
+    \N(\x|\μ,\Σ)
+    = & \f{1}{(2π)^{D/2}} \f{1}{|\Σ|^{1/2}}
+        \exp\l\{ -\f{1}{2} (\x - \μ)^T \Σ^{-1} (\x - \μ) \r\} \\
+    = & \f{1}{(2π)^{D/2}} \f{1}{|\Σ|^{1/2}}
+        \exp\l\{ -\f{1}{2} (  \x^T \Σ^{-1} \x - \x^T \Σ^{-1} \μ
+                            - \μ^T \Σ^{-1} \x + \μ^T \Σ^{-1} \μ) \r\} \\
+    = & \f{1}{(2π)^{D/2}} \f{1}{|\Σ|^{1/2}}
+        \exp\l\{ - \f{1}{2} \x^T \Σ^{-1} \x + \μ^T \Σ^{-1} \x - \f{1}{2} \μ^T \Σ^{-1} \μ \r\} \\
+\end{align*}
+
+\begin{align*}
+        \η = & \l( \begin{array}{c}
+                   \μ^T \\
+                   -\f{1}{2} \Σ^{-1} \\
+               \end{array} \r) \\
+    \u(\x) = & \l( \begin{array}{c}
+                   \Σ^{-1} \x \\
+                   \Σ \x^T \Σ^{-1} \x \\
+               \end{array} \r) \\
+     h(\x) = & \f{1}{(2π)^{D/2}} \\
+     g(\η) = & -2 |\η_2|^{1/2} \exp\l( \η_1 \η_2 \η_1^T \r)
+\end{align*}
+</div>
 </div>
 <div id="outline-container-sec-1-8" class="outline-3">
 <h3 id="sec-1-8">2.58 指数型分布族で\(\ln g(\η)\)の2階微分が\(\u(\x)\)の共分散になることの証明</h3>
