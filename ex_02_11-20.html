@@ -182,7 +182,7 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">PRML 第2章 演習 2.11-2.20</a>
 <ul>
-<li><a href="#sec-1-1"><span class="todo TODO">TODO</span> 2.11 [www] ディリクレ分布の下での\(\ln μ_j\)の期待値</a></li>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 2.11 [www] ディリクレ分布の下での\(\ln μ_j\)の期待値</a></li>
 <li><a href="#sec-1-2"><span class="todo TODO">TODO</span> 2.12 一様分布が正規化されていることの証明と平均、分散</a></li>
 <li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.13 2つのガウス分布の間のカルバック-ライブラーダイバージェンス</a></li>
 <li><a href="#sec-1-4"><span class="todo TODO">TODO</span> 2.14 [www] 共分散が所与のとき、エントロピーを最大にする多変量分布はガウス分布であることの証明</a></li>
@@ -235,7 +235,43 @@ for the JavaScript code in this tag.
 <h2 id="sec-1">PRML 第2章 演習 2.11-2.20</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="todo TODO">TODO</span> 2.11 [www] ディリクレ分布の下での\(\ln μ_j\)の期待値</h3>
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 2.11 [www] ディリクレ分布の下での\(\ln μ_j\)の期待値</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+ディリクレ分布 p.75 (2.38)<br  />
+</p>
+\begin{align*}
+    \Dir(\μ|\α) = & K(\α) \prod_{k=1}^M μ_k^{α_k-1}
+\end{align*}
+<p>
+ここで<br  />
+</p>
+\begin{align*}
+    K(\α) = & \f{Γ(α_0)}{Γ(α_1) \cdots Γ(α_M)} \\
+\end{align*}
+<p>
+ディリクレ分布の正規化定数を除いた部分を\(α_j\)で偏微分して、以下の関係を得る。<br  />
+(\((a^x)' = a^x \ln a \)を用いる。)<br  />
+</p>
+\begin{align*}
+    \p{}{α_j} \prod_{k=1}^M μ_k^{α_k-1} = & \ln μ_j \prod_{k=1}^M μ_k^{α_k-1} \\
+\end{align*}
+<p>
+ディリクレ分布の下での\(\ln μ_j\)の期待値は<br  />
+</p>
+\begin{align*}
+    \E[\ln μ_j]
+    = & K(\α) ∫_0^1 \cdots ∫_0^1 \ln μ_j \prod_{k=1}^K μ_k^{α_k-1} dμ_1 \cdots dμ_M \\
+    = & K(\α) \p{}{α_j} ∫_0^1 \cdots ∫_0^1 \prod_{k=1}^K μ_k^{α_k-1} dμ_1 \cdots dμ_M \\
+    = & K(\α) \p{}{α_j} \f{1}{K(\α)} \\
+    = & - \p{}{α_j} \ln K(\α) \\
+    = & - \p{}{α_j} \ln \f{Γ(α_0)}{Γ(α_1) \cdots Γ(α_M)} \\
+    = & - \p{}{α_j} \ln Γ(α_0) + \p{}{α_j} \sum_{k=1}^M \ln Γ(α_k) \\
+    = & - \p{}{α_0} \ln Γ(α_0) \p{α_0}{α_j} + \p{}{α_j} \ln Γ(α_j) \\
+    = & - \p{}{α_0} \ln Γ(α_0) + \p{}{α_j} \ln Γ(α_j) \\
+    = & ψ(α_j) - ψ(α_0) \\
+\end{align*}
+</div>
 </div>
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2"><span class="todo TODO">TODO</span> 2.12 一様分布が正規化されていることの証明と平均、分散</h3>
