@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>PRML 第3章 演習 3.1-3.10</title>
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PRML 第3章 演習 3.1-3.10</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第3章 演習 3.1-3.10</a>
+<ul>
+<li><a href="#sec-1-1"><span class="done DONE">DONE</span> 3.1 [www] \(\tanh\)とロジスティックシグモイド関数</a></li>
+<li><a href="#sec-1-2"><span class="done DONE">DONE</span> 3.2 最小二乗解の幾何学的解釈</a></li>
+<li><a href="#sec-1-3"><span class="done DONE">DONE</span> 3.3 重み付き二乗和誤差関数</a></li>
+<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 3.4 [www] 入力変数にノイズを加えることが正則化項を加えることと等価であることの証明</a></li>
+<li><a href="#sec-1-5"><span class="done DONE">DONE</span> 3.5 [www] (3.30)の制約条件を課すことが正則化項を加えることと等価であることの証明</a></li>
+<li><a href="#sec-1-6"><span class="done DONE">DONE</span> 3.6 [www] 目的変数が多次元で任意の共分散を持つ線形回帰モデルの最尤推定</a></li>
+<li><a href="#sec-1-7"><span class="done DONE">DONE</span> 3.7 線形基底関数モデルの事後確率</a></li>
+<li><a href="#sec-1-8"><span class="done DONE">DONE</span> 3.8 [www] 線形基底関数モデルの事後確率のパラメータの漸化式</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 3.9 線形基底関数モデルの事後確率をガウス分布の周辺分布の公式を用いて評価する</a></li>
+<li><a href="#sec-1-10"><span class="done DONE">DONE</span> 3.10 [www] ガウス分布の周辺分布の公式を用いてベイズ線形回帰の予測分布を評価する</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\L}{\mathbf{L}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\S}{\mathbf{S}}
+\newcommand{\TT}{\mathbf{T}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\b}{\mathbf{b}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\m}{\mathbf{m}}
+\newcommand{\t}{\mathbf{t}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\tt}{\mathbf{\mathsf{t}}}
+\newcommand{\xx}{\mathbf{\mathsf{x}}}
+\newcommand{\yy}{\mathbf{\mathsf{y}}}
+\newcommand{\Λ}{\mathbf{Λ}}
+\newcommand{\α}{\mathbf{α}}
+\newcommand{\ε}{\mathbf{ε}}
+\newcommand{\μ}{\mathbf{μ}}
+\newcommand{\η}{\mathbf{η}}
+\newcommand{\Φ}{\mathbf{Φ}}
+\newcommand{\Σ}{\mathbf{Σ}}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\ML}{\mathrm{ML}}
+\end{align*}
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">PRML 第3章 演習 3.1-3.10</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="done DONE">DONE</span> 3.1 [www] \(\tanh\)とロジスティックシグモイド関数</h3>
+<div class="outline-text-3" id="text-1-1">
+\begin{align*}
+    \sinh(a) = & \f{e^a - e^{-a}}{2} \\
+    \cosh(a) = & \f{e^a + e^{-a}}{2} \\
+    \tanh(a) = & \f{\sinh(a)}{\cosh(a)} \\
+             = & \f{e^a - e^{-a}}{e^a + e^{-a}} \\
+             = & \f{1 - e^{-2a}}{1 + e^{-2a}} \\
+             = & \f{2 - (1 + e^{-2a})}{1 + e^{-2a}} \\
+             = & \f{2}{1 + e^{-2a}} - 1 \\
+             = & 2σ(2a) - 1    \tag{3.100}
+\end{align*}
+
+\begin{align*}
+    y(x,\u) = & u_0 + \sum_{j=1}^M u_j \tanh\l( \f{x - μ_j}{2s} \r)   \tag{3.102} \\
+            = & u_0 + \sum_{j=1}^M u_j \l\{ 2σ\l( 2 \f{x - μ_j}{2s} \r) - 1 \r\} \\
+            = & (u_0 - \sum_{j=1}^M u_j) + \sum_{j=1}^M (2 u_j) σ\l( \f{x - μ_j}{s} \r) \\
+            = & w_0 + \sum_{j=1}^M w_j σ\l( \f{x - μ_j}{s} \r) = y(x,\w)   \tag{3.101}
+\end{align*}
+<p>
+ここで<br  />
+</p>
+\begin{align*}
+    w_0 = & u_0 - \sum_{j=1}^M u_j \\
+    w_j = & 2 u_j
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="done DONE">DONE</span> 3.2 最小二乗解の幾何学的解釈</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"></h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+行列\(\bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T\)は<br  />
+任意のベクトル\(\v\)を\(\bPhi\)の列ベクトルで張られる空間の上に正射影する。<br  />
+</p>
+
+<p>
+[証明]<br  />
+ベクトル\(\v\)のある空間\(\S\)への正射影とは、以下の条件を満たすベクトル\(\v'\)である。<br  />
+</p>
+<ol class="org-ol">
+<li>ベクトル\(\v'\)は空間\(\S\)上にある。<br  />
+すなわち、\(∃\w. \v' = \sum_j \e_j w_j\)。<br  />
+すなわち、\(∃\w. \v' = \A \w\)、ただし\(\A = (\e_1,...,\e_M)\)。<br  />
+</li>
+<li>ベクトル\(\v-\v'\)が空間\(\S\)と直交する。<br  />
+すなわち、\(\e_j (\v - \v') = 0\)。<br  />
+すなわち、\(\A^T (\v - \v') = 0\)。<br  />
+</li>
+</ol>
+
+<p>
+\(\v' = \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \v\)と置く。<br  />
+\(\w = (\bPhi^T \bPhi)^{-1} \bPhi^T \v\)と置けば、条件1.は直ちに成り立つ。<br  />
+以下のように、条件2.も成り立つ。<br  />
+</p>
+\begin{align*}
+    \bPhi^T (\v - \v') = & \bPhi^T (\v - \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \v) \\
+                       = & \bPhi^T (\I - \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T) \v \\
+                       = & (\bPhi^T - \bPhi^T \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T) \v \\
+                       = & (\bPhi^T - \bPhi^T) \v \\
+                       = & 0 \\
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"></h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+最小二乗解(3.15)は図3.2で示した多様体\(\S\)の上にベクトル\(\tt\)を正射影することに対応している。<br  />
+</p>
+
+<p>
+[証明]<br  />
+ベクトル\(\yy\)は<br  />
+</p>
+\begin{align*}
+    \yy = & (y(\x_1,\w),...,y(\x_N,\w)) \\
+        = & (\w^T \bphi(\x_1),...,\w^T \bphi(\x_N)) \\
+        = & (\bphi(\x_1)^T \w,...,\bphi(\x_N)^T \w) \\
+        = & (\bphi(\x_1),...,\bphi(\x_N))^T \w \\
+        = & \bPhi \w \\
+\end{align*}
+<p>
+\(\yy\)の最小二乗解は<br  />
+</p>
+\begin{align*}
+    \yy = & \bPhi \w_{ML} \\
+\end{align*}
+<p>
+重みベクトルの最小二乗解\(\w_{ML}\)は(3.15)により<br  />
+</p>
+\begin{align*}
+    \w_{ML} = (\bPhi^T \bPhi)^{-1} \bPhi^T \tt \\
+\end{align*}
+<p>
+これを代入して<br  />
+</p>
+\begin{align*}
+    \yy = & \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \tt \\
+\end{align*}
+<p>
+上で示した通り、\(\yy\)は\(\tt\)の\(\bPhi\)の列ベクトルが張る多様体\(\S\)への正射影である。<br  />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="done DONE">DONE</span> 3.3 重み付き二乗和誤差関数</h3>
+<div class="outline-text-3" id="text-1-3">
+\begin{align*}
+       E_D(\w) = & \f{1}{2} \sum_{n=1}^N r_n \l\{ t_n - \w^\T \bphi(\x_n) \r\}^2 \\
+    ∇ E_D(\w) = & \sum_{n=1}^N r_n \l\{ t_n - \w^\T \bphi(\x_n) \r\} \bphi(\x_n)^\T \\
+               = & \sum_{n=1}^N r_n t_n \bphi(\x_n)^\T
+                 - \w^\T \sum_{n=1}^N r_n \bphi(\x_n) \bphi(\x_n)^\T \\
+               = & \tt^\T \R \bPhi - \w^\T \bPhi^\T \R \bPhi
+\end{align*}
+<p>
+ここで\(\R\)は\(N\)行\(N\)列で対角成分が\(r_n\)の対角行列。<br  />
+</p>
+
+<p>
+\(\w=\w^*\)のとき勾配が0になる。<br  />
+</p>
+\begin{align*}
+    0 = & \tt^\T \R \bPhi - {\w^*}^\T \bPhi^\T \R \bPhi \\
+    {\w^*}^\T \bPhi^\T \R \bPhi = & \tt^\T \R \bPhi \\
+    {\w^*}^\T = & \tt^\T \R \bPhi (\bPhi^\T \R \bPhi)^{-1} \\
+    \w^* = & (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T \R \tt \\
+\end{align*}
+
+<p>
+(i) ノイズの分散がデータに依存する場合<br  />
+重み\(r_n\)は、\(n\)番目のデータのノイズの分散の逆数。<br  />
+</p>
+
+<p>
+(ii) データ点に重複がある場合<br  />
+重み\(r_n\)は、\(t_n\),\(\x_n\)と等しい値を取るデータ点の数。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="done DONE">DONE</span> 3.4 [www] 入力変数にノイズを加えることが正則化項を加えることと等価であることの証明</h3>
+<div class="outline-text-3" id="text-1-4">
+\begin{align*}
+    y(\x,\w) = w_0 + \sum_{i=1}^D w_i x_i    \tag{3.105} \\
+    E_D(\w) = \f{1}{2} \sum_{n=1}^N \{y(\x_n,\w) - t_n\}^2    \tag{3.106} \\
+\end{align*}
+
+<p>
+\(E_D(\w)\)のノイズ分布に関する平均<br  />
+</p>
+\begin{align*}
+      & \E[E_D(\w)] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \{ y(\x_n + \ε_n,\w) - t_n \}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \{ y(\x_n,\w) + \sum_{i=1}^D w_i {ε_n}_i - t_n \}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \l(\sum_{i=1}^D w_i {ε_n}_i\r)^2
+                                  + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i {ε_n}_i
+                                  + \{y(\x_n,\w) - t_n\}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \sum_{i=1}^D \sum_{j=1}^D w_i w_j {ε_n}_i {ε_n}_j
+                                  + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i {ε_n}_i
+                                  + \{y(\x_n,\w) - t_n\}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \l( \sum_{i=1}^D \sum_{j=1}^D w_i w_j \E[{ε_n}_i {ε_n}_j]
+                                + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i \E[{ε_n}_i]
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \l( \sum_{i=1}^D \sum_{j=1}^D w_i w_j δ_{ij} σ^2
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \l( σ^2 \sum_{i=1}^D w_i^2
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \{y(\x_n,\w) - t_n\}^2
+      + \f{N σ^2}{2} \sum_{i=1}^D w_i^2
+\end{align*}
+<p>
+第2項は、正則化項\(\f{λ}{2} \w^\T \w\)で、<br  />
+\(w_0\)を除き、\(λ = N σ^2\)としたものに等しい。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="done DONE">DONE</span> 3.5 [www] (3.30)の制約条件を課すことが正則化項を加えることと等価であることの証明</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+正則化されていない二乗和誤差関数(3.12)<br  />
+</p>
+\begin{align*}
+    \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2
+\end{align*}
+<p>
+これを以下の制約条件(3.30)の下で最小化する。<br  />
+</p>
+\begin{align*}
+    \sum_{j=1}^M |w_j|^q \leq & \eta \\
+    \f{1}{2} \sum_{j=1}^M |w_j|^q - \eta \leq & 0
+\end{align*}
+<p>
+ラグランジュ関数<br  />
+</p>
+\begin{align*}
+    L(\w,\lambda) = & \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2 + \lambda g(w) \\
+    g(\w) = & \f{1}{2} \sum_{j=1}^M |w_j|^q - \eta
+\end{align*}
+<p>
+以下の制約の下での停留点を求めればよい。<br  />
+</p>
+\begin{align*}
+    g(\w) \geq & 0 \\
+    \lambda \geq & 0 \\
+    \lambda g(\w) = & 0
+\end{align*}
+<p>
+停留条件<br  />
+</p>
+\begin{align*}
+    ∇ L(\w,\lambda) = & 0 \\
+    ∇ \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2 + \lambda ∇ g(w) = & 0 \\
+    \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \} \bphi(\x_n)^T - \lambda q \w^{q-1} = & 0 \\
+\end{align*}
+<p>
+これは、\(- \lambda = \f{\lambda}{2}\)とすると、上記の正則化された誤差関数の最小化と同じである。<br  />
+</p>
+
+<p>
+もう一つの停留条件<br  />
+</p>
+\begin{align*}
+    \p{}{\lambda} L(\w,\lambda) = & 0 \\
+    g(\w) = & 0 \\
+    \eta = & \sum_{j=1}^M |w_j|^q
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="done DONE">DONE</span> 3.6 [www] 目的変数が多次元で任意の共分散を持つ線形回帰モデルの最尤推定</h3>
+<div class="outline-text-3" id="text-1-6">
+\begin{align*}
+    p(\t|\x,\W,\Σ) = \N(\t|\y(\x,\W),\Σ)    \tag{3.107} \\
+    \y(\x,\W) = \W^\T \bphi(\x)             \tag{3.108} \\
+\end{align*}
+
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+    p(\TT|\X,\W,\Σ) = & \prod_{n=1}^N p(\t_n|\x_n,\W,\Σ) \\
+                    = & \prod_{n=1}^N \N(\t_n|\W^\T \bphi(\x_n),\Σ) \\
+                    = & \f{1}{(2π)^{NK/2}} \f{1}{|\Σ|^{N/2}}
+                        \prod_{n=1}^N \exp\l\{ - \f{1}{2}
+                        \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                        \l(\t_n - \W^\T \bphi(\x_n)\r) \r\} \\
+\end{align*}
+
+<p>
+対数尤度関数<br  />
+</p>
+\begin{align*}
+    \ln p(\TT|\X,\W,\Σ)
+    = & - \f{NK}{2} \ln (2π) - \f{N}{2} \ln |\Σ|
+        - \f{1}{2} \sum_{n=1}^N
+        \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+        \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+\end{align*}
+</div>
+
+<div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">\(\W\)の最尤推定</h4>
+<div class="outline-text-4" id="text-1-6-1">
+\begin{align*}
+    \p{}{W_{ij}} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{1}{2} \p{}{W_{ij}} \Tr\l[(\TT - \bPhi \W) \Σ^{-1}(\TT - \bPhi \W)^\T\r] \\
+    = & - \f{1}{2} \Tr\l[ \l\{\p{}{W_{ij}} (\TT - \bPhi \W)\r\} \Σ^{-1} (\TT - \bPhi \W)^\T
+                      + (\TT - \bPhi \W) \Σ^{-1} \l\{\p{}{W_{ij}} (\TT - \bPhi \W)^\T\r\} \r] \\
+    = & - \Tr\l[ \l\{\p{}{W_{ij}} (\TT - \bPhi \W)\r\} \Σ^{-1} (\TT - \bPhi \W)^\T \r] \\
+    = & \Tr\l[ \bPhi \p{\W}{W_{ij}} \Σ^{-1} (\TT - \bPhi \W)^\T \r] \\
+    = & \Tr\l[ \p{\W}{W_{ij}} \Σ^{-1} (\TT - \bPhi \W)^\T \bPhi \r] \\
+    = & (\Σ^{-1} (\TT - \bPhi \W)^\T \bPhi)_{ij} \\
+
+    \p{}{\W} \ln p(\TT|\X,\W,\Σ)
+    = & \Σ^{-1} (\TT - \bPhi \W)^\T \bPhi \\
+\end{align*}
+
+\begin{align*}
+    0 = & \Σ_\ML^{-1} (\TT - \bPhi \W_\ML)^\T \bPhi \\
+    0 = & (\TT - \bPhi \W_\ML)^\T \bPhi \\
+    0 = & \bPhi^\T (\TT - \bPhi \W_\ML) \\
+    0 = & \bPhi^\T \TT - \bPhi^\T \bPhi \W_\ML \\
+    \W_\ML = & (\bPhi^\T \bPhi)^{-1} \bPhi^\T \TT \\
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">\(\Σ\)の最尤推定</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+参考: p.91 (2.122)、p.131 2.34。<br  />
+</p>
+\begin{align*}
+    \p{}{\Σ} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{N}{2} \p{}{\Σ} \ln |\Σ|
+        - \f{1}{2} \p{}{\Σ} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                                         \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+\end{align*}
+<p>
+第1項<br  />
+</p>
+\begin{align*}
+    \p{}{\Σ} \ln |\Σ| = (\Σ^{-1})^\T = \Σ^{-1}
+\end{align*}
+<p>
+第2項<br  />
+</p>
+\begin{align*}
+    \S = \f{1}{N} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)
+                               \l(\t_n - \W^\T \bphi(\x_n)\r)^\T
+\end{align*}
+<p>
+と置く。<br  />
+</p>
+\begin{align*}
+      & \p{}{Σ_{ij}} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                                  \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+    = & N \p{}{Σ_{ij}} \Tr[\Σ^{-1} \S] \\
+    = & N \Tr\l[\p{\Σ^{-1}}{Σ_{ij}} \S\r] \\
+    = & - N \Tr\l[\Σ^{-1} \p{\Σ}{Σ_{ij}} \Σ^{-1} \S\r] \\
+    = & - N \Tr\l[\p{\Σ}{Σ_{ij}} \Σ^{-1} \S \Σ^{-1}\r] \\
+    = & - N (\Σ^{-1} \S \Σ^{-1})_{ij} \\
+\end{align*}
+<p>
+よって<br  />
+</p>
+\begin{align*}
+    \p{}{\Σ} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{N}{2} \Σ^{-1} + \f{N}{2} \Σ^{-1} \S \Σ^{-1}
+\end{align*}
+
+\begin{align*}
+    0 = & - \f{N}{2} \Σ_\ML^{-1} + \f{N}{2} \Σ_\ML^{-1} \S_\ML \Σ_\ML^{-1} \\
+    \Σ_\ML = & \S_\ML \\
+           = & \f{1}{N} \sum_{n=1}^N \l(\t_n - \W_\ML^\T \bphi(\x_n)\r)
+                                     \l(\t_n - \W_\ML^\T \bphi(\x_n)\r)^\T \\
+\end{align*}
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="done DONE">DONE</span> 3.7 線形基底関数モデルの事後確率</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+事前分布<br  />
+</p>
+\begin{align*}
+    p(\w) = \N(\w|\m_0,\S_0)    \tag{3.48}
+\end{align*}
+
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+    p(\tt|\X,\w,β) = \prod_{n=1}^N \N(t_n|\w^\T \bphi(\x_n),β^{-1})    \tag{3.10}
+\end{align*}
+
+<p>
+事後分布<br  />
+</p>
+\begin{align*}
+    p(\w|\tt)
+    ∝ & \N(\w|\m_0,\S_0) \prod_{n=1}^N \N(t_n|\w^\T \bphi(\x_n),β^{-1}) \\
+    ∝ & \exp\l[ -\f{1}{2} (\w - \m_0)^\T \S_0^{-1} (\w - \m_0) \r]
+         \prod_{n=1}^N \exp\l[ -\f{β}{2} \{t_n - \w^\T \bphi(\x_n)\}^2 \r] \\
+    =  & \exp\l[ - \f{1}{2} (\w - \m_0)^\T \S_0^{-1} (\w - \m_0)
+                 - \f{β}{2} \sum_{n=1}^N \{t_n - \w^\T \bphi(\x_n)\}^2 \r] \\
+\end{align*}
+
+<p>
+指数部分の\(\w\)の2次の項<br  />
+</p>
+\begin{align*}
+    = & - \f{1}{2} \w^\T \S_0^{-1} \w
+        - \f{β}{2} \sum_{n=1}^N \{\w^\T \bphi(\x_n)\}^2 \\
+    = & - \f{1}{2} \w^\T \S_0^{-1} \w - \f{β}{2} \w^\T \bPhi^\T \bPhi \w \\
+    = & - \f{1}{2} \w^\T (\S_0^{-1} - β \bPhi^\T \bPhi) \w \\
+\end{align*}
+
+<p>
+指数部分の\(\w\)の1次の項<br  />
+</p>
+\begin{align*}
+      & \w^\T \S_0^{-1} \m_0 + β \w^\T \sum_{n=1}^N t_n \bphi(\x_n) \\
+    = & \w^\T \S_0^{-1} \m_0 + β \w^\T \bPhi^\T \tt \\
+    = & \w^\T (\S_0^{-1} \m_0 + β \bPhi^\T \tt) \\
+\end{align*}
+
+<p>
+よって<br  />
+</p>
+\begin{align*}
+    p(\w|\tt) ∝ & \exp\l\{ - \f{1}{2} \w^\T (\S_0^{-1} - β \bPhi^\T \bPhi) \w
+                            + \w^\T (\S_0^{-1} \m_0 + β \bPhi^\T \tt) + const. \r\} \\
+              =  & \exp\l\{ - \f{1}{2} (\w - \m_N)^\T \S_N^{-1} (\w - \m_N) + const. \r\} \\
+    p(\w|\tt) =  & \N(\w|\m_N,\S_N) \\
+\end{align*}
+<p>
+ただし<br  />
+</p>
+\begin{align*}
+    \m_N = & \S_N (\S_0^{-1} \m_0 + β \bPhi^\T \tt) \\
+    \S_N^{-1} = & \S_0^{-1} - β \bPhi^\T \bPhi
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="done DONE">DONE</span> 3.8 [www] 線形基底関数モデルの事後確率のパラメータの漸化式</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+N個のデータ点を観測した後の\(\w\)の事後確率<br  />
+</p>
+\begin{align*}
+    p(\w|\tt_N) = \N(\w|\m_N,\S_N)    \tag{3.49}
+\end{align*}
+
+<p>
+追加のデータ点\((\x_{N+1},t_{N+1})\)を観測したときの尤度<br  />
+</p>
+\begin{align*}
+    p(t_{N+1}|\x_{N+1},\w,\beta) = \N(t_{N+1}|\w^\T \bphi(\x_{N+1},\beta^{-1})
+\end{align*}
+
+<p>
+追加のデータ点を観測した後の\(\w\)の事後確率<br  />
+</p>
+\begin{align*}
+    p(\w|\tt_{N+1})
+    ∝ & p(t_{N+1}|\x_{N+1},\w,\beta) p(\w|\tt_N) \\
+    =  & \N(t_{N+1}|\w^\T \bphi(\x_{N+1},\beta^{-1}) \N(\w|\m_N,\S_N) \\
+    ∝ & \exp\l[ - \f{β}{2} \{t_{N+1} - \w^\T \bphi(\x_{N+1})\}
+                 - \f{1}{2} (\w - \m_N)^\T \S_N^{-1} (\w - \m_N) \r] \\
+\end{align*}
+
+<p>
+指数部分の\(\w\)の2次の項<br  />
+</p>
+\begin{align*}
+      & - \f{\beta}{2} \{\w^\T \bphi(\x_{N+1})\}^2 - \f{1}{2} \w^\T \S_N^{-1} \w \\
+    = & - \f{\beta}{2} \w^\T \bphi(\x_{N+1})^\T \bphi(\x_{N+1}) \w
+        - \f{1}{2} \w^\T (\S_0^{-1} + \beta \Phi_N^\T \Phi_N) \w \\
+    = & - \f{1}{2} \w^\T \l[ \S_0^{-1}
+        - β \l\{ \bphi(\x_{N+1})^\T \bphi(\x_{N+1}) + \Phi_N^\T \Phi_N \r\} \r] \w \\
+    = & - \f{1}{2} \w^\T \l[ \S_0^{-1} - β \Phi_{N+1}^\T \Phi_{N+1} \r] \w \\
+    = & - \f{1}{2} \w^\T \S_{N+1}^{-1} \w \\
+\end{align*}
+
+<p>
+指数部分の\(\w\)の1次の項<br  />
+</p>
+\begin{align*}
+      & β t_{N+1} \w^\T \bphi(\x_{N+1}) + \w^\T \S_N^{-1} \m_N \\
+    = & \w^\T \{ β t_{N+1} \bphi(\x_{N+1}) + \S_N^{-1} \m_N \} \\
+    = & \w^\T \{ β t_{N+1} \bphi(\x_{N+1}) + \S_0^{-1} \m_0 + β \Phi_N^\T \tt_N \} \\
+    = & \w^\T [ \S_0^{-1} \m_0 + β \{ t_{N+1} \bphi(\x_{N+1}) + \Phi_N^\T \tt_N \} ] \\
+    = & \w^\T ( \S_0^{-1} \m_0 + β \Phi_{N+1}^\T \tt_{N+1} ) \\
+    = & \w^\T \S_{N+1}^{-1} \m_{N+1} \\
+\end{align*}
+
+<p>
+よって<br  />
+</p>
+\begin{align*}
+    p(\w|\tt_{N+1}) = \N(\w|\m_{N+1},\S_{N+1})
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 3.9 線形基底関数モデルの事後確率をガウス分布の周辺分布の公式を用いて評価する</h3>
+<div class="outline-text-3" id="text-1-9">
+\begin{align*}
+    p(\x) = & \N(\x|\μ,\Λ^{-1}) \\
+    p(\y|\x) = & \N(\y|\A \x + \b,\L^{-1}) \\
+\end{align*}
+<p>
+ならば<br  />
+</p>
+\begin{align*}
+    p(\x|\y) = & \N(\x|\Σ \{\A^\T \L (\y + \b) + \Λ \μ\},\Σ) \\
+    \Σ = & (\Λ + \A^\T \L \A)^{-1} \\
+\end{align*}
+<p>
+これを<br  />
+</p>
+\begin{align*}
+    p(\w|\tt_N) = & \N(\w|\m_N,\S_N)    \tag{3.49} \\
+    p(t_{N+1}|\x_{N+1},\w,β) = & \N(t_{N+1}|\w^\T \bphi(\x_{N+1}),β^{-1})
+\end{align*}
+<p>
+に適用すると<br  />
+</p>
+\begin{align*}
+    \μ = & \m_N &
+    \Λ^{-1} = & \S_N \\
+    \A = & \bphi(\x_{N+1})^T &
+    \b = & 0 &
+    \L^{-1} = & β^{-1}
+\end{align*}
+
+<p>
+事後分布の共分散<br  />
+</p>
+\begin{align*}
+    \Σ = & (\Λ + \A^\T \L \A)^{-1} \\
+       = & (\S_N^{-1} + β \bphi(\x_{N+1}) \bphi(\x_{N+1})^\T)^{-1} \\
+       = & (\S_0^{-1} - β \bPhi_N^\T \bPhi_N + β \bphi(\x_{N+1})^\T \bphi(\x_{N+1}))^{-1} \\
+       = & (\S_0^{-1} - β \bPhi_{N+1}^\T \bPhi_{N+1})^{-1} \\
+       = & \S_{N+1}
+\end{align*}
+
+<p>
+事後分布の平均<br  />
+</p>
+\begin{align*}
+      & \Σ \{\A^\T \L (\y + \b) + \Λ \μ\} \\
+    = & \S_{N+1} \{β \bphi(\x_{N+1}) t_{N+1} + \S_N^{-1} \m_N\} \\
+    = & \S_{N+1} \{β \bphi(\x_{N+1}) t_{N+1} + (\S_0^{-1} \m_0 + β \bPhi_N^\T \tt_N)\} \\
+    = & \S_{N+1} \{\S_0^{-1} \m_0 + β \bPhi_{N+1}^\T \tt_{N+1}\} \\
+    = & \m_{N+1}
+\end{align*}
+
+<p>
+事後分布<br  />
+</p>
+\begin{align*}
+    p(\w|\tt_{N+1}) = \N(\w|\m_{N+1},\S_{N+1})
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="done DONE">DONE</span> 3.10 [www] ガウス分布の周辺分布の公式を用いてベイズ線形回帰の予測分布を評価する</h3>
+<div class="outline-text-3" id="text-1-10">
+\begin{align*}
+    p(\x) = & \N(\x|\μ,\Λ^{-1})               \tag{2.113} \\
+    p(\y|\x) = & \N(\y|\A \x + \b, \L^{-1})   \tag{2.114} \\
+\end{align*}
+<p>
+ならば<br  />
+</p>
+\begin{align*}
+    p(\y) = & \N(\y|\A \μ + \b, \L^{-1} + \A \Λ^{-1} \A^\T)    \tag{2.115} \\
+\end{align*}
+<p>
+これを<br  />
+</p>
+\begin{align*}
+    p(\w) = & \N(\w|\m_N,\S_N)                   \tag{3.49} \\
+    p(t|\w) = & \N(t|\w^\T \bphi(\x), β^{-1})    \tag{3.8} \\
+\end{align*}
+<p>
+に適用すると<br  />
+</p>
+\begin{align*}
+    \μ = & \m_N \\
+    \Λ^{-1} = & \S_N \\
+    \A = & \bphi(\x)^T \\
+    \b = & 0 \\
+    \L^{-1} = & β^{-1}
+\end{align*}
+
+<p>
+予測分布<br  />
+</p>
+\begin{align*}
+    p(t) = \N(t|\bphi(\x)^T \m_N, β^{-1} + \bphi(\x)^T \S_N \bphi(\x))
+\end{align*}
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.4 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

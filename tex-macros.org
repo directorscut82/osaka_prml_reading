@@ -7,23 +7,47 @@
 \newcommand{\f}{\frac}
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
-\newcommand{\A}{{\rm \bf A}}
-\newcommand{\B}{{\rm \bf B}}
-\newcommand{\I}{{\rm \bf I}}
-\newcommand{\W}{{\rm \bf W}}
-\newcommand{\w}{{\rm \bf w}}
-\newcommand{\X}{{\rm \bf X}}
-\newcommand{\x}{{\rm \bf x}}
-\newcommand{\xx}{{\bf \sf x}}
-\newcommand{\u}{{\rm \bf u}}
-\newcommand{\Λ}{{\bf Λ}}
-\newcommand{\α}{{\bf α}}
-\newcommand{\μ}{{\bf μ}}
-\newcommand{\η}{{\bf η}}
-\newcommand{\Σ}{{\bf Σ}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\L}{\mathbf{L}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\S}{\mathbf{S}}
+\newcommand{\TT}{\mathbf{T}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\b}{\mathbf{b}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\m}{\mathbf{m}}
+\newcommand{\t}{\mathbf{t}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\tt}{\mathbf{\mathsf{t}}}
+\newcommand{\xx}{\mathbf{\mathsf{x}}}
+\newcommand{\yy}{\mathbf{\mathsf{y}}}
+\newcommand{\Λ}{\mathbf{Λ}}
+\newcommand{\α}{\mathbf{α}}
+\newcommand{\ε}{\mathbf{ε}}
+\newcommand{\μ}{\mathbf{μ}}
+\newcommand{\η}{\mathbf{η}}
+\newcommand{\Φ}{\mathbf{Φ}}
+\newcommand{\Σ}{\mathbf{Σ}}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\var}{\mathrm{var}}
 \newcommand{\cov}{\mathrm{cov}}
@@ -34,4 +58,5 @@
 \newcommand{\Dir}{\mathrm{Dir}}
 \newcommand{\Gam}{\mathrm{Gam}}
 \newcommand{\St}{\mathrm{St}}
+\newcommand{\ML}{\mathrm{ML}}
 \end{align*}

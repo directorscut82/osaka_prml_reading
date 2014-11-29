@@ -1,0 +1,7 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第3章 演習 3.21-3.24
+* PRML 第3章 演習 3.21-3.24
+** TODO 3.21 
+** TODO 3.22 
+** TODO 3.23 [www] 
+** TODO 3.24 

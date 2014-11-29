@@ -1,0 +1,324 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第3章 演習 3.11-3.20
+* PRML 第3章 演習 3.11-3.20
+** TODO 3.11 データ集合のサイズが増えるとモデルパラメータの事後確率の不確かさが減ることの証明
+\begin{align*}
+      & \sigma_{N+1}^2(\x) - \sigma_N^2(\x) \\
+    = & \bphi(\x)^\T \S_{N+1} \bphi(\x) - \bphi(\x)^\T \S_N \bphi(\x) \\
+    = & \bphi(\x)^\T (\S_{N+1} - \S_N) \bphi(\x) \\
+    = & - \bphi(\x)^\T \l( \f{\beta \S_0 \Phi_{N+1}^\T \Phi_{N+1} \S_0}
+                             {1 + \beta \Phi_{N+1} \S_0 \Phi_{N+1}^\T}
+                         - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                             {1 + \beta \Phi_N \S_0 \Phi_N^\T} \r) \bphi(\x) \\
+    = & - \bphi(\x)^\T \l( \f{ \beta \S_0 \Phi_N^\T \Phi_N \S_0
+                             + \beta \S_0 \bphi(\x_{N+1})^\T \bphi(\x_{N+1}) \S_0 }
+                             { 1 + \beta \Phi_N \S_0 \Phi_N^\T
+                                 + \beta \bphi(\x_{N+1}) \S_0 \bphi(\x_{N+1})^\T }
+                         - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                             {1 + \beta \Phi_N \S_0 \Phi_N^\T} \r) \bphi(\x) \\
+\end{align*}
+
+\begin{align*}
+      & (\beta \S_0 \Phi_N^\T \Phi_N \S_0 + \beta \S_0 \bphi(\x_{N+1})^\T \bphi(\x_{N+1}))
+        (1 + \beta \Phi_N \S_0 \Phi_N^\T)
+      - (\beta \S_0 \Phi_N^\T \Phi_N \S_0)
+        (1 + \beta \Phi_N \S_0 \Phi_N^\T + \beta \bphi(\x_{N+1}) \S_0 \bphi(\x_{N+1})^\T) \\
+\end{align*}
+
+\begin{align*}
+      & (x + \beta \S_0 \bphi(\x_{N+1})^\T \bphi(\x_{N+1})) (1 + y)
+      - x (1 + y + \beta \bphi(\x_{N+1}) \S_0 \bphi(\x_{N+1})^\T) \\
+    = & (\beta \S_0 \bphi(\x_{N+1})^\T \bphi(\x_{N+1})) (1 + y)
+      - x (\beta \bphi(\x_{N+1}) \S_0 \bphi(\x_{N+1})^\T) \\
+\end{align*}
+
+
+
+
+
+
+\begin{align*}
+    \sigma_N^2(\x) = \f{1}{\beta} + \bphi(\x)^\T \S_N \bphi(\x)
+\end{align*}
+これが\(N\)の単調増加関数であることを示せばよい。
+第2項に
+\begin{align*}
+    \S_N^{-1} = & \S_0^{-1} + \beta \Phi_N^\T \Phi_N \\
+\end{align*}
+を代入すると
+\begin{align*}
+    \bphi(\x)^\T (\S_0^{-1} + \beta \Phi_N^\T \Phi_N)^{-1} \bphi(\x)
+\end{align*}
+(3.110) (Woodburyの公式(C.7)で\(\A=\M,\B=\v,\C=\v^\T,\D=1\)と置いたもの.)
+\begin{align*}
+    (\M + \v \v^\T)^{-1} = \M^{-1} - \f{(\M^{-1} \v) (\v^\T \M^{-1})}{1 + \v^\T \M^{-1} \v}
+\end{align*}
+を用いて
+\begin{align*}
+      & \bphi(\x)^\T (\S_0^{-1} + \beta \Phi_N^\T \Phi_N)^{-1} \bphi(\x) \\
+    = & \bphi(\x)^\T \l(\S_0 - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                                 {1 + \beta \Phi_N \S_0 \Phi_N^\T}\r) \bphi(\x) \\
+\end{align*}
+第2項の分子
+\begin{align*}
+      & \beta \S_0 \Phi_N^\T \Phi_N \S_0 \\
+    = & \bphi(\x)^\T \l(\S_0 - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                                 {1 + \beta \Phi_N \S_0 \Phi_N^\T}\r) \bphi(\x) \\
+\end{align*}
+
+
+
+
+
+
+(3.59)
+\[
+    \sigma_N^2(\x) = \f{1}{\beta} + \bphi(\x)^\T \S_N \bphi(\x)
+\]
+(3.110) (Woodburyの公式(C.7)で\(\A=\M,\B=\v,\C=\v^\T,\D=1\)と置いたもの.)
+\[
+    (\M + \v \v^\T)^{-1} = \M^{-1} - \f{(\M^{-1} \v) (\v^\T \M^{-1})}{1 + \v^\T \M^{-1} \v}
+\]
+
+\begin{align*}
+    \S_N^{-1} = & \S_0^{-1} + \beta \Phi_N^\T \Phi_N
+\end{align*}
+
+\begin{align*}
+    \S_N = & ( \S_0^{-1} + \beta \Phi_N^\T \Phi_N )^{-1} \\
+         = & \S_0 - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}{1 + \beta \Phi_N \S_0 \Phi_N^\T}
+\end{align*}
+
+\begin{align*}
+      & \sigma_{N+1}^2(\x) - \sigma_N^2(\x) \\
+    = & \bphi(\x)^\T \S_{N+1} \bphi(\x) - \bphi(\x)^\T \S_N \bphi(\x) \\
+    = & - \bphi(\x)^\T \l( \f{\beta \S_0 \Phi_{N+1}^\T \Phi_{N+1} \S_0}
+                             {1 + \beta \Phi_{N+1} \S_0 \Phi_{N+1}^\T}
+                         - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                             {1 + \beta \Phi_N \S_0 \Phi_N^\T} \r) \bphi(\x) \\
+    = & - \bphi(\x)^\T \l( \f{\beta \S_0 \Phi_{N+1}^\T \Phi_{N+1} \S_0}
+                             {1 + \beta \Phi_N \S_0 \Phi_N^\T
+                                + \beta \bphi(\x_{N+1})^\T \S_0 \bphi(\x_{N+1})}
+                         - \f{\beta \S_0 \Phi_N^\T \Phi_N \S_0}
+                             {1 + \beta \Phi_N \S_0 \Phi_N^\T} \r) \bphi(\x) \\
+\end{align*}
+
+** TODO 3.12 平均と精度がともに未知のガウス分布の共役事前分布が正規ガンマ分布であることの証明
+** TODO 3.13 平均と精度がともに未知のガウス分布の予測分布がスチューデントのt分布であることの証明
+** TODO 3.14 等価カーネルの基底変換
+** DONE 3.15 [www] 線形基底回帰モデルの誤差関数のが\(2E(\m_N)=N\)を満たすことの証明
+\begin{align*}
+    E(\m_N) = & \f{β}{2} \|\tt - \bPhi \m_N\|^2 + \f{α}{2} \m_N^\T \m_N    \tag{3.82} \\
+\end{align*}
+再推定方程式
+\begin{align*}
+    α = & \f{γ}{\m_N^\T \m_N} \\
+    \f{1}{β} = & \f{1}{N - γ} \sum_{n=1}^N \{t_n - \m_N^\T \bphi(\x_n)\}^2 \\
+\end{align*}
+を代入
+\begin{align*}
+    E(\m_N) = & \f{1}{2} (N - γ) \l( \sum_{n=1}^N \{t_n - \m_N^\T \bphi(\x_n)\}^2 \r)^{-1}
+                \|\tt - \bPhi \m_N\|^2
+              + \f{1}{2} \f{γ}{\m_N^\T \m_N} \m_N^\T \m_N \\
+            = & \f{1}{2} (N - γ) + \f{1}{2} γ \\
+            = & \f{N}{2} \\
+\end{align*}
+
+** TODO 3.16 線形ガウスモデルの条件付き分布に関する結果を用いたエビデンス関数の評価
+\begin{align*}
+    p(\x) = & \N(\x|\μ,\Λ^{-1})               \tag{2.113} \\
+    p(\y|\x) = & \N(\y|\A \x + \b, \L^{-1})   \tag{2.114} \\
+\end{align*}
+ならば
+\begin{align*}
+    p(\y) = & \N(\y|\A \μ + \b, \L^{-1} + \A \Λ^{-1} \A^\T)    \tag{2.115} \\
+\end{align*}
+これを
+\begin{align*}
+    p(\w) = & \N(\w|0, α^{-1})                                        \tag{3.52} \\
+    p(\tt|\w) =  & \prod_{n=1}^N \N(t_n|\w^\T \bphi(\x_n), β^{-1})    \tag{3.10} \\
+              ∝ & \exp\l( \f{β}{2} \sum_{n=1}^N (t_n - \w^\T \bphi(\x_n))^2 \r) \\
+              =  & \exp\l( \f{β}{2} (\tt - \bPhi \w)^\T (\tt - \bPhi \w) \r) \\
+              ∝ & \N(\tt|\bPhi \w, β^{-1} \I)
+\end{align*}
+に適用すると
+\begin{align*}
+    \μ = & 0 \\
+    \Λ^{-1} = & α^{-1} \\
+    \A = & \bPhi \\
+    \b = & 0 \\
+    \L^{-1} = & β^{-1} \I
+\end{align*}
+
+エビデンス関数
+\begin{align*}
+    p(\tt) = & \N(\tt|\A \μ + \b, \L^{-1} + \A \Λ^{-1} \A^\T) \\
+           = & \N(\tt|0, β^{-1} \I + α^{-1} \bPhi \bPhi^\T) \\
+           = & \f{1}{(2π)^{D/2}} \f{1}{\l|β^{-1} \I + α^{-1} \bPhi \bPhi^\T\r|^{1/2}}
+               \exp\l\{ \tt^\T (β^{-1} \I + α^{-1} \bPhi \bPhi^\T)^{-1} \tt \r\} \\
+\end{align*}
+
+** DONE 3.17 (3.78)の導出
+(3.11)より
+\begin{align*}
+    \ln p(\tt|w,β) & = \f{N}{2} \ln β - \f{N}{2} \ln(2π) - β E_D(\w) \\
+        p(\tt|w,β) & = \l(\f{β}{2π}\r)^{N/2} \exp\{ - β E_D(\w)\} \\
+\end{align*}
+
+(3.52)より
+\begin{align*}
+    p(\w|α) & = \N(\w|0,α^{-1}\I) \\
+            & = \l(\f{α}{2π}\r)^{M/2} \exp\{ - \f{α}{2} \w^\T \w \}
+\end{align*}
+
+(3.77)にこれらを代入
+\begin{align*}
+    p(\tt|α,β) & = \int p(\tt|\w,β) p(\w|α) \d\w \\
+               & = \l(\f{β}{2π}\r)^{N/2} \l(\f{α}{2π}\r)^{M/2}
+                   \int \exp\{ - β E_D(\w) - \f{α}{2} \w^\T \w \} \d\w \\
+               & = \l(\f{β}{2π}\r)^{N/2} \l(\f{α}{2π}\r)^{M/2}
+                   \int \exp\{ - β E_D(\w) - α E_W(\w) \} \d\w \\
+               & = \l(\f{β}{2π}\r)^{N/2} \l(\f{α}{2π}\r)^{M/2}
+                   \int \exp\{ - E(\w) \} \d\w    \tag{3.78} \\
+\end{align*}
+
+ただし
+\begin{align*}
+    E(\w)   & = β E_D(\w) + α E_W(\w) \\
+    E_D(\w) & = \f{1}{2} \sum_{n=1}^N \{t_n - \w^\T φ(\x_n)\}^2
+              = \f{1}{2} \| \tt - \bPhi \w \|^2    \tag{3.12} \\
+    E_W(\w) & = \f{1}{2} \w^T \w
+\end{align*}
+
+** DONE 3.18 [www] ベイズ線形回帰の誤差関数(3.79)の平方完成(3.80)
+平方完成した後の形を以下のように仮定する。
+\begin{align*}
+      & c + \f{1}{2} (\w - \μ)^\T \A (\w - \μ) \\
+    = & c + \f{1}{2} (\w^\T \A \w - 2 \μ^\T \A \w + \μ^\T \A \μ) \\
+\end{align*}
+
+(3.79)より
+\begin{align*}
+    E(\w) & = \f{β}{2} \| \tt - \bPhi \w \|^2 + \f{α}{2} \w^\T \w \\
+          & = \f{β}{2} (\tt - \bPhi \w)^\T (\tt - \bPhi \w) + \f{α}{2} \w^\T \w \\
+          & = \f{β}{2} \{ \tt^\T \tt - 2 \tt^\T \bPhi \w + (\bPhi \w)^\T \bPhi \w \}
+            + \f{α}{2} \w^\T \w \\
+\end{align*}
+
+\(\w\)の2次の項
+\begin{align*}
+    \f{1}{2} \w^\T \A \w = & \f{β}{2} (\bPhi \w)^\T \bPhi \w + \f{α}{2} \w^\T \w \\
+                         = & \f{β}{2} \w^\T \bPhi^\T \bPhi \w + \f{α}{2} \w^\T \w \\
+                         = & \f{1}{2} \w^\T (α \I + β \bPhi^\T \bPhi) \w \\
+\end{align*}
+よって
+\begin{align*}
+    \A = α \I + β \bPhi^\T \bPhi
+\end{align*}
+これは(3.54)の\(\S_N^{-1}\)と等しい。
+
+\(\w\)の1次の項
+\begin{align*}
+    \μ^\T \A \w = & β \tt^\T \bPhi \w \\
+       \μ^\T \A = & β \tt^\T \bPhi \\
+          \A \μ = & β \bPhi^\T \tt \\
+             \μ = & β \A^{-1} \bPhi^\T \tt \\
+\end{align*}
+これは(3.53)の\(\m_N\)と等しい。
+
+定数項
+\begin{align*}
+    c + \f{1}{2} \μ^\T \A \μ = & \f{β}{2} \tt^\T \tt \\
+    c = & \f{β}{2} \tt^\T \tt - \f{1}{2} \m_N^\T \A \m_N \\
+      = & \f{β}{2} \tt^\T \tt - \m_N^\T \A \m_N + \f{1}{2} \m_N^\T \A \m_N \\
+      = & \f{β}{2} \tt^\T \tt - \m_N^\T \A (β \A^{-1} \bPhi^\T \tt)
+        + \f{1}{2} \m_N^\T (α \I + β \bPhi^\T \bPhi) \m_N \\
+      = & \f{β}{2} \tt^\T \tt - β \m_N^\T \bPhi^\T \tt
+        + \f{β}{2} \m_N^\T \bPhi^\T \bPhi \m_N + \f{α}{2} \m_N^\T \m_N \\
+      = & \f{β}{2} (\tt^\T \tt - 2 \m_N^\T \bPhi^\T \tt + \m_N^\T \bPhi^\T \bPhi \m_N)
+        + \f{α}{2} \m_N^\T \m_N \\
+      = & \f{β}{2} \|\tt - \bPhi \m_N\|^2 + \f{α}{2} \m_N^\T \m_N \\
+\end{align*}
+
+** DONE 3.19 (3.85)、(3.86)の導出
+\begin{align*}
+      & \int \exp\{ -E(\w) \} \d\w \\
+    = & \int \exp\{ - E(\m_N) - \f{1}{2} (\w - \m_N)^\T \A (\w - \m_N) \} \d\w \\
+    = & \int \exp\{ - E(\m_N) \} \exp\{ - \f{1}{2} (\w - \m_N)^\T \A (\w - \m_N) \} \d\w \\
+    = & \exp\{ - E(\m_N) \} \int \exp\{ - \f{1}{2} (\w - \m_N)^\T \A (\w - \m_N) \} \d\w \\
+    = & \exp\{ - E(\m_N) \} (2π)^{M/2} |\A|^{1/2} \tag{3.85} \\
+\end{align*}
+
+積分は多次元ガウス分布の正規化条件より求まる。
+\begin{align*}
+    \int \N(\w|\m_N, \A) \d\w = & 1 \\
+    \f{1}{(2π)^{M/2}} \f{1}{|\A|^{1/2}}
+        \int \exp\l\{ - \f{1}{2} (\w - \m_N)^\T \A (\w - \m_N) \r\} \d\w = & 1 \\
+    \int \exp\l\{ - \f{1}{2} (\w - \m_N)^\T \A (\w - \m_N) \r\} \d\w
+        = & (2π)^{M/2} |\A|^{1/2} \\
+\end{align*}
+
+対数周辺尤度関数
+\begin{align*}
+        p(\tt|α,β) = & \l(\f{β}{2π}\r)^{N/2} \l(\f{α}{2π}\r)^{M/2}
+                       \int \exp\{ -E(\w) \} \d\w
+                       \tag{3.78} \\
+                   = & \l(\f{β}{2π}\r)^{N/2} \l(\f{α}{2π}\r)^{M/2}
+                       \exp\{ - E(\m_N) \} (2π)^{M/2} |\A|^{1/2} \\
+    \ln p(\tt|α,β) = & \f{M}{2} \ln α + \f{N}{2} \ln β
+                       - E(\m_N) - \f{1}{2} \ln |\A| - \f{N}{2} \ln (2π)
+                       \tag{3.86} \\
+\end{align*}
+
+** DONE 3.20 [www] 対数周辺尤度関数(3.86)の最大化が再推定方程式に帰着されることの証明
+対数周辺尤度関数(3.86)
+\begin{align*}
+    \ln p(\tt|α, β) = & \f{M}{2} \ln α + \f{N}{2} \ln β - E(\m_N)
+                      - \f{1}{2} \ln |\A| - \f{N}{2} \ln(2π) \\
+\end{align*}
+
+\begin{align*}
+      & \p{}{α} \ln p(\tt|α, β) \\
+    = & \f{M}{2} \p{}{α} \ln α - \p{}{α} E(\m_N) - \f{1}{2} \p{}{α} \ln |\A| \\
+    = & \f{M}{2α} - \f{1}{2} \m_N^\T \m_N - \f{1}{2} \p{}{α} \ln |\A| \\
+\end{align*}
+次の固有ベクトル方程式を考える。
+\begin{align*}
+    (β \Φ^\T \Φ) \u_i = λ_i \u_i \\
+\end{align*}
+ここで
+\begin{align*}
+    \A = α \I + β \Φ^\T \Φ \\
+\end{align*}
+より
+\begin{align*}
+    \A \u_i = (λ_i + α) \u_i \\
+\end{align*}
+が成り立つ。
+よって
+\begin{align*}
+    \p{}{α} \ln |\A|
+    = \p{}{α} \ln \prod_i (λ_i + α)
+    = \p{}{α} \sum_i \ln (λ_i + α)
+    = \sum_i \p{}{α} \ln (λ_i + α)
+    = \sum_i \f{1}{λ_i + α}
+\end{align*}
+
+\begin{align*}
+      & \p{}{α} \ln p(\tt|α, β) \\
+    = & \f{M}{2α} - \f{1}{2} \m_N^\T \m_N - \f{1}{2} \sum_i \f{1}{λ_i + α} \\
+\end{align*}
+
+\begin{align*}
+    0 = & \f{M}{2α} - \f{1}{2} \m_N^\T \m_N - \f{1}{2} \sum_i \f{1}{λ_i + α} \\
+    0 = & M - α \m_N^\T \m_N - \sum_i \f{α}{λ_i + α} \\
+    α \m_N^\T \m_N = & M - \sum_i \f{α}{λ_i + α} \\
+    α \m_N^\T \m_N = & \sum_i (1 - \f{α}{λ_i + α}) \\
+    α \m_N^\T \m_N = & \sum_i \f{λ_i}{λ_i + α} \\
+    α \m_N^\T \m_N = & γ \\
+    α = & \f{γ}{\m_N^\T \m_N} \\
+\end{align*}
+ここで
+\begin{align*}
+    γ = & \sum_i \f{λ_i}{λ_i + α} \\
+\end{align*}

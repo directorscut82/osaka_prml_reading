@@ -53,6 +53,8 @@
   pre.src-sql:before   { content: 'SQL'; }
 
   table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
   th.right  { text-align: center;  }
   th.left   { text-align: center;   }
@@ -203,23 +205,47 @@ for the JavaScript code in this tag.
 \newcommand{\f}{\frac}
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
 
-\newcommand{\A}{{\rm \bf A}}
-\newcommand{\B}{{\rm \bf B}}
-\newcommand{\I}{{\rm \bf I}}
-\newcommand{\W}{{\rm \bf W}}
-\newcommand{\w}{{\rm \bf w}}
-\newcommand{\X}{{\rm \bf X}}
-\newcommand{\x}{{\rm \bf x}}
-\newcommand{\xx}{{\bf \sf x}}
-\newcommand{\u}{{\rm \bf u}}
-\newcommand{\Λ}{{\bf Λ}}
-\newcommand{\α}{{\bf α}}
-\newcommand{\μ}{{\bf μ}}
-\newcommand{\η}{{\bf η}}
-\newcommand{\Σ}{{\bf Σ}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\L}{\mathbf{L}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\S}{\mathbf{S}}
+\newcommand{\TT}{\mathbf{T}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\b}{\mathbf{b}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\m}{\mathbf{m}}
+\newcommand{\t}{\mathbf{t}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\tt}{\mathbf{\mathsf{t}}}
+\newcommand{\xx}{\mathbf{\mathsf{x}}}
+\newcommand{\yy}{\mathbf{\mathsf{y}}}
+\newcommand{\Λ}{\mathbf{Λ}}
+\newcommand{\α}{\mathbf{α}}
+\newcommand{\ε}{\mathbf{ε}}
+\newcommand{\μ}{\mathbf{μ}}
+\newcommand{\η}{\mathbf{η}}
+\newcommand{\Φ}{\mathbf{Φ}}
+\newcommand{\Σ}{\mathbf{Σ}}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\var}{\mathrm{var}}
 \newcommand{\cov}{\mathrm{cov}}
@@ -230,6 +256,7 @@ for the JavaScript code in this tag.
 \newcommand{\Dir}{\mathrm{Dir}}
 \newcommand{\Gam}{\mathrm{Gam}}
 \newcommand{\St}{\mathrm{St}}
+\newcommand{\ML}{\mathrm{ML}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第2章 演習 2.1-2.10</h2>
@@ -245,6 +272,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-1-2" class="outline-4">
 <h4 id="sec-1-1-2"><span class="done DONE">DONE</span> 平均</h4>
 <div class="outline-text-4" id="text-1-1-2">
@@ -253,6 +281,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-1-3" class="outline-4">
 <h4 id="sec-1-1-3"><span class="done DONE">DONE</span> 分散</h4>
 <div class="outline-text-4" id="text-1-1-3">
@@ -267,6 +296,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-1-4" class="outline-4">
 <h4 id="sec-1-1-4"><span class="done DONE">DONE</span> エントロピー</h4>
 <div class="outline-text-4" id="text-1-1-4">
@@ -279,6 +309,7 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2"><span class="done DONE">DONE</span> 2.2 ベルヌーイ分布の\(x \in \{-1, 1\}\)を用いた表現</h3>
 <div class="outline-text-3" id="text-1-2">
@@ -296,6 +327,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-2-2" class="outline-4">
 <h4 id="sec-1-2-2"><span class="done DONE">DONE</span> 平均</h4>
 <div class="outline-text-4" id="text-1-2-2">
@@ -310,6 +342,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-2-3" class="outline-4">
 <h4 id="sec-1-2-3"><span class="done DONE">DONE</span> 分散</h4>
 <div class="outline-text-4" id="text-1-2-3">
@@ -333,6 +366,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-2-4" class="outline-4">
 <h4 id="sec-1-2-4"><span class="done DONE">DONE</span> エントロピー</h4>
 <div class="outline-text-4" id="text-1-2-4">
@@ -352,6 +386,7 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3"><span class="done DONE">DONE</span> 2.3 [www] 二項分布が正規化されていることの証明</h3>
 <div class="outline-text-3" id="text-1-3">
@@ -377,6 +412,7 @@ for the JavaScript code in this tag.
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-3-2" class="outline-4">
 <h4 id="sec-1-3-2"><span class="done DONE">DONE</span> 二項定理 \((1+x)^N = \sum_{m=0}^N \binom{N}{m} x^m\) の証明</h4>
 <div class="outline-text-4" id="text-1-3-2">
@@ -403,6 +439,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </p>
 </div>
 </div>
+
 <div id="outline-container-sec-1-3-3" class="outline-4">
 <h4 id="sec-1-3-3"><span class="done DONE">DONE</span> \(\sum_{m=0}^N \binom{N}{m} \mu^m (1-\mu)^{N-m} = 1\) の証明</h4>
 <div class="outline-text-4" id="text-1-3-3">
@@ -416,6 +453,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4"><span class="done DONE">DONE</span> 2.4 二項分布の平均、分散</h3>
 <div class="outline-text-3" id="text-1-4">
@@ -444,6 +482,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-4-2" class="outline-4">
 <h4 id="sec-1-4-2"><span class="done DONE">DONE</span> 分散</h4>
 <div class="outline-text-4" id="text-1-4-2">
@@ -491,6 +530,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5"><span class="done DONE">DONE</span> 2.5 [www] ベータ分布が正規化されていることの証明</h3>
 <div class="outline-text-3" id="text-1-5">
@@ -530,6 +570,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6"><span class="done DONE">DONE</span> 2.6 ベータ分布の平均、分散、モード</h3>
 <div class="outline-text-3" id="text-1-6">
@@ -551,6 +592,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-6-2" class="outline-4">
 <h4 id="sec-1-6-2"><span class="done DONE">DONE</span> 分散</h4>
 <div class="outline-text-4" id="text-1-6-2">
@@ -573,6 +615,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 \end{align*}
 </div>
 </div>
+
 <div id="outline-container-sec-1-6-3" class="outline-4">
 <h4 id="sec-1-6-3"><span class="done DONE">DONE</span> モード</h4>
 <div class="outline-text-4" id="text-1-6-3">
@@ -588,6 +631,7 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.7 事後平均が事前平均と最尤推定量の間の値になることの証明</h3>
 </div>
@@ -722,13 +766,14 @@ N=0の場合、両辺とも1となり成り立つ。<br  />
 </p>
 </div>
 </div>
+
 <div id="outline-container-sec-1-10" class="outline-3">
 <h3 id="sec-1-10"><span class="todo TODO">TODO</span> 2.10 ディリクレ分布の平均、分散、共分散</h3>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.50.1 (<a href="http://orgmode.org">Org</a> mode 8.2.3a)</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.4 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

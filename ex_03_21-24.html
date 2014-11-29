@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>PRML 第2章 演習 2.21-2.30</title>
+<title>PRML 第3章 演習 3.21-3.24</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -177,23 +177,17 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">PRML 第2章 演習 2.21-2.30</h1>
+<h1 class="title">PRML 第3章 演習 3.21-3.24</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">PRML 第2章 演習 2.21-2.30</a>
+<li><a href="#sec-1">PRML 第3章 演習 3.21-3.24</a>
 <ul>
-<li><a href="#sec-1-1"><span class="todo TODO">TODO</span> 2.21 \(D×D\)の実対称行列の独立なパラメータの数</a></li>
-<li><a href="#sec-1-2"><span class="todo TODO">TODO</span> 2.22 [www] 対称行列の逆行列も対称であることの証明</a></li>
-<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 2.23 マハラノビス距離が定数になる超楕円体の内部の体積</a></li>
-<li><a href="#sec-1-4"><span class="done DONE">DONE</span> 2.24 [www] 分割された行列の逆行列に関する公式の証明</a></li>
-<li><a href="#sec-1-5"><span class="todo TODO">TODO</span> 2.25 多変量ガウス分布の変数集合を3分割したときの周辺化された条件付き分布</a></li>
-<li><a href="#sec-1-6"><span class="todo TODO">TODO</span> 2.26 Woodbury行列反転公式の証明</a></li>
-<li><a href="#sec-1-7"><span class="todo TODO">TODO</span> 2.27 2つの独立な確率ベクトルの和の平均が、個別の平均の和となることの証明</a></li>
-<li><a href="#sec-1-8"><span class="todo TODO">TODO</span> 2.28 [www] 2分割された平均ベクトルと共分散行列から周辺分布と条件付き分布を求める</a></li>
-<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</a></li>
-<li><a href="#sec-1-10"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</a></li>
+<li><a href="#sec-1-1"><span class="todo TODO">TODO</span> 3.21</a></li>
+<li><a href="#sec-1-2"><span class="todo TODO">TODO</span> 3.22</a></li>
+<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 3.23 [www]</a></li>
+<li><a href="#sec-1-4"><span class="todo TODO">TODO</span> 3.24</a></li>
 </ul>
 </li>
 </ul>
@@ -259,190 +253,19 @@ for the JavaScript code in this tag.
 \newcommand{\ML}{\mathrm{ML}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">PRML 第2章 演習 2.21-2.30</h2>
+<h2 id="sec-1">PRML 第3章 演習 3.21-3.24</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="todo TODO">TODO</span> 2.21 \(D×D\)の実対称行列の独立なパラメータの数</h3>
+<h3 id="sec-1-1"><span class="todo TODO">TODO</span> 3.21</h3>
 </div>
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="todo TODO">TODO</span> 2.22 [www] 対称行列の逆行列も対称であることの証明</h3>
+<h3 id="sec-1-2"><span class="todo TODO">TODO</span> 3.22</h3>
 </div>
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 2.23 マハラノビス距離が定数になる超楕円体の内部の体積</h3>
+<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 3.23 [www]</h3>
 </div>
 <div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><span class="done DONE">DONE</span> 2.24 [www] 分割された行列の逆行列に関する公式の証明</h3>
-<div class="outline-text-3" id="text-1-4">
-<p>
-(2.76)の右辺に\(
-    \l(\begin{array}{cc}
-        A & B \\
-        C & D \\
-    \end{array}\r)
-\)を掛ける。<br  />
-</p>
-
-\begin{align*}
-    X = &
-    \l(\begin{array}{cc}
-        A & B \\
-        C & D \\
-    \end{array}\r)
-    \l(\begin{array}{cc}
-        M         & -MBD^{-1} \\
-        -D^{-1}CM & D^{-1} + D^{-1}CMBD^{-1} \\
-    \end{array}\r) \\
-    = &
-    \l(\begin{array}{cc}
-        AM - BD^{-1}CM & -AMBD^{-1} + B(D^{-1} + D^{-1}CMBD^{-1}) \\
-        CM - DD^{-1}CM & -CMBD^{-1} + D(D^{-1} + D^{-1}CMBD^{-1}) \\
-    \end{array}\r)
-\end{align*}
-
-\begin{align*}
-    X_{11} = & AM - BD^{-1}CM \\
-           = & (A - BD^{-1}C)M \\
-           = & (A - BD^{-1}C)(A - BD^{-1}C)^{-1} \\
-           = & I \\
-\end{align*}
-
-\begin{align*}
-    X_{12} = & -AMBD^{-1} + B(D^{-1} + D^{-1}CMBD^{-1}) \\
-           = & -AMBD^{-1} + BD^{-1} + BD^{-1}CMBD^{-1} \\
-           = & -(A - BD^{-1}C)MBD^{-1} + BD^{-1} \\
-           = & -(A - BD^{-1}C)(A - BD^{-1}C)^{-1}BD^{-1} + BD^{-1} \\
-           = & -BD^{-1} + BD^{-1} \\
-           = & O \\
-\end{align*}
-
-\begin{align*}
-    X_{21} = & CM - DD^{-1}CM \\
-           = & O \\
-\end{align*}
-
-\begin{align*}
-    X_{22} = & -CMBD^{-1} + D(D^{-1} + D^{-1}CMBD^{-1}) \\
-           = & -CMBD^{-1} + I + CMBD^{-1} \\
-           = & I \\
-\end{align*}
-</div>
-</div>
-
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><span class="todo TODO">TODO</span> 2.25 多変量ガウス分布の変数集合を3分割したときの周辺化された条件付き分布</h3>
-</div>
-<div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6"><span class="todo TODO">TODO</span> 2.26 Woodbury行列反転公式の証明</h3>
-</div>
-<div id="outline-container-sec-1-7" class="outline-3">
-<h3 id="sec-1-7"><span class="todo TODO">TODO</span> 2.27 2つの独立な確率ベクトルの和の平均が、個別の平均の和となることの証明</h3>
-</div>
-<div id="outline-container-sec-1-8" class="outline-3">
-<h3 id="sec-1-8"><span class="todo TODO">TODO</span> 2.28 [www] 2分割された平均ベクトルと共分散行列から周辺分布と条件付き分布を求める</h3>
-</div>
-<div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9"><span class="done DONE">DONE</span> 2.29 精度行列(2.104)の逆行列が共分散行列(2.105)になることの証明</h3>
-<div class="outline-text-3" id="text-1-9">
-<p>
-分割行列の逆行列の公式<br  />
-</p>
-\begin{align*}
-    \l(\begin{array}{cc}
-        A & B \\
-        C & D \\
-    \end{array}\r)^{-1}
-    =
-    \l(\begin{array}{cc}
-        M         & -MBD^{-1} \\
-        -D^{-1}CM & D^{-1} + CMBD^{-1} \\
-    \end{array}\r)^{-1}
-\end{align*}
-<p>
-ただし<br  />
-</p>
-\begin{align*}
-    M = (A - BD^{-1}C)^{-1}
-\end{align*}
-<p>
-(2.104)<br  />
-</p>
-\begin{align*}
-    R = \l(\begin{array}{cc}
-            Λ + A^TLA & -A^TL \\
-            -LA       & L     \\
-        \end{array}\r)^{-1}
-\end{align*}
-
-\begin{align*}
-    (R^{-1})_{11}
-      = & M \\
-      = & (Λ + A^TLA - (-A^TL)L^{-1}(-LA))^{-1} \\
-      = & (Λ + A^TLA - A^TLL^{-1}LA)^{-1} \\
-      = & (Λ + A^TLA - A^TLA)^{-1} \\
-      = & Λ^{-1} \\
-\end{align*}
-
-\begin{align*}
-    (R^{-1})_{12}
-      = & -MBD^{-1} \\
-      = & -(Λ^{-1})(-A^TL)(L)^{-1} \\
-      = & Λ^{-1}A^TLL^{-1} \\
-      = & Λ^{-1}A^T \\
-\end{align*}
-
-\begin{align*}
-    (R^{-1})_{21}
-      = & -D^{-1}CM \\
-      = & -(L)^{-1}(-LA)(Λ^{-1}) \\
-      = & L^{-1}LAΛ^{-1} \\
-      = & AΛ^{-1} \\
-\end{align*}
-
-\begin{align*}
-    (R^{-1})_{22}
-      = & D^{-1} + CMBD^{-1} \\
-      = & (L)^{-1} + (-LA)(Λ^{-1})(-A^TL)(L)^{-1} \\
-      = & L^{-1} + LAΛ^{-1}A^TLL^{-1} \\
-      = & L^{-1} + LAΛ^{-1}A^T \\
-\end{align*}
-</div>
-</div>
-
-<div id="outline-container-sec-1-10" class="outline-3">
-<h3 id="sec-1-10"><span class="done DONE">DONE</span> 2.30 ガウス分布の同時分布の平均値</h3>
-<div class="outline-text-3" id="text-1-10">
-<p>
-(2.107)<br  />
-</p>
-\begin{align*}
-    E[z] = R^{-1} \l( \begin{array}{c}
-                      Λμ - A^TLb \\
-                      Lb         \\
-                  \end{array} \r)
-\end{align*}
-<p>
-(2.105)<br  />
-</p>
-\begin{align*}
-    R^{-1} = \l( \begin{array}{cc}
-                 Λ^{-1}  & Λ^{-1}A^T           \\
-                 AΛ^{-1} & L^{-1} + AΛ^{-1}A^T \\
-             \end{array} \r)
-\end{align*}
-
-\begin{align*}
-    E[z]_1 = & Λ^{-1}(Λμ - A^TLb) + Λ^{-1}A^TLb \\
-           = & Λ^{-1}Λμ - Λ^{-1}A^TLb + Λ^{-1}A^TLb \\
-           = & μ \\
-\end{align*}
-
-\begin{align*}
-    E[z]_2 = & AΛ^{-1}(Λμ - A^TLb) + (L^{-1} + AΛ^{-1}A^T)Lb \\
-           = & AΛ^{-1}Λμ - AΛ^{-1}A^TLb + L^{-1}Lb + AΛ^{-1}A^TLb \\
-           = & Aμ - AΛ^{-1}A^TLb + b + AΛ^{-1}A^TLb \\
-           = & Aμ+ b \\
-\end{align*}
-</div>
+<h3 id="sec-1-4"><span class="todo TODO">TODO</span> 3.24</h3>
 </div>
 </div>
 </div>

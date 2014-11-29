@@ -1,0 +1,425 @@
+#+INCLUDE: "./tex-macros.org"
+#+TITLE: PRML 第3章 演習 3.1-3.10
+* PRML 第3章 演習 3.1-3.10
+** DONE 3.1 [www] \(\tanh\)とロジスティックシグモイド関数
+\begin{align*}
+    \sinh(a) = & \f{e^a - e^{-a}}{2} \\
+    \cosh(a) = & \f{e^a + e^{-a}}{2} \\
+    \tanh(a) = & \f{\sinh(a)}{\cosh(a)} \\
+             = & \f{e^a - e^{-a}}{e^a + e^{-a}} \\
+             = & \f{1 - e^{-2a}}{1 + e^{-2a}} \\
+             = & \f{2 - (1 + e^{-2a})}{1 + e^{-2a}} \\
+             = & \f{2}{1 + e^{-2a}} - 1 \\
+             = & 2σ(2a) - 1    \tag{3.100}
+\end{align*}
+
+\begin{align*}
+    y(x,\u) = & u_0 + \sum_{j=1}^M u_j \tanh\l( \f{x - μ_j}{2s} \r)   \tag{3.102} \\
+            = & u_0 + \sum_{j=1}^M u_j \l\{ 2σ\l( 2 \f{x - μ_j}{2s} \r) - 1 \r\} \\
+            = & (u_0 - \sum_{j=1}^M u_j) + \sum_{j=1}^M (2 u_j) σ\l( \f{x - μ_j}{s} \r) \\
+            = & w_0 + \sum_{j=1}^M w_j σ\l( \f{x - μ_j}{s} \r) = y(x,\w)   \tag{3.101}
+\end{align*}
+ここで
+\begin{align*}
+    w_0 = & u_0 - \sum_{j=1}^M u_j \\
+    w_j = & 2 u_j
+\end{align*}
+
+** DONE 3.2 最小二乗解の幾何学的解釈
+*** 
+行列\(\bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T\)は
+任意のベクトル\(\v\)を\(\bPhi\)の列ベクトルで張られる空間の上に正射影する。
+
+[証明]
+ベクトル\(\v\)のある空間\(\S\)への正射影とは、以下の条件を満たすベクトル\(\v'\)である。
+1. ベクトル\(\v'\)は空間\(\S\)上にある。
+   すなわち、\(∃\w. \v' = \sum_j \e_j w_j\)。
+   すなわち、\(∃\w. \v' = \A \w\)、ただし\(\A = (\e_1,...,\e_M)\)。
+2. ベクトル\(\v-\v'\)が空間\(\S\)と直交する。
+   すなわち、\(\e_j (\v - \v') = 0\)。
+   すなわち、\(\A^T (\v - \v') = 0\)。
+
+\(\v' = \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \v\)と置く。
+\(\w = (\bPhi^T \bPhi)^{-1} \bPhi^T \v\)と置けば、条件1.は直ちに成り立つ。
+以下のように、条件2.も成り立つ。
+\begin{align*}
+    \bPhi^T (\v - \v') = & \bPhi^T (\v - \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \v) \\
+                       = & \bPhi^T (\I - \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T) \v \\
+                       = & (\bPhi^T - \bPhi^T \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T) \v \\
+                       = & (\bPhi^T - \bPhi^T) \v \\
+                       = & 0 \\
+\end{align*}
+
+*** 
+最小二乗解(3.15)は図3.2で示した多様体\(\S\)の上にベクトル\(\tt\)を正射影することに対応している。
+
+[証明]
+ベクトル\(\yy\)は
+\begin{align*}
+    \yy = & (y(\x_1,\w),...,y(\x_N,\w)) \\
+        = & (\w^T \bphi(\x_1),...,\w^T \bphi(\x_N)) \\
+        = & (\bphi(\x_1)^T \w,...,\bphi(\x_N)^T \w) \\
+        = & (\bphi(\x_1),...,\bphi(\x_N))^T \w \\
+        = & \bPhi \w \\
+\end{align*}
+\(\yy\)の最小二乗解は
+\begin{align*}
+    \yy = & \bPhi \w_{ML} \\
+\end{align*}
+重みベクトルの最小二乗解\(\w_{ML}\)は(3.15)により
+\begin{align*}
+    \w_{ML} = (\bPhi^T \bPhi)^{-1} \bPhi^T \tt \\
+\end{align*}
+これを代入して
+\begin{align*}
+    \yy = & \bPhi (\bPhi^T \bPhi)^{-1} \bPhi^T \tt \\
+\end{align*}
+上で示した通り、\(\yy\)は\(\tt\)の\(\bPhi\)の列ベクトルが張る多様体\(\S\)への正射影である。
+
+** DONE 3.3 重み付き二乗和誤差関数
+\begin{align*}
+       E_D(\w) = & \f{1}{2} \sum_{n=1}^N r_n \l\{ t_n - \w^\T \bphi(\x_n) \r\}^2 \\
+    ∇ E_D(\w) = & \sum_{n=1}^N r_n \l\{ t_n - \w^\T \bphi(\x_n) \r\} \bphi(\x_n)^\T \\
+               = & \sum_{n=1}^N r_n t_n \bphi(\x_n)^\T
+                 - \w^\T \sum_{n=1}^N r_n \bphi(\x_n) \bphi(\x_n)^\T \\
+               = & \tt^\T \R \bPhi - \w^\T \bPhi^\T \R \bPhi
+\end{align*}
+ここで\(\R\)は\(N\)行\(N\)列で対角成分が\(r_n\)の対角行列。
+
+\(\w=\w^*\)のとき勾配が0になる。
+\begin{align*}
+    0 = & \tt^\T \R \bPhi - {\w^*}^\T \bPhi^\T \R \bPhi \\
+    {\w^*}^\T \bPhi^\T \R \bPhi = & \tt^\T \R \bPhi \\
+    {\w^*}^\T = & \tt^\T \R \bPhi (\bPhi^\T \R \bPhi)^{-1} \\
+    \w^* = & (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T \R \tt \\
+\end{align*}
+
+(i) ノイズの分散がデータに依存する場合
+重み\(r_n\)は、\(n\)番目のデータのノイズの分散の逆数。
+
+(ii) データ点に重複がある場合
+重み\(r_n\)は、\(t_n\),\(\x_n\)と等しい値を取るデータ点の数。
+
+** DONE 3.4 [www] 入力変数にノイズを加えることが正則化項を加えることと等価であることの証明
+\begin{align*}
+    y(\x,\w) = w_0 + \sum_{i=1}^D w_i x_i    \tag{3.105} \\
+    E_D(\w) = \f{1}{2} \sum_{n=1}^N \{y(\x_n,\w) - t_n\}^2    \tag{3.106} \\
+\end{align*}
+
+\(E_D(\w)\)のノイズ分布に関する平均
+\begin{align*}
+      & \E[E_D(\w)] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \{ y(\x_n + \ε_n,\w) - t_n \}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \{ y(\x_n,\w) + \sum_{i=1}^D w_i {ε_n}_i - t_n \}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \l(\sum_{i=1}^D w_i {ε_n}_i\r)^2
+                                  + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i {ε_n}_i
+                                  + \{y(\x_n,\w) - t_n\}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \E\l[ \sum_{i=1}^D \sum_{j=1}^D w_i w_j {ε_n}_i {ε_n}_j
+                                  + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i {ε_n}_i
+                                  + \{y(\x_n,\w) - t_n\}^2 \r] \\
+    = & \f{1}{2} \sum_{n=1}^N \l( \sum_{i=1}^D \sum_{j=1}^D w_i w_j \E[{ε_n}_i {ε_n}_j]
+                                + 2 \{y(\x_n,\w) - t_n\} \sum_{i=1}^D w_i \E[{ε_n}_i]
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \l( \sum_{i=1}^D \sum_{j=1}^D w_i w_j δ_{ij} σ^2
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \l( σ^2 \sum_{i=1}^D w_i^2
+                                + \{y(\x_n,\w) - t_n\}^2 \r) \\
+    = & \f{1}{2} \sum_{n=1}^N \{y(\x_n,\w) - t_n\}^2
+      + \f{N σ^2}{2} \sum_{i=1}^D w_i^2
+\end{align*}
+第2項は、正則化項\(\f{λ}{2} \w^\T \w\)で、
+\(w_0\)を除き、\(λ = N σ^2\)としたものに等しい。
+
+** DONE 3.5 [www] (3.30)の制約条件を課すことが正則化項を加えることと等価であることの証明
+正則化されていない二乗和誤差関数(3.12)
+\begin{align*}
+    \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2
+\end{align*}
+これを以下の制約条件(3.30)の下で最小化する。
+\begin{align*}
+    \sum_{j=1}^M |w_j|^q \leq & \eta \\
+    \f{1}{2} \sum_{j=1}^M |w_j|^q - \eta \leq & 0
+\end{align*}
+ラグランジュ関数
+\begin{align*}
+    L(\w,\lambda) = & \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2 + \lambda g(w) \\
+    g(\w) = & \f{1}{2} \sum_{j=1}^M |w_j|^q - \eta
+\end{align*}
+以下の制約の下での停留点を求めればよい。
+\begin{align*}
+    g(\w) \geq & 0 \\
+    \lambda \geq & 0 \\
+    \lambda g(\w) = & 0
+\end{align*}
+停留条件
+\begin{align*}
+    ∇ L(\w,\lambda) = & 0 \\
+    ∇ \f{1}{2} \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \}^2 + \lambda ∇ g(w) = & 0 \\
+    \sum_{n=1}^N \{ t_n - \w^T \bphi(\x_n) \} \bphi(\x_n)^T - \lambda q \w^{q-1} = & 0 \\
+\end{align*}
+これは、\(- \lambda = \f{\lambda}{2}\)とすると、上記の正則化された誤差関数の最小化と同じである。
+
+もう一つの停留条件
+\begin{align*}
+    \p{}{\lambda} L(\w,\lambda) = & 0 \\
+    g(\w) = & 0 \\
+    \eta = & \sum_{j=1}^M |w_j|^q
+\end{align*}
+
+** DONE 3.6 [www] 目的変数が多次元で任意の共分散を持つ線形回帰モデルの最尤推定
+\begin{align*}
+    p(\t|\x,\W,\Σ) = \N(\t|\y(\x,\W),\Σ)    \tag{3.107} \\
+    \y(\x,\W) = \W^\T \bphi(\x)             \tag{3.108} \\
+\end{align*}
+
+尤度関数
+\begin{align*}
+    p(\TT|\X,\W,\Σ) = & \prod_{n=1}^N p(\t_n|\x_n,\W,\Σ) \\
+                    = & \prod_{n=1}^N \N(\t_n|\W^\T \bphi(\x_n),\Σ) \\
+                    = & \f{1}{(2π)^{NK/2}} \f{1}{|\Σ|^{N/2}}
+                        \prod_{n=1}^N \exp\l\{ - \f{1}{2}
+                        \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                        \l(\t_n - \W^\T \bphi(\x_n)\r) \r\} \\
+\end{align*}
+
+対数尤度関数
+\begin{align*}
+    \ln p(\TT|\X,\W,\Σ)
+    = & - \f{NK}{2} \ln (2π) - \f{N}{2} \ln |\Σ|
+        - \f{1}{2} \sum_{n=1}^N
+        \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+        \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+\end{align*}
+
+*** \(\W\)の最尤推定
+\begin{align*}
+    \p{}{W_{ij}} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{1}{2} \p{}{W_{ij}} \Tr\l[(\TT - \bPhi \W) \Σ^{-1}(\TT - \bPhi \W)^\T\r] \\
+    = & - \f{1}{2} \Tr\l[ \l\{\p{}{W_{ij}} (\TT - \bPhi \W)\r\} \Σ^{-1} (\TT - \bPhi \W)^\T
+                      + (\TT - \bPhi \W) \Σ^{-1} \l\{\p{}{W_{ij}} (\TT - \bPhi \W)^\T\r\} \r] \\
+    = & - \Tr\l[ \l\{\p{}{W_{ij}} (\TT - \bPhi \W)\r\} \Σ^{-1} (\TT - \bPhi \W)^\T \r] \\
+    = & \Tr\l[ \bPhi \p{\W}{W_{ij}} \Σ^{-1} (\TT - \bPhi \W)^\T \r] \\
+    = & \Tr\l[ \p{\W}{W_{ij}} \Σ^{-1} (\TT - \bPhi \W)^\T \bPhi \r] \\
+    = & (\Σ^{-1} (\TT - \bPhi \W)^\T \bPhi)_{ij} \\
+
+    \p{}{\W} \ln p(\TT|\X,\W,\Σ)
+    = & \Σ^{-1} (\TT - \bPhi \W)^\T \bPhi \\
+\end{align*}
+
+\begin{align*}
+    0 = & \Σ_\ML^{-1} (\TT - \bPhi \W_\ML)^\T \bPhi \\
+    0 = & (\TT - \bPhi \W_\ML)^\T \bPhi \\
+    0 = & \bPhi^\T (\TT - \bPhi \W_\ML) \\
+    0 = & \bPhi^\T \TT - \bPhi^\T \bPhi \W_\ML \\
+    \W_\ML = & (\bPhi^\T \bPhi)^{-1} \bPhi^\T \TT \\
+\end{align*}
+
+*** \(\Σ\)の最尤推定
+参考: p.91 (2.122)、p.131 2.34。
+\begin{align*}
+    \p{}{\Σ} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{N}{2} \p{}{\Σ} \ln |\Σ|
+        - \f{1}{2} \p{}{\Σ} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                                         \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+\end{align*}
+第1項
+\begin{align*}
+    \p{}{\Σ} \ln |\Σ| = (\Σ^{-1})^\T = \Σ^{-1}
+\end{align*}
+第2項
+\begin{align*}
+    \S = \f{1}{N} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)
+                               \l(\t_n - \W^\T \bphi(\x_n)\r)^\T
+\end{align*}
+と置く。
+\begin{align*}
+      & \p{}{Σ_{ij}} \sum_{n=1}^N \l(\t_n - \W^\T \bphi(\x_n)\r)^\T \Σ^{-1}
+                                  \l(\t_n - \W^\T \bphi(\x_n)\r) \\
+    = & N \p{}{Σ_{ij}} \Tr[\Σ^{-1} \S] \\
+    = & N \Tr\l[\p{\Σ^{-1}}{Σ_{ij}} \S\r] \\
+    = & - N \Tr\l[\Σ^{-1} \p{\Σ}{Σ_{ij}} \Σ^{-1} \S\r] \\
+    = & - N \Tr\l[\p{\Σ}{Σ_{ij}} \Σ^{-1} \S \Σ^{-1}\r] \\
+    = & - N (\Σ^{-1} \S \Σ^{-1})_{ij} \\
+\end{align*}
+よって
+\begin{align*}
+    \p{}{\Σ} \ln p(\TT|\X,\W,\Σ)
+    = & - \f{N}{2} \Σ^{-1} + \f{N}{2} \Σ^{-1} \S \Σ^{-1}
+\end{align*}
+
+\begin{align*}
+    0 = & - \f{N}{2} \Σ_\ML^{-1} + \f{N}{2} \Σ_\ML^{-1} \S_\ML \Σ_\ML^{-1} \\
+    \Σ_\ML = & \S_\ML \\
+           = & \f{1}{N} \sum_{n=1}^N \l(\t_n - \W_\ML^\T \bphi(\x_n)\r)
+                                     \l(\t_n - \W_\ML^\T \bphi(\x_n)\r)^\T \\
+\end{align*}
+
+** DONE 3.7 線形基底関数モデルの事後確率
+事前分布
+\begin{align*}
+    p(\w) = \N(\w|\m_0,\S_0)    \tag{3.48}
+\end{align*}
+
+尤度関数
+\begin{align*}
+    p(\tt|\X,\w,β) = \prod_{n=1}^N \N(t_n|\w^\T \bphi(\x_n),β^{-1})    \tag{3.10}
+\end{align*}
+
+事後分布
+\begin{align*}
+    p(\w|\tt)
+    ∝ & \N(\w|\m_0,\S_0) \prod_{n=1}^N \N(t_n|\w^\T \bphi(\x_n),β^{-1}) \\
+    ∝ & \exp\l[ -\f{1}{2} (\w - \m_0)^\T \S_0^{-1} (\w - \m_0) \r]
+         \prod_{n=1}^N \exp\l[ -\f{β}{2} \{t_n - \w^\T \bphi(\x_n)\}^2 \r] \\
+    =  & \exp\l[ - \f{1}{2} (\w - \m_0)^\T \S_0^{-1} (\w - \m_0)
+                 - \f{β}{2} \sum_{n=1}^N \{t_n - \w^\T \bphi(\x_n)\}^2 \r] \\
+\end{align*}
+
+指数部分の\(\w\)の2次の項
+\begin{align*}
+    = & - \f{1}{2} \w^\T \S_0^{-1} \w
+        - \f{β}{2} \sum_{n=1}^N \{\w^\T \bphi(\x_n)\}^2 \\
+    = & - \f{1}{2} \w^\T \S_0^{-1} \w - \f{β}{2} \w^\T \bPhi^\T \bPhi \w \\
+    = & - \f{1}{2} \w^\T (\S_0^{-1} - β \bPhi^\T \bPhi) \w \\
+\end{align*}
+
+指数部分の\(\w\)の1次の項
+\begin{align*}
+      & \w^\T \S_0^{-1} \m_0 + β \w^\T \sum_{n=1}^N t_n \bphi(\x_n) \\
+    = & \w^\T \S_0^{-1} \m_0 + β \w^\T \bPhi^\T \tt \\
+    = & \w^\T (\S_0^{-1} \m_0 + β \bPhi^\T \tt) \\
+\end{align*}
+
+よって
+\begin{align*}
+    p(\w|\tt) ∝ & \exp\l\{ - \f{1}{2} \w^\T (\S_0^{-1} - β \bPhi^\T \bPhi) \w
+                            + \w^\T (\S_0^{-1} \m_0 + β \bPhi^\T \tt) + const. \r\} \\
+              =  & \exp\l\{ - \f{1}{2} (\w - \m_N)^\T \S_N^{-1} (\w - \m_N) + const. \r\} \\
+    p(\w|\tt) =  & \N(\w|\m_N,\S_N) \\
+\end{align*}
+ただし
+\begin{align*}
+    \m_N = & \S_N (\S_0^{-1} \m_0 + β \bPhi^\T \tt) \\
+    \S_N^{-1} = & \S_0^{-1} - β \bPhi^\T \bPhi
+\end{align*}
+
+** DONE 3.8 [www] 線形基底関数モデルの事後確率のパラメータの漸化式
+N個のデータ点を観測した後の\(\w\)の事後確率
+\begin{align*}
+    p(\w|\tt_N) = \N(\w|\m_N,\S_N)    \tag{3.49}
+\end{align*}
+
+追加のデータ点\((\x_{N+1},t_{N+1})\)を観測したときの尤度
+\begin{align*}
+    p(t_{N+1}|\x_{N+1},\w,\beta) = \N(t_{N+1}|\w^\T \bphi(\x_{N+1},\beta^{-1})
+\end{align*}
+
+追加のデータ点を観測した後の\(\w\)の事後確率
+\begin{align*}
+    p(\w|\tt_{N+1})
+    ∝ & p(t_{N+1}|\x_{N+1},\w,\beta) p(\w|\tt_N) \\
+    =  & \N(t_{N+1}|\w^\T \bphi(\x_{N+1},\beta^{-1}) \N(\w|\m_N,\S_N) \\
+    ∝ & \exp\l[ - \f{β}{2} \{t_{N+1} - \w^\T \bphi(\x_{N+1})\}
+                 - \f{1}{2} (\w - \m_N)^\T \S_N^{-1} (\w - \m_N) \r] \\
+\end{align*}
+
+指数部分の\(\w\)の2次の項
+\begin{align*}
+      & - \f{\beta}{2} \{\w^\T \bphi(\x_{N+1})\}^2 - \f{1}{2} \w^\T \S_N^{-1} \w \\
+    = & - \f{\beta}{2} \w^\T \bphi(\x_{N+1})^\T \bphi(\x_{N+1}) \w
+        - \f{1}{2} \w^\T (\S_0^{-1} + \beta \Phi_N^\T \Phi_N) \w \\
+    = & - \f{1}{2} \w^\T \l[ \S_0^{-1}
+        - β \l\{ \bphi(\x_{N+1})^\T \bphi(\x_{N+1}) + \Phi_N^\T \Phi_N \r\} \r] \w \\
+    = & - \f{1}{2} \w^\T \l[ \S_0^{-1} - β \Phi_{N+1}^\T \Phi_{N+1} \r] \w \\
+    = & - \f{1}{2} \w^\T \S_{N+1}^{-1} \w \\
+\end{align*}
+
+指数部分の\(\w\)の1次の項
+\begin{align*}
+      & β t_{N+1} \w^\T \bphi(\x_{N+1}) + \w^\T \S_N^{-1} \m_N \\
+    = & \w^\T \{ β t_{N+1} \bphi(\x_{N+1}) + \S_N^{-1} \m_N \} \\
+    = & \w^\T \{ β t_{N+1} \bphi(\x_{N+1}) + \S_0^{-1} \m_0 + β \Phi_N^\T \tt_N \} \\
+    = & \w^\T [ \S_0^{-1} \m_0 + β \{ t_{N+1} \bphi(\x_{N+1}) + \Phi_N^\T \tt_N \} ] \\
+    = & \w^\T ( \S_0^{-1} \m_0 + β \Phi_{N+1}^\T \tt_{N+1} ) \\
+    = & \w^\T \S_{N+1}^{-1} \m_{N+1} \\
+\end{align*}
+
+よって
+\begin{align*}
+    p(\w|\tt_{N+1}) = \N(\w|\m_{N+1},\S_{N+1})
+\end{align*}
+
+** DONE 3.9 線形基底関数モデルの事後確率をガウス分布の周辺分布の公式を用いて評価する
+\begin{align*}
+    p(\x) = & \N(\x|\μ,\Λ^{-1}) \\
+    p(\y|\x) = & \N(\y|\A \x + \b,\L^{-1}) \\
+\end{align*}
+ならば
+\begin{align*}
+    p(\x|\y) = & \N(\x|\Σ \{\A^\T \L (\y + \b) + \Λ \μ\},\Σ) \\
+    \Σ = & (\Λ + \A^\T \L \A)^{-1} \\
+\end{align*}
+これを
+\begin{align*}
+    p(\w|\tt_N) = & \N(\w|\m_N,\S_N)    \tag{3.49} \\
+    p(t_{N+1}|\x_{N+1},\w,β) = & \N(t_{N+1}|\w^\T \bphi(\x_{N+1}),β^{-1})
+\end{align*}
+に適用すると
+\begin{align*}
+    \μ = & \m_N &
+    \Λ^{-1} = & \S_N \\
+    \A = & \bphi(\x_{N+1})^T &
+    \b = & 0 &
+    \L^{-1} = & β^{-1}
+\end{align*}
+
+事後分布の共分散
+\begin{align*}
+    \Σ = & (\Λ + \A^\T \L \A)^{-1} \\
+       = & (\S_N^{-1} + β \bphi(\x_{N+1}) \bphi(\x_{N+1})^\T)^{-1} \\
+       = & (\S_0^{-1} - β \bPhi_N^\T \bPhi_N + β \bphi(\x_{N+1})^\T \bphi(\x_{N+1}))^{-1} \\
+       = & (\S_0^{-1} - β \bPhi_{N+1}^\T \bPhi_{N+1})^{-1} \\
+       = & \S_{N+1}
+\end{align*}
+
+事後分布の平均
+\begin{align*}
+      & \Σ \{\A^\T \L (\y + \b) + \Λ \μ\} \\
+    = & \S_{N+1} \{β \bphi(\x_{N+1}) t_{N+1} + \S_N^{-1} \m_N\} \\
+    = & \S_{N+1} \{β \bphi(\x_{N+1}) t_{N+1} + (\S_0^{-1} \m_0 + β \bPhi_N^\T \tt_N)\} \\
+    = & \S_{N+1} \{\S_0^{-1} \m_0 + β \bPhi_{N+1}^\T \tt_{N+1}\} \\
+    = & \m_{N+1}
+\end{align*}
+
+事後分布
+\begin{align*}
+    p(\w|\tt_{N+1}) = \N(\w|\m_{N+1},\S_{N+1})
+\end{align*}
+
+** DONE 3.10 [www] ガウス分布の周辺分布の公式を用いてベイズ線形回帰の予測分布を評価する
+\begin{align*}
+    p(\x) = & \N(\x|\μ,\Λ^{-1})               \tag{2.113} \\
+    p(\y|\x) = & \N(\y|\A \x + \b, \L^{-1})   \tag{2.114} \\
+\end{align*}
+ならば
+\begin{align*}
+    p(\y) = & \N(\y|\A \μ + \b, \L^{-1} + \A \Λ^{-1} \A^\T)    \tag{2.115} \\
+\end{align*}
+これを
+\begin{align*}
+    p(\w) = & \N(\w|\m_N,\S_N)                   \tag{3.49} \\
+    p(t|\w) = & \N(t|\w^\T \bphi(\x), β^{-1})    \tag{3.8} \\
+\end{align*}
+に適用すると
+\begin{align*}
+    \μ = & \m_N \\
+    \Λ^{-1} = & \S_N \\
+    \A = & \bphi(\x)^T \\
+    \b = & 0 \\
+    \L^{-1} = & β^{-1}
+\end{align*}
+
+予測分布
+\begin{align*}
+    p(t) = \N(t|\bphi(\x)^T \m_N, β^{-1} + \bphi(\x)^T \S_N \bphi(\x))
+\end{align*}
