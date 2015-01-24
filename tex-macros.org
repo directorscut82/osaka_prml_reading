@@ -1,6 +1,7 @@
 #+OPTIONS: author:nil timestamp:nil
 #+OPTIONS: num:nil toc:2 \n:t
-#+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+# #+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+HTML_MATHJAX: align:"left" mathml:nil path:"../note/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 \begin{align*}
 \newcommand{\l}{\left}
 \newcommand{\r}{\right}

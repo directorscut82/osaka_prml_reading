@@ -1,0 +1,365 @@
+#+Title: 4.3 確率的識別モデル
+#+Author: @fishiiiiiii
+#+Email: ""
+#+INCLUDE: "./reveal.org"
+#+INCLUDE: "./tex-macros.org"
+
+** 4.3 確率的識別モデル
+
+*** 導入
+
+- 生成モデルでは
+  - クラスの事前確率\(p(C_k)\)と\(\x\)の条件付き確率\(p(\x|C_k)\)から、
+    ベイズの定理を用いて、クラスの事後確率\(p(C_k|\x)\)が
+    ロジスティックシグモイド関数で書けることを導いた。
+  - \(\x\)の条件付き確率分布\(p(\x|C_k)\)が指数型分布族ならば、
+    ロジスティックシグモイド関数の引数が\(\x\)の線形関数になる。
+
+- 識別モデルでは
+  - クラスの事後確率\(p(C_k|\x)\)が\(\x\)の線形関数の
+    ロジスティックシグモイド関数で書けることを仮定する。
+
+*** 4.3.1 固定基底関数
+
+#+BEGIN_HTML
+<img src="./Figure4.12a.png" width="40%">
+<img src="./Figure4.12b.png" width="40%">
+#+END_HTML
+
+\begin{align*}
+    \bphi = & \bphi(\x) \\
+    \phi_k = & \N(\x|\bmu_k,\bSigma)
+\end{align*}
+
+*** 4.3.2 ロジスティック回帰
+
+事後確率
+\begin{align*}
+    p(C_1|\bphi) = y(\bphi) = \sigma(\w^\T \bphi)
+\end{align*}
+
+パラメータの数
+- \(p(C_k) = \alpha_k\) : \(1\) 個
+- \(p(\x|C_k) = \N(\x|\bmu_k,\bSigma)\) : \(M + M(M+1)/2\) 個
+
+**** 
+
+ロジスティックシグモイド関数の微分(演習4.12)
+\begin{align*}
+        \f{\d \sigma(a)}{\d a}
+    = & \f{\d}{\d a} \f{1}{1 + \exp(-a)} \\
+    = & \f{\exp(-a)}{\{1 + \exp(-a)\}^{2}} \\
+    = & \f{1}{1 + \exp(-a)} \f{\exp(-a)}{1 + \exp(-a)} \\
+%    = & \f{1}{1 + \exp(-a)} \f{\{1 + \exp(-a)\} - 1}{1 + \exp(-a)} \\
+    = & \f{1}{1 + \exp(-a)} \l(1 - \f{1}{1 + \exp(-a)}\r) \\
+    = & \sigma (1 - \sigma)
+\end{align*}
+
+**** 
+
+尤度関数
+\begin{align*}
+    p(\tt|\w) = \prod_{n=1}^N y_n^{t_n} \{1 - y_n\}^{1 - t_n}
+\end{align*}
+\begin{align*}
+    \text{where} \quad \tt = & (t_1,...,t_N)^\T \\
+                       y_n = & p(C_1|\bphi_n) = \sigma(\w \bphi_n) \\
+                   1 - y_n = & p(C_2|\bphi_n)
+\end{align*}
+
+尤度関数の負の対数をとって誤差関数を定義する。
+これを、交差エントロピー誤差関数 cross-entropy error function という。
+\begin{align*}
+    E(\w) = - \ln p(\tt|\w) = \sum_{n=1}^N \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+\end{align*}
+
+**** 
+
+誤差関数の\(\w\)に関する勾配
+\begin{align*}
+    \nabla E(\w) = & \sum_{n=1}^N \nabla \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
+                 = & \sum_{n=1}^N \l\{ t_n \f{1}{y_n} - (1 - t_n) \f{1}{1 - y_n} \r\} \nabla y_n \\
+                 = & \sum_{n=1}^N \f{t_n - y_n}{y_n (1 - t_n)} y_n (1 - y_n) \bphi_n \\
+                 = & \sum_{n=1}^N (y_n - t_n) \bphi_n
+\end{align*}
+- 各データの誤差と特徴ベクトルの積の形になる。
+- 二乗和誤差関数の勾配の式(3.13)と同じ。
+
+**** データ集合が線形分離可能な場合
+
+- 最尤解は、\(\w \rightarrow \infty\)、\(\sigma(\w^\T \bphi) \rightarrow H(\bphi)\)となる。
+- 誤差関数の値の等しい解が連続して無限に存在する。
+- 対策
+  - \(\w\)の事前分布\(p(\w|...)\)を導入しMAP推定する。
+  - 誤差関数に正則化項を付加する。
+
+*** 4.3.3 反復再重み付け最小二乗
+
+ニュートン-ラフソン法
+\begin{align*}
+    f(x) = 0 \quad \quad x^\new = x^\old - \f{f(x^\old)}{f'(x^\old)}
+\end{align*}
+
+誤差関数の勾配に適用する。
+\begin{align*}
+    \w^\new = \w^\old - \H^{-1} \nabla E(\w) \\
+    \H \text{:誤差関数のヘッセ行列}
+\end{align*}
+
+**** 線形回帰モデルの場合
+
+# 誤差関数の勾配とヘッセ行列
+\begin{align*}
+                \nabla E(\w) = & \sum_{n=1}^N (\w^\T \bphi_n - t_n) \bphi_n
+                             =   \bPhi^\T \bPhi \w - \bPhi^\T \tt \\
+    \H = \nabla \nabla E(\w) = & \sum_{n=1}^N \bphi_n \bphi_n^\T
+                             =   \bPhi^\T \bPhi
+\end{align*}
+
+\(\w\)の更新式
+\begin{align*}
+    \w^\new = & \w^\old - (\bPhi^\T \bPhi)^{-1} \{ \bPhi^\T \bPhi \w^\old - \bPhi^\T \tt \} \\
+            = & (\bPhi^\T \bPhi)^{-1} \bPhi^\T \tt
+\end{align*}
+
+**** ロジスティック回帰モデルの場合
+
+# 誤差関数の勾配とヘッセ行列
+\begin{align*}
+                \nabla E(\w) = & \sum_{n=1}^N (y_n - t_n) \bphi_n
+                             =   \bPhi^\T (\yy - \tt) \\
+    \H = \nabla \nabla E(\w) = & \sum_{n=1}^N y_n (1 - y_n) \bphi_n \bphi_n^\T
+                             =   \bPhi^\T \R \bPhi
+\end{align*}
+\begin{align*}
+    R_{nn} = y_n (1 - y_n)
+\end{align*}
+
+**** 
+
+\(\w\)の更新式
+\begin{align*}
+    \w^\new = & \w^\old - (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T (\yy - \tt) \\
+            = & (\bPhi^\T \R \bPhi)^{-1} \{ (\bPhi^\T \R \bPhi) \w^\old - \bPhi^\T (\yy - \tt) \} \\
+            = & (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T \R \zz
+\end{align*}
+\begin{align*}
+    \zz = \bPhi \w^\old - \R^{-1} (\yy - \tt)
+\end{align*}
+重み付き最小二乗問題に対する正規方程式と同じ形になる。
+ただし、重み行列が\(\w\)に依存している。
+
+**** \(\R\)の解釈
+
+ロジスティック回帰モデルの\(t\)の平均と分散
+\begin{align*}
+      \E[t] = & \sigma(\x) = y \\
+    \var[t] = & \E[t^2] - \E[t]^2 = \sigma(\x) - \sigma(\x)^2 = y (1 - y)
+\end{align*}
+重み付け対角行列\(\R\)の要素は分散であると解釈できる。
+
+**** \(\zz\)の解釈
+
+\begin{align*}
+    a_n(y_n) = & a_n(y_n^\old) + \f{\d a_n}{\d y_n}|_{y_n^\old} (t_n - y_n^\old) \\
+    a_n(\w)  = & a_n(\w^\old)  + \f{\d a_n}{\d y_n}|_{\w^\old}  (t_n - y_n) \\
+             = & \bphi_n^\T \w^\old - \f{(y_n - t_n)}{y_n (1 - y_n)} = z_n
+\end{align*}
+ただし
+\begin{align*}
+    a_n      = & \w^\T \bphi_n \\
+    y_n      = & \sigma(\w^\T \bphi_n) \\
+    y_n^\old = & \sigma({\w^\old}^\T \bphi_n)
+\end{align*}
+
+*** 4.3.4 多クラスロジスティック回帰
+
+事後確率
+\begin{align*}
+    p(C_k|\bphi) = y_k(\bphi) = \f{\exp(a_k)}{\sum_j \exp(a_j)}
+\end{align*}
+
+\begin{align*}
+    a_k = \w^\T \bphi
+\end{align*}
+
+**** 
+
+ソフトマックス活性化関数の微分
+\begin{align*}
+    \p{y_k}{a_j} = & \p{}{a_j} \f{\exp(a_k)}{\sum_i \exp(a_i)} \\
+                 = & \p{\exp(a_k)}{a_j} \f{1}{\sum_i \exp(a_i)}
+                   + \exp(a_k) \p{}{a_j} \f{1}{\sum_i \exp(a_i)} \\
+                 = & \f{I_{kj} \exp(a_k)}{\sum_i \exp(a_i)}
+                   - \exp(a_k) \f{\exp(a_j)}{\{\sum_i \exp(a_i)\}^2} \\
+                 = & \f{\exp(a_k)}{\sum_i \exp(a_i)}
+                     \l( I_{kj} - \f{\exp(a_j)}{\sum_i \exp(a_i)} \r) \\
+                 = & y_k (I_{kj} - y_j)
+\end{align*}
+
+**** 
+
+尤度関数
+\begin{align*}
+    p(\TT|\w_1,...,\w_K) = & \prod_{n=1}^N \prod_{k=1}^K p(C_k|\bphi_n)^{t_{nk}} \\
+                         = & \prod_{n=1}^N \prod_{k=1}^K y_{nk}^{t_{nk}}
+\end{align*}
+
+尤度関数の負の対数をとって誤差関数を定義する。
+これを、多クラス分類問題に対する交差エントロピー誤差関数という。
+\begin{align*}
+    E(\w_1,...,\w_K) = & - \ln p(\TT|\w_1,...,\w_K) \\
+                     = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \ln y_{nk}
+\end{align*}
+
+**** 
+
+\(\w_j\)に対する誤差関数の勾配をとる。
+\begin{align*}
+        \nabla_{\w_j} E(\w_1,...,\w_K)
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \nabla_{\w_j} \ln y_{nk} \\
+%    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \f{1}{y_{nk}} \nabla_{\w_j} y_{nk} \\
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \f{1}{y_{nk}} y_{nk} (I_{kj} - y_{nj}) \bphi_n \\
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} (I_{kj} - y_{nj}) \bphi_n \\
+%    = & - \sum_{n=1}^N \l( \sum_{k=1}^K t_{nk} I_{kj} - y_{nj} \r) \bphi_n \\
+%    = & - \sum_{n=1}^N (t_{nj} - y_{nj}) \bphi_n \\
+    = & \sum_{n=1}^N (y_{nj} - t_{nj}) \bphi_n \\
+\end{align*}
+
+- データ\(n\)の勾配への寄与は、
+  誤差\((y_n - t_n)\)と特徴ベクトル\(\bphi_n\)の積で与えられる。
+
+**** ニュートン-ラフソン法
+
+ヘッセ行列
+\begin{align*}
+    \nabla_{\w_k} \nabla_{\w_j} E(\w_1,...,\w_K)
+    = \sum_{n=1}^N y_{nk} (I_{kj} - y_{nj}) \bphi_n \bphi_n^\T
+\end{align*}
+
+*** 4.3.5 プロビット回帰
+
+雑音しきい値モデル
+\begin{align*}
+    t_n = & 1 \quad a_n \lt \theta \text{のとき} \\
+    t_n = & 0 \quad \text{それ以外} \\
+\end{align*}
+しきい値\(\theta\)は\(p(\theta)\)に従って確率的に分布する。
+
+# **** 外れ値に対する頑健性
+
+# \begin{align*}
+#       \lim_{x \rightarrow - \infty} \sigma(x)
+#     = \lim_{x \rightarrow - \infty} \f{1}{1 + \exp(-x)}
+#     = \lim_{x \rightarrow \infty} \exp(-x) \\
+
+#       \lim_{x \rightarrow \infty} \Phi(x)
+#     \prop 1 - \int_{-\infty}^{\infty} \exp(-x^2) \d x
+#     = 1 - [- \f{\exp(-x^2){2}]_{-\infty}^{\infty}
+#     = 1 - \f{1}{2} \lim_{x \rightarrow \infty} \exp(-x^2)
+#     = \lim_{x \rightarrow \infty} \exp(-x^2) \\
+# \end{align*}
+
+**** 誤ったラベル付けの影響を組み込んだモデル
+
+\begin{align*}
+    p(t|\x) = & (1 - \epsilon) \sigma(\x) + \epsilon (1 - \sigma(\x)) \\
+            = & \epsilon + (1 - 2 \epsilon) \sigma(\x)
+\end{align*}
+
+- \(\sigma(\x)\) : 誤ったラベル付けの影響を組み込んでいない一般化線形モデル。
+- \(\epsilon\) : 正しくは1なのに誤って0とラベル付けされる確率。
+
+*** 4.3.6 正準連結関数
+
+**** 
+
+目的変数の条件付き確率密度が指数型分布族であるとき、
+目的変数の条件付き期待値を一般化線形モデルでモデル化し、
+その活性化関数として正準連結関数を選べば、
+誤差関数のモデルパラメータに関する微分は
+誤差と特徴ベクトルの積になる。
+
+ここで、正準連結関数とは、
+目的変数の条件付き確率密度のパラメータと
+目的変数の条件付き期待値との関係を表す関数である。
+
+**** 
+
+\begin{align*}
+    p(t|\eta,s) = \f{1}{s} h\l(\f{t}{s}\r) g(\eta) \exp\l\{\f{\eta t}{s}\r\}
+\end{align*}
+
+\(\eta\)が与えられたときの\(t\)の条件付き期待値\(\E[t|\eta]\)を\(y\)と定義する。
+\begin{align*}
+    y ≡ \E[t|\eta] = \int_{-\infty}^\infty t p(t|\eta) \d t \\
+\end{align*}
+
+**** 
+
+\begin{align*}
+%    \int p(t|\eta) \d t = & 1 \\
+    \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t = & 1 \\
+    \f{1}{s} \f{d}{d\eta} \l[ g(\eta) \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t \r] = & 0 \\
+\end{align*}
+
+\begin{align*}
+%    \f{1}{s} \f{dg(\eta)}{d\eta} \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t
+%        + \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \f{d}{d\eta} \exp\l\{\f{\eta t}{s}\r\} \d t = & 0 \\
+    \f{1}{s} \f{dg(\eta)}{d\eta} \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t
+        + \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \f{t}{s} \exp\l\{\f{\eta t}{s}\r\} \d t = & 0 \\
+\end{align*}
+
+\begin{align*}
+    \f{1}{g(\eta)} \f{dg(\eta)}{d\eta} + \f{1}{s} \E[t|\eta] = & 0 \\
+\end{align*}
+
+\begin{align*}
+    \E[t|\eta] = & - s \f{1}{g(\eta)} \f{dg(\eta)}{d\eta} \\
+               = & - s \f{d}{d\eta} \ln g(\eta)
+\end{align*}
+
+\(y ≡ \E[t|\eta]\)と定義すると、\(y\)と\(\eta\)には関係がある。
+その関係を\(\eta = \psi(y)\)とする。
+
+**** 
+
+対数尤度関数
+\begin{align*}
+        \ln p(\tt|\eta,s)
+    = & \sum_{n=1}^N \ln p(t_n|\eta_n,s) \\
+    = & \sum_{n=1}^N \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\} + \text{定数} \\
+\end{align*}
+
+**** 
+
+\(\w\)で微分する。
+\begin{align*}
+        \nabla \ln p(\tt|\eta,s)
+    = & \sum_{n=1}^N \nabla \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\} \\
+    = & \sum_{n=1}^N \f{\d}{\d \eta_n} \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\}
+                     \f{\d \eta_n}{\d y_n} \f{\d y_n}{\d a_n} \nabla a_n \\
+    = & \sum_{n=1}^N \l\{ \f{\d}{\d \eta_n} \ln g(\eta_n) + \f{t_n}{s} \r\}
+                     \psi'(y_n) f'(a_n) \bphi_n \\
+    = & \sum_{n=1}^N \f{1}{s} \{ t_n - y_n \} \psi'(y_n) f'(a_n) \bphi_n \\
+\end{align*}
+
+**** 
+
+連結関数として
+\begin{align*}
+    f^{-1}(y) = \psi(y)
+\end{align*}
+を選べば
+\begin{align*}
+                          f(\psi(y)) = & y \\
+                  \p{}{y} f(\psi(y)) = & 1 \\
+    \p{f(\psi)}{\psi} \p{\psi(y)}{y} = & 1 \\
+                   f'(\psi) \psi'(y) = & 1 \\
+\end{align*}
+
+\begin{align*}
+    \nabla E(\w) = - \nabla \ln p(\tt|\eta,s) = \f{1}{s} \sum_{n=1}^N \{ t_n - y_n \} \bphi_n \\
+\end{align*}
+
+誤差関数の勾配は各データの誤差と特徴ベクトルの積になる。

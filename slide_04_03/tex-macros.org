@@ -1,0 +1,64 @@
+#+OPTIONS: author:nil timestamp:nil
+#+OPTIONS: num:nil toc:2 \n:t
+#+HTML_MATHJAX: mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+# #+HTML_MATHJAX: align:"left" mathml:nil path:"./mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\T}{{\rm T}}
+
+\newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
+\newcommand{\C}{{\rm \bf C}}
+\newcommand{\D}{{\rm \bf D}}
+\newcommand{\H}{{\rm \bf H}}
+\newcommand{\I}{{\rm \bf I}}
+\newcommand{\M}{{\rm \bf M}}
+\newcommand{\R}{{\rm \bf R}}
+\newcommand{\S}{{\rm \bf S}}
+\newcommand{\TT}{{\rm \bf T}}
+\newcommand{\W}{{\rm \bf W}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\X}{{\rm \bf X}}
+\newcommand{\e}{{\rm \bf e}}
+\newcommand{\m}{{\rm \bf m}}
+\newcommand{\t}{{\rm \bf t}}
+\newcommand{\u}{{\rm \bf u}}
+\newcommand{\v}{{\rm \bf v}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\x}{{\rm \bf x}}
+\newcommand{\y}{{\rm \bf y}}
+\newcommand{\tt}{{\bf \mathsf{t}}}
+\newcommand{\xx}{{\bf \sf x}}
+\newcommand{\yy}{{\bf \mathsf{y}}}
+\newcommand{\zz}{{\bf \mathsf{z}}}
+\newcommand{\bSigma}{{\rm \bf \Sigma}}
+\newcommand{\bmu}{\boldsymbol \mu}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\new}{\text{(new)}}
+\newcommand{\old}{\text{(old)}}
+\end{align*}
+
+# \newcommand{\Λ}{{\bf Λ}}
+# \newcommand{\α}{{\bf α}}
+# \newcommand{\μ}{{\bf μ}}
+# \newcommand{\η}{{\bf η}}
+# \newcommand{\Σ}{{\bf Σ}}

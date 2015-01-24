@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>4.3 確率的識別モデル</title>
+<meta name="author" content="(@fishiiiiiii)"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/reveal.min.css"/>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/2.5.0/css/theme/serif.css" id="theme"/>
+<link rel="stylesheet" href="./reveal.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/2.5.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>4.3 確率的識別モデル</h1>
+<h2>@fishiiiiiii</h2>
+<h2><a href="mailto:""">""</a></h2>
+<h2></h2></section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">4.3 確率的識別モデル</a>
+<ul>
+<li>
+<a href="#sec-1-1">導入</a>
+</li>
+<li>
+<a href="#sec-1-2">4.3.1 固定基底関数</a>
+</li>
+<li>
+<a href="#sec-1-3">4.3.2 ロジスティック回帰</a>
+</li>
+<li>
+<a href="#sec-1-4">4.3.3 反復再重み付け最小二乗</a>
+</li>
+<li>
+<a href="#sec-1-5">4.3.4 多クラスロジスティック回帰</a>
+</li>
+<li>
+<a href="#sec-1-6">4.3.5 プロビット回帰</a>
+</li>
+<li>
+<a href="#sec-1-7">4.3.6 正準連結関数</a>
+</li>
+</ul>
+</section>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\T}{{\rm T}}
+
+\newcommand{\A}{{\rm \bf A}}
+\newcommand{\B}{{\rm \bf B}}
+\newcommand{\C}{{\rm \bf C}}
+\newcommand{\D}{{\rm \bf D}}
+\newcommand{\H}{{\rm \bf H}}
+\newcommand{\I}{{\rm \bf I}}
+\newcommand{\M}{{\rm \bf M}}
+\newcommand{\R}{{\rm \bf R}}
+\newcommand{\S}{{\rm \bf S}}
+\newcommand{\TT}{{\rm \bf T}}
+\newcommand{\W}{{\rm \bf W}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\X}{{\rm \bf X}}
+\newcommand{\e}{{\rm \bf e}}
+\newcommand{\m}{{\rm \bf m}}
+\newcommand{\t}{{\rm \bf t}}
+\newcommand{\u}{{\rm \bf u}}
+\newcommand{\v}{{\rm \bf v}}
+\newcommand{\w}{{\rm \bf w}}
+\newcommand{\x}{{\rm \bf x}}
+\newcommand{\y}{{\rm \bf y}}
+\newcommand{\tt}{{\bf \mathsf{t}}}
+\newcommand{\xx}{{\bf \sf x}}
+\newcommand{\yy}{{\bf \mathsf{y}}}
+\newcommand{\zz}{{\bf \mathsf{z}}}
+\newcommand{\bSigma}{{\rm \bf \Sigma}}
+\newcommand{\bmu}{\boldsymbol \mu}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\new}{\text{(new)}}
+\newcommand{\old}{\text{(old)}}
+\end{align*}
+
+<section id="sec-1" >
+
+<h2>4.3 確率的識別モデル</h2>
+</section>
+<section>
+<section id="sec-1-1" >
+
+<h3>導入</h3>
+<ul class="org-ul">
+<li>生成モデルでは<br  />
+<ul class="org-ul">
+<li>クラスの事前確率\(p(C_k)\)と\(\x\)の条件付き確率\(p(\x|C_k)\)から、<br  />
+ベイズの定理を用いて、クラスの事後確率\(p(C_k|\x)\)が<br  />
+ロジスティックシグモイド関数で書けることを導いた。<br  />
+</li>
+<li>\(\x\)の条件付き確率分布\(p(\x|C_k)\)が指数型分布族ならば、<br  />
+ロジスティックシグモイド関数の引数が\(\x\)の線形関数になる。<br  />
+</li>
+</ul>
+</li>
+
+<li>識別モデルでは<br  />
+<ul class="org-ul">
+<li>クラスの事後確率\(p(C_k|\x)\)が\(\x\)の線形関数の<br  />
+ロジスティックシグモイド関数で書けることを仮定する。<br  />
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-1-2" >
+
+<h3>4.3.1 固定基底関数</h3>
+<img src="./Figure4.12a.png" width="40%">
+<img src="./Figure4.12b.png" width="40%">
+
+\begin{align*}
+    \bphi = & \bphi(\x) \\
+    \phi_k = & \N(\x|\bmu_k,\bSigma)
+\end{align*}
+</section>
+
+</section>
+<section>
+<section id="sec-1-3" >
+
+<h3>4.3.2 ロジスティック回帰</h3>
+<p>
+事後確率<br  />
+</p>
+\begin{align*}
+    p(C_1|\bphi) = y(\bphi) = \sigma(\w^\T \bphi)
+\end{align*}
+
+<p>
+パラメータの数<br  />
+</p>
+<ul class="org-ul">
+<li>\(p(C_k) = \alpha_k\) : \(1\) 個<br  />
+</li>
+<li>\(p(\x|C_k) = \N(\x|\bmu_k,\bSigma)\) : \(M + M(M+1)/2\) 個<br  />
+</li>
+</ul>
+
+</section>
+<section id="sec-1-3-1" >
+
+<h4></h4>
+<p>
+ロジスティックシグモイド関数の微分(演習4.12)<br  />
+</p>
+\begin{align*}
+        \f{\d \sigma(a)}{\d a}
+    = & \f{\d}{\d a} \f{1}{1 + \exp(-a)} \\
+    = & \f{\exp(-a)}{\{1 + \exp(-a)\}^{2}} \\
+    = & \f{1}{1 + \exp(-a)} \f{\exp(-a)}{1 + \exp(-a)} \\
+%    = & \f{1}{1 + \exp(-a)} \f{\{1 + \exp(-a)\} - 1}{1 + \exp(-a)} \\
+    = & \f{1}{1 + \exp(-a)} \l(1 - \f{1}{1 + \exp(-a)}\r) \\
+    = & \sigma (1 - \sigma)
+\end{align*}
+
+</section>
+<section id="sec-1-3-2" >
+
+<h4></h4>
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+    p(\tt|\w) = \prod_{n=1}^N y_n^{t_n} \{1 - y_n\}^{1 - t_n}
+\end{align*}
+\begin{align*}
+    \text{where} \quad \tt = & (t_1,...,t_N)^\T \\
+                       y_n = & p(C_1|\bphi_n) = \sigma(\w \bphi_n) \\
+                   1 - y_n = & p(C_2|\bphi_n)
+\end{align*}
+
+<p>
+尤度関数の負の対数をとって誤差関数を定義する。<br  />
+これを、交差エントロピー誤差関数 cross-entropy error function という。<br  />
+</p>
+\begin{align*}
+    E(\w) = - \ln p(\tt|\w) = \sum_{n=1}^N \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+\end{align*}
+
+</section>
+<section id="sec-1-3-3" >
+
+<h4></h4>
+<p>
+誤差関数の\(\w\)に関する勾配<br  />
+</p>
+\begin{align*}
+    \nabla E(\w) = & \sum_{n=1}^N \nabla \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
+                 = & \sum_{n=1}^N \l\{ t_n \f{1}{y_n} - (1 - t_n) \f{1}{1 - y_n} \r\} \nabla y_n \\
+                 = & \sum_{n=1}^N \f{t_n - y_n}{y_n (1 - t_n)} y_n (1 - y_n) \bphi_n \\
+                 = & \sum_{n=1}^N (y_n - t_n) \bphi_n
+\end{align*}
+<ul class="org-ul">
+<li>各データの誤差と特徴ベクトルの積の形になる。<br  />
+</li>
+<li>二乗和誤差関数の勾配の式(3.13)と同じ。<br  />
+</li>
+</ul>
+
+</section>
+<section id="sec-1-3-4" >
+
+<h4>データ集合が線形分離可能な場合</h4>
+<ul class="org-ul">
+<li>最尤解は、\(\w \rightarrow \infty\)、\(\sigma(\w^\T \bphi) \rightarrow H(\bphi)\)となる。<br  />
+</li>
+<li>誤差関数の値の等しい解が連続して無限に存在する。<br  />
+</li>
+<li>対策<br  />
+<ul class="org-ul">
+<li>\(\w\)の事前分布\(p(\w|...)\)を導入しMAP推定する。<br  />
+</li>
+<li>誤差関数に正則化項を付加する。<br  />
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-1-4" >
+
+<h3>4.3.3 反復再重み付け最小二乗</h3>
+<p>
+ニュートン-ラフソン法<br  />
+</p>
+\begin{align*}
+    f(x) = 0 \quad \quad x^\new = x^\old - \f{f(x^\old)}{f'(x^\old)}
+\end{align*}
+
+<p>
+誤差関数の勾配に適用する。<br  />
+</p>
+\begin{align*}
+    \w^\new = \w^\old - \H^{-1} \nabla E(\w) \\
+    \H \text{:誤差関数のヘッセ行列}
+\end{align*}
+
+</section>
+<section id="sec-1-4-1" >
+
+<h4>線形回帰モデルの場合</h4>
+\begin{align*}
+                \nabla E(\w) = & \sum_{n=1}^N (\w^\T \bphi_n - t_n) \bphi_n
+                             =   \bPhi^\T \bPhi \w - \bPhi^\T \tt \\
+    \H = \nabla \nabla E(\w) = & \sum_{n=1}^N \bphi_n \bphi_n^\T
+                             =   \bPhi^\T \bPhi
+\end{align*}
+
+<p>
+\(\w\)の更新式<br  />
+</p>
+\begin{align*}
+    \w^\new = & \w^\old - (\bPhi^\T \bPhi)^{-1} \{ \bPhi^\T \bPhi \w^\old - \bPhi^\T \tt \} \\
+            = & (\bPhi^\T \bPhi)^{-1} \bPhi^\T \tt
+\end{align*}
+
+</section>
+<section id="sec-1-4-2" >
+
+<h4>ロジスティック回帰モデルの場合</h4>
+\begin{align*}
+                \nabla E(\w) = & \sum_{n=1}^N (y_n - t_n) \bphi_n
+                             =   \bPhi^\T (\yy - \tt) \\
+    \H = \nabla \nabla E(\w) = & \sum_{n=1}^N y_n (1 - y_n) \bphi_n \bphi_n^\T
+                             =   \bPhi^\T \R \bPhi
+\end{align*}
+\begin{align*}
+    R_{nn} = y_n (1 - y_n)
+\end{align*}
+
+</section>
+<section id="sec-1-4-3" >
+
+<h4></h4>
+<p>
+\(\w\)の更新式<br  />
+</p>
+\begin{align*}
+    \w^\new = & \w^\old - (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T (\yy - \tt) \\
+            = & (\bPhi^\T \R \bPhi)^{-1} \{ (\bPhi^\T \R \bPhi) \w^\old - \bPhi^\T (\yy - \tt) \} \\
+            = & (\bPhi^\T \R \bPhi)^{-1} \bPhi^\T \R \zz
+\end{align*}
+\begin{align*}
+    \zz = \bPhi \w^\old - \R^{-1} (\yy - \tt)
+\end{align*}
+<p>
+重み付き最小二乗問題に対する正規方程式と同じ形になる。<br  />
+ただし、重み行列が\(\w\)に依存している。<br  />
+</p>
+
+</section>
+<section id="sec-1-4-4" >
+
+<h4>\(\R\)の解釈</h4>
+<p>
+ロジスティック回帰モデルの\(t\)の平均と分散<br  />
+</p>
+\begin{align*}
+      \E[t] = & \sigma(\x) = y \\
+    \var[t] = & \E[t^2] - \E[t]^2 = \sigma(\x) - \sigma(\x)^2 = y (1 - y)
+\end{align*}
+<p>
+重み付け対角行列\(\R\)の要素は分散であると解釈できる。<br  />
+</p>
+
+</section>
+<section id="sec-1-4-5" >
+
+<h4>\(\zz\)の解釈</h4>
+\begin{align*}
+    a_n(y_n) = & a_n(y_n^\old) + \f{\d a_n}{\d y_n}|_{y_n^\old} (t_n - y_n^\old) \\
+    a_n(\w)  = & a_n(\w^\old)  + \f{\d a_n}{\d y_n}|_{\w^\old}  (t_n - y_n) \\
+             = & \bphi_n^\T \w^\old - \f{(y_n - t_n)}{y_n (1 - y_n)} = z_n
+\end{align*}
+<p>
+ただし<br  />
+</p>
+\begin{align*}
+    a_n      = & \w^\T \bphi_n \\
+    y_n      = & \sigma(\w^\T \bphi_n) \\
+    y_n^\old = & \sigma({\w^\old}^\T \bphi_n)
+\end{align*}
+</section>
+
+</section>
+<section>
+<section id="sec-1-5" >
+
+<h3>4.3.4 多クラスロジスティック回帰</h3>
+<p>
+事後確率<br  />
+</p>
+\begin{align*}
+    p(C_k|\bphi) = y_k(\bphi) = \f{\exp(a_k)}{\sum_j \exp(a_j)}
+\end{align*}
+
+\begin{align*}
+    a_k = \w^\T \bphi
+\end{align*}
+
+</section>
+<section id="sec-1-5-1" >
+
+<h4></h4>
+<p>
+ソフトマックス活性化関数の微分<br  />
+</p>
+\begin{align*}
+    \p{y_k}{a_j} = & \p{}{a_j} \f{\exp(a_k)}{\sum_i \exp(a_i)} \\
+                 = & \p{\exp(a_k)}{a_j} \f{1}{\sum_i \exp(a_i)}
+                   + \exp(a_k) \p{}{a_j} \f{1}{\sum_i \exp(a_i)} \\
+                 = & \f{I_{kj} \exp(a_k)}{\sum_i \exp(a_i)}
+                   - \exp(a_k) \f{\exp(a_j)}{\{\sum_i \exp(a_i)\}^2} \\
+                 = & \f{\exp(a_k)}{\sum_i \exp(a_i)}
+                     \l( I_{kj} - \f{\exp(a_j)}{\sum_i \exp(a_i)} \r) \\
+                 = & y_k (I_{kj} - y_j)
+\end{align*}
+
+</section>
+<section id="sec-1-5-2" >
+
+<h4></h4>
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+    p(\TT|\w_1,...,\w_K) = & \prod_{n=1}^N \prod_{k=1}^K p(C_k|\bphi_n)^{t_{nk}} \\
+                         = & \prod_{n=1}^N \prod_{k=1}^K y_{nk}^{t_{nk}}
+\end{align*}
+
+<p>
+尤度関数の負の対数をとって誤差関数を定義する。<br  />
+これを、多クラス分類問題に対する交差エントロピー誤差関数という。<br  />
+</p>
+\begin{align*}
+    E(\w_1,...,\w_K) = & - \ln p(\TT|\w_1,...,\w_K) \\
+                     = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \ln y_{nk}
+\end{align*}
+
+</section>
+<section id="sec-1-5-3" >
+
+<h4></h4>
+<p>
+\(\w_j\)に対する誤差関数の勾配をとる。<br  />
+</p>
+\begin{align*}
+        \nabla_{\w_j} E(\w_1,...,\w_K)
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \nabla_{\w_j} \ln y_{nk} \\
+%    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \f{1}{y_{nk}} \nabla_{\w_j} y_{nk} \\
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} \f{1}{y_{nk}} y_{nk} (I_{kj} - y_{nj}) \bphi_n \\
+    = & - \sum_{n=1}^N \sum_{k=1}^K t_{nk} (I_{kj} - y_{nj}) \bphi_n \\
+%    = & - \sum_{n=1}^N \l( \sum_{k=1}^K t_{nk} I_{kj} - y_{nj} \r) \bphi_n \\
+%    = & - \sum_{n=1}^N (t_{nj} - y_{nj}) \bphi_n \\
+    = & \sum_{n=1}^N (y_{nj} - t_{nj}) \bphi_n \\
+\end{align*}
+
+<ul class="org-ul">
+<li>データ\(n\)の勾配への寄与は、<br  />
+誤差\((y_n - t_n)\)と特徴ベクトル\(\bphi_n\)の積で与えられる。<br  />
+</li>
+</ul>
+
+</section>
+<section id="sec-1-5-4" >
+
+<h4>ニュートン-ラフソン法</h4>
+<p>
+ヘッセ行列<br  />
+</p>
+\begin{align*}
+    \nabla_{\w_k} \nabla_{\w_j} E(\w_1,...,\w_K)
+    = \sum_{n=1}^N y_{nk} (I_{kj} - y_{nj}) \bphi_n \bphi_n^\T
+\end{align*}
+</section>
+
+</section>
+<section>
+<section id="sec-1-6" >
+
+<h3>4.3.5 プロビット回帰</h3>
+<p>
+雑音しきい値モデル<br  />
+</p>
+\begin{align*}
+    t_n = & 1 \quad a_n \lt \theta \text{のとき} \\
+    t_n = & 0 \quad \text{それ以外} \\
+\end{align*}
+<p>
+しきい値\(\theta\)は\(p(\theta)\)に従って確率的に分布する。<br  />
+</p>
+
+</section>
+<section id="sec-1-6-1" >
+
+<h4>誤ったラベル付けの影響を組み込んだモデル</h4>
+\begin{align*}
+    p(t|\x) = & (1 - \epsilon) \sigma(\x) + \epsilon (1 - \sigma(\x)) \\
+            = & \epsilon + (1 - 2 \epsilon) \sigma(\x)
+\end{align*}
+
+<ul class="org-ul">
+<li>\(\sigma(\x)\) : 誤ったラベル付けの影響を組み込んでいない一般化線形モデル。<br  />
+</li>
+<li>\(\epsilon\) : 正しくは1なのに誤って0とラベル付けされる確率。<br  />
+</li>
+</ul>
+</section>
+
+</section>
+<section>
+<section id="sec-1-7" >
+
+<h3>4.3.6 正準連結関数</h3>
+</section>
+<section id="sec-1-7-1" >
+
+<h4></h4>
+<p>
+目的変数の条件付き確率密度が指数型分布族であるとき、<br  />
+目的変数の条件付き期待値を一般化線形モデルでモデル化し、<br  />
+その活性化関数として正準連結関数を選べば、<br  />
+誤差関数のモデルパラメータに関する微分は<br  />
+誤差と特徴ベクトルの積になる。<br  />
+</p>
+
+<p>
+ここで、正準連結関数とは、<br  />
+目的変数の条件付き確率密度のパラメータと<br  />
+目的変数の条件付き期待値との関係を表す関数である。<br  />
+</p>
+
+</section>
+<section id="sec-1-7-2" >
+
+<h4></h4>
+\begin{align*}
+    p(t|\eta,s) = \f{1}{s} h\l(\f{t}{s}\r) g(\eta) \exp\l\{\f{\eta t}{s}\r\}
+\end{align*}
+
+<p>
+\(\eta\)が与えられたときの\(t\)の条件付き期待値\(\E[t|\eta]\)を\(y\)と定義する。<br  />
+</p>
+\begin{align*}
+    y ≡ \E[t|\eta] = \int_{-\infty}^\infty t p(t|\eta) \d t \\
+\end{align*}
+
+</section>
+<section id="sec-1-7-3" >
+
+<h4></h4>
+\begin{align*}
+%    \int p(t|\eta) \d t = & 1 \\
+    \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t = & 1 \\
+    \f{1}{s} \f{d}{d\eta} \l[ g(\eta) \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t \r] = & 0 \\
+\end{align*}
+
+\begin{align*}
+%    \f{1}{s} \f{dg(\eta)}{d\eta} \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t
+%        + \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \f{d}{d\eta} \exp\l\{\f{\eta t}{s}\r\} \d t = & 0 \\
+    \f{1}{s} \f{dg(\eta)}{d\eta} \int h\l(\f{t}{s}\r) \exp\l\{\f{\eta t}{s}\r\} \d t
+        + \f{1}{s} g(\eta) \int h\l(\f{t}{s}\r) \f{t}{s} \exp\l\{\f{\eta t}{s}\r\} \d t = & 0 \\
+\end{align*}
+
+\begin{align*}
+    \f{1}{g(\eta)} \f{dg(\eta)}{d\eta} + \f{1}{s} \E[t|\eta] = & 0 \\
+\end{align*}
+
+\begin{align*}
+    \E[t|\eta] = & - s \f{1}{g(\eta)} \f{dg(\eta)}{d\eta} \\
+               = & - s \f{d}{d\eta} \ln g(\eta)
+\end{align*}
+
+<p>
+\(y ≡ \E[t|\eta]\)と定義すると、\(y\)と\(\eta\)には関係がある。<br  />
+その関係を\(\eta = \psi(y)\)とする。<br  />
+</p>
+
+</section>
+<section id="sec-1-7-4" >
+
+<h4></h4>
+<p>
+対数尤度関数<br  />
+</p>
+\begin{align*}
+        \ln p(\tt|\eta,s)
+    = & \sum_{n=1}^N \ln p(t_n|\eta_n,s) \\
+    = & \sum_{n=1}^N \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\} + \text{定数} \\
+\end{align*}
+
+</section>
+<section id="sec-1-7-5" >
+
+<h4></h4>
+<p>
+\(\w\)で微分する。<br  />
+</p>
+\begin{align*}
+        \nabla \ln p(\tt|\eta,s)
+    = & \sum_{n=1}^N \nabla \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\} \\
+    = & \sum_{n=1}^N \f{\d}{\d \eta_n} \l\{ \ln g(\eta_n) + \f{\eta_n t_n}{s} \r\}
+                     \f{\d \eta_n}{\d y_n} \f{\d y_n}{\d a_n} \nabla a_n \\
+    = & \sum_{n=1}^N \l\{ \f{\d}{\d \eta_n} \ln g(\eta_n) + \f{t_n}{s} \r\}
+                     \psi'(y_n) f'(a_n) \bphi_n \\
+    = & \sum_{n=1}^N \f{1}{s} \{ t_n - y_n \} \psi'(y_n) f'(a_n) \bphi_n \\
+\end{align*}
+
+</section>
+<section id="sec-1-7-6" >
+
+<h4></h4>
+<p>
+連結関数として<br  />
+</p>
+\begin{align*}
+    f^{-1}(y) = \psi(y)
+\end{align*}
+<p>
+を選べば<br  />
+</p>
+\begin{align*}
+                          f(\psi(y)) = & y \\
+                  \p{}{y} f(\psi(y)) = & 1 \\
+    \p{f(\psi)}{\psi} \p{\psi(y)}{y} = & 1 \\
+                   f'(\psi) \psi'(y) = & 1 \\
+\end{align*}
+
+\begin{align*}
+    \nabla E(\w) = - \nabla \ln p(\tt|\eta,s) = \f{1}{s} \sum_{n=1}^N \{ t_n - y_n \} \bphi_n \\
+\end{align*}
+
+<p>
+誤差関数の勾配は各データの誤差と特徴ベクトルの積になる。<br  />
+</p>
+</section>
+</section>
+</div>
+</div>
+
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/2.5.0/js/reveal.min.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: true,
+keyboard: true,
+overview: true,
+margin: 0.10,
+minScale: 0.50,
+maxScale: 2.50,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/2.5.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>
