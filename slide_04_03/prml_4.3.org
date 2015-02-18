@@ -77,9 +77,9 @@
 
 誤差関数の\(\w\)に関する勾配
 \begin{align*}
-    \nabla E(\w) = & \sum_{n=1}^N \nabla \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
-                 = & \sum_{n=1}^N \l\{ t_n \f{1}{y_n} - (1 - t_n) \f{1}{1 - y_n} \r\} \nabla y_n \\
-                 = & \sum_{n=1}^N \f{t_n - y_n}{y_n (1 - t_n)} y_n (1 - y_n) \bphi_n \\
+    \nabla E(\w) = & - \sum_{n=1}^N \nabla \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
+                 = & - \sum_{n=1}^N \l\{ t_n \f{1}{y_n} - (1 - t_n) \f{1}{1 - y_n} \r\} \nabla y_n \\
+                 = & - \sum_{n=1}^N \f{t_n - y_n}{y_n (1 - y_n)} y_n (1 - y_n) \bphi_n \\
                  = & \sum_{n=1}^N (y_n - t_n) \bphi_n
 \end{align*}
 - 各データの誤差と特徴ベクトルの積の形になる。
