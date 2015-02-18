@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>index</title>
+<title>PRML 第4章 演習 4.11-4.26</title>
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <style type="text/css">
@@ -132,78 +132,141 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "left",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
 </head>
 <body>
 <div id="content">
-<h1 class="title">index</h1>
+<h1 class="title">PRML 第4章 演習 4.11-4.26</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">PRML 第4章 演習 4.21-4.26</a>
+<ul>
+<li><a href="#sec-1-1">4.21</a></li>
+<li><a href="#sec-1-2">4.22</a></li>
+<li><a href="#sec-1-3">4.24</a></li>
+<li><a href="#sec-1-4">4.24</a></li>
+<li><a href="#sec-1-5">4.25</a></li>
+<li><a href="#sec-1-6">4.26</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+\begin{align*}
+\newcommand{\l}{\left}
+\newcommand{\r}{\right}
+\newcommand{\f}{\frac}
+\newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\D}{\mathbf{D}}
+\newcommand{\G}{\mathbf{G}}
+\newcommand{\I}{\mathbf{I}}
+\newcommand{\L}{\mathbf{L}}
+\newcommand{\M}{\mathbf{M}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\S}{\mathbf{S}}
+\newcommand{\TT}{\mathbf{T}}
+\newcommand{\W}{\mathbf{W}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\b}{\mathbf{b}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\m}{\mathbf{m}}
+\newcommand{\t}{\mathbf{t}}
+\newcommand{\u}{\mathbf{u}}
+\newcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\tt}{\mathbf{\mathsf{t}}}
+\newcommand{\xx}{\mathbf{\mathsf{x}}}
+\newcommand{\yy}{\mathbf{\mathsf{y}}}
+\newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\bphi}{\boldsymbol \phi}
+\newcommand{\bvphi}{\boldsymbol \varphi}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\D}{{\cal D}}
+\newcommand{\N}{{\cal N}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\mode}{\mathrm{mode}}
+\newcommand{\Bern}{\mathrm{Bern}}
+\newcommand{\Beta}{\mathrm{Beta}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Dir}{\mathrm{Dir}}
+\newcommand{\Gam}{\mathrm{Gam}}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\ML}{\mathrm{ML}}
+\end{align*}
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> PRML</h2>
+<h2 id="sec-1">PRML 第4章 演習 4.21-4.26</h2>
 <div class="outline-text-2" id="text-1">
-<ul class="org-ul">
-<li>第1章 演習
-<ul class="org-ul">
-<li><a href="./ex_01_01-10.html">演習 1.1-1.10</a>
-</li>
-<li><a href="./ex_01_11-20.html">演習 1.11-1.20</a>
-</li>
-<li><a href="./ex_01_21-30.html">演習 1.21-1.30</a>
-</li>
-<li><a href="./ex_01_31-41.html">演習 1.31-1.41</a>
-</li>
-</ul>
-</li>
-<li>第2章 演習
-<ul class="org-ul">
-<li><a href="./ex_02_01-10.html">演習 2.1-1.10</a>
-</li>
-<li><a href="./ex_02_11-20.html">演習 2.11-1.20</a>
-</li>
-<li><a href="./ex_02_21-30.html">演習 2.21-1.30</a>
-</li>
-<li><a href="./ex_02_31-40.html">演習 2.31-1.40</a>
-</li>
-<li><a href="./ex_02_41-50.html">演習 2.41-1.50</a>
-</li>
-<li><a href="./ex_02_51-61.html">演習 2.51-1.61</a>
-</li>
-</ul>
-</li>
-<li>第3章 演習
-<ul class="org-ul">
-<li><a href="./ex_03_01-10.html">演習 3.1-3.10</a>
-</li>
-<li><a href="./ex_03_11-20.html">演習 3.11-3.20</a>
-</li>
-<li><a href="./ex_03_21-24.html">演習 3.21-3.24</a>
-</li>
-</ul>
-</li>
-<li>第4章 演習
-<ul class="org-ul">
-<li><a href="./ex_04_01-10.html">演習 4.1-4.10</a>
-</li>
-<li><a href="./ex_04_11-20.html">演習 4.11-4.20</a>
-</li>
-<li><a href="./ex_04_21-26.html">演習 4.21-4.26</a>
-</li>
-</ul>
-</li>
-
-<li>3.1 発表資料 <a href="./slide_03_01/prml_3_slide.pdf">PDF</a>
-</li>
-<li>4.3 発表資料 <a href="./slide_04_03/prml_4.3.html">HTML</a>
-</li>
-</ul>
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">4.21</h3>
 </div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">4.22</h3>
 </div>
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Pythonによるデータ分析入門</h2>
-<div class="outline-text-2" id="text-2">
-<ul class="org-ul">
-<li><a href="./PythonForDataAnalysis_2.3.html">2.3 データ分析の例 : アメリカの赤ちゃんに名付けられた名前リスト (1880-2010)</a>
-</li>
-</ul>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">4.24</h3>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">4.24</h3>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">4.25</h3>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">4.26</h3>
 </div>
 </div>
 </div>

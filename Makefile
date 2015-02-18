@@ -12,7 +12,10 @@ ORGS     = index.org \
            ex_02_51-61.org \
            ex_03_01-10.org \
            ex_03_11-20.org \
-           ex_03_21-24.org
+           ex_03_21-24.org \
+           ex_04_01-10.org \
+           ex_04_11-20.org \
+           ex_04_21-26.org
 HTMLS    = $(patsubst %.org, %.html, $(ORGS))
 
 all: $(HTMLS)

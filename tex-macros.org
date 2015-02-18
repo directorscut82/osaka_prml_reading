@@ -1,7 +1,6 @@
 #+OPTIONS: author:nil timestamp:nil
 #+OPTIONS: num:nil toc:2 \n:t
-# #+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-#+HTML_MATHJAX: align:"left" mathml:nil path:"../note/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+#+HTML_MATHJAX: align:"left" mathml:nil path:"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 \begin{align*}
 \newcommand{\l}{\left}
 \newcommand{\r}{\right}
@@ -34,13 +33,6 @@
 \newcommand{\tt}{\mathbf{\mathsf{t}}}
 \newcommand{\xx}{\mathbf{\mathsf{x}}}
 \newcommand{\yy}{\mathbf{\mathsf{y}}}
-\newcommand{\Λ}{\mathbf{Λ}}
-\newcommand{\α}{\mathbf{α}}
-\newcommand{\ε}{\mathbf{ε}}
-\newcommand{\μ}{\mathbf{μ}}
-\newcommand{\η}{\mathbf{η}}
-\newcommand{\Φ}{\mathbf{Φ}}
-\newcommand{\Σ}{\mathbf{Σ}}
 \newcommand{\bPhi}{{\rm \bf \Phi}}
 \newcommand{\bphi}{\boldsymbol \phi}
 \newcommand{\bvphi}{\boldsymbol \varphi}
