@@ -192,7 +192,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-6">4.16</a></li>
 <li><a href="#sec-1-7">4.17</a></li>
 <li><a href="#sec-1-8">4.18</a></li>
-<li><a href="#sec-1-9">4.19</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 4.19 [www] プロビット回帰モデルの対数尤度の勾配とヘッセ行列</a></li>
 <li><a href="#sec-1-10">4.20</a></li>
 </ul>
 </li>
@@ -279,8 +279,84 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-8">4.18</h3>
 </div>
 <div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9">4.19</h3>
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 4.19 [www] プロビット回帰モデルの対数尤度の勾配とヘッセ行列</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+プロビット回帰モデルの誤差関数は、ロジスティック回帰モデルと同様に、<br  />
+交差エントロピー誤差関数の形で与えられる。<br  />
+</p>
+\begin{align*}
+    E(\w) = & - \sum_{n=1}^N \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
+\end{align*}
+<p>
+ただし<br  />
+</p>
+\begin{align*}
+    y_n = & \Phi(a_n), & a_n = & \w^\T \bphi_n
+\end{align*}
+
+<p>
+誤差関数\(E_n\)の\(y_n\)による微分<br  />
+</p>
+\begin{align*}
+      \p{E_n}{y_n}
+    = - \p{}{y_n} \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+    = \f{y_n - t_n}{y_n (1 - y_n)}
+\end{align*}
+
+<p>
+プロビット活性化関数の微分<br  />
+</p>
+\begin{align*}
+      \p{\Phi(a)}{a}
+    = \p{}{a} \int_{-\infty}^a \N(\theta|0,1) \d \theta
+    = \N(a|0,1)
+\end{align*}
+
+<p>
+誤差関数の勾配<br  />
+</p>
+\begin{align*}
+      \nabla E(\w)
+    = \sum_{n=1}^N \p{E_n}{y_n} \p{y_n}{a_n} \nabla a_n
+    = \sum_{n=1}^N \f{y_n - t_n}{y_n (1 - y_n)} \N(a_n|0,1) \bphi_n
+\end{align*}
+
+\begin{align*}
+      \p{}{y_n} \f{y_n - t_n}{y_n (1 - y_n)}
+    = \f{y_n (1 - y_n) - (y_n - t_n) (1 - 2 y_n)}{y_n^2 (1 - y_n)^2}
+    = \f{y_n^2 + t_n - 2 y_n t_n}{y_n^2 (1 - y_n)^2}
+\end{align*}
+
+\begin{align*}
+      \p{}{a} \N(a|0,1) &
+    = \f{1}{\sqrt{2 \pi}} \p{}{a} \exp\l(-\f{a^2}{2}\r)
+    = \f{1}{\sqrt{2 \pi}} (-a) \exp\l(-\f{a^2}{2}\r)
+    = - a \N(a|0,1)
+\end{align*}
+
+<p>
+ヘッセ行列<br  />
+</p>
+\begin{align*}
+        \nabla \nabla E(\w)
+    = & \nabla \sum_{n=1}^N \f{y_n - t_n}{y_n (1 - y_n)} \N(a_n|0,1) \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \l[ \nabla \f{y_n - t_n}{y_n (1 - y_n)} \r] \N(a_n|0,1)
+          + \f{y_n - t_n}{y_n (1 - y_n)} \nabla \N(a_n|0,1) \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \l( \p{}{y_n} \f{y_n - t_n}{y_n (1 - y_n)} \r) \p{y_n}{a_n} \nabla a_n \N(a_n|0,1)
+          + \f{y_n - t_n}{y_n (1 - y_n)} \l( \p{}{a_n} \N(a_n|0,1) \r) \nabla a_n \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \f{y_n^2 + t_n - 2 y_n t_n}{y_n^2 (1 - y_n)^2} \N(a_n|0,1) \bphi_n
+           + \f{y_n - t_n}{y_n (1 - y_n)} (-a_n) \N(a_n|0,1) \bphi_n \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \f{y_n^2 + t_n - 2 y_n t_n}{y_n (1 - y_n)} - a_n (y_n - t_n) \r\}
+        \f{\N(a_n|0,1) \bphi_n \bphi_n^\T}{y_n (1 - y_n)} \\
+\end{align*}
 </div>
+</div>
+
 <div id="outline-container-sec-1-10" class="outline-3">
 <h3 id="sec-1-10">4.20</h3>
 </div>

@@ -9,5 +9,67 @@
 ** 4.16 
 ** 4.17 
 ** 4.18 
-** 4.19 
+** DONE 4.19 [www] プロビット回帰モデルの対数尤度の勾配とヘッセ行列
+プロビット回帰モデルの誤差関数は、ロジスティック回帰モデルと同様に、
+交差エントロピー誤差関数の形で与えられる。
+\begin{align*}
+    E(\w) = & - \sum_{n=1}^N \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \} \\
+\end{align*}
+ただし
+\begin{align*}
+    y_n = & \Phi(a_n), & a_n = & \w^\T \bphi_n
+\end{align*}
+
+誤差関数\(E_n\)の\(y_n\)による微分
+\begin{align*}
+      \p{E_n}{y_n}
+    = - \p{}{y_n} \{ t_n \ln y_n + (1 - t_n) \ln (1 - y_n) \}
+    = \f{y_n - t_n}{y_n (1 - y_n)}
+\end{align*}
+
+プロビット活性化関数の微分
+\begin{align*}
+      \p{\Phi(a)}{a}
+    = \p{}{a} \int_{-\infty}^a \N(\theta|0,1) \d \theta
+    = \N(a|0,1)
+\end{align*}
+
+誤差関数の勾配
+\begin{align*}
+      \nabla E(\w)
+    = \sum_{n=1}^N \p{E_n}{y_n} \p{y_n}{a_n} \nabla a_n
+    = \sum_{n=1}^N \f{y_n - t_n}{y_n (1 - y_n)} \N(a_n|0,1) \bphi_n
+\end{align*}
+
+\begin{align*}
+      \p{}{y_n} \f{y_n - t_n}{y_n (1 - y_n)}
+    = \f{y_n (1 - y_n) - (y_n - t_n) (1 - 2 y_n)}{y_n^2 (1 - y_n)^2}
+    = \f{y_n^2 + t_n - 2 y_n t_n}{y_n^2 (1 - y_n)^2}
+\end{align*}
+
+\begin{align*}
+      \p{}{a} \N(a|0,1) &
+    = \f{1}{\sqrt{2 \pi}} \p{}{a} \exp\l(-\f{a^2}{2}\r)
+    = \f{1}{\sqrt{2 \pi}} (-a) \exp\l(-\f{a^2}{2}\r)
+    = - a \N(a|0,1)
+\end{align*}
+
+ヘッセ行列
+\begin{align*}
+        \nabla \nabla E(\w)
+    = & \nabla \sum_{n=1}^N \f{y_n - t_n}{y_n (1 - y_n)} \N(a_n|0,1) \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \l[ \nabla \f{y_n - t_n}{y_n (1 - y_n)} \r] \N(a_n|0,1)
+          + \f{y_n - t_n}{y_n (1 - y_n)} \nabla \N(a_n|0,1) \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \l( \p{}{y_n} \f{y_n - t_n}{y_n (1 - y_n)} \r) \p{y_n}{a_n} \nabla a_n \N(a_n|0,1)
+          + \f{y_n - t_n}{y_n (1 - y_n)} \l( \p{}{a_n} \N(a_n|0,1) \r) \nabla a_n \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \f{y_n^2 + t_n - 2 y_n t_n}{y_n^2 (1 - y_n)^2} \N(a_n|0,1) \bphi_n
+           + \f{y_n - t_n}{y_n (1 - y_n)} (-a_n) \N(a_n|0,1) \bphi_n \r\} \bphi_n^\T \\
+    = & \sum_{n=1}^N
+        \l\{ \f{y_n^2 + t_n - 2 y_n t_n}{y_n (1 - y_n)} - a_n (y_n - t_n) \r\}
+        \f{\N(a_n|0,1) \bphi_n \bphi_n^\T}{y_n (1 - y_n)} \\
+\end{align*}
+
 ** 4.20 
