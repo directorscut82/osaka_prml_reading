@@ -3,11 +3,50 @@
 * PRML 第4章 演習 4.1-4.10
 ** 4.1 
 ** 4.2 
-** 4.4 
+** 4.3 
 ** 4.4 
 ** 4.5 
 ** 4.6 
 ** 4.7 
 ** 4.8 
-** 4.9 
+** DONE 4.9 [www] 多クラス分類問題の生成モデルによる最尤解
+尤度関数
+\begin{align*}
+            p(\{\bphi_n,\t_n\}|\{\pi_k\})
+        = & \prod_{n=1}^N \prod_{k=1}^K [p(C_k) p(\bphi_n|C_k)]^{t_{nk}} \\
+        = & \prod_{n=1}^N \prod_{k=1}^K [\pi_k p(\bphi_n|C_k)]^{t_{nk}} \\
+            \ln p(\{\bphi_n,\t_n\}|\{\pi_k\})
+        = & \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln \pi_k + \ln p(\bphi_n|C_k)] \\
+\end{align*}
+
+\(\sum_k \pi_k = 1\)という制約のもとで対数尤度関数を最大化する\(\pi_k\)を求めるため、
+ラグランジュの未定係数法を用いる。
+\begin{align*}
+    L(\{\pi_k\},\lambda) = & \ln p(\{\bphi_n,\t_n\}|\{\pi_k\})
+                           + \lambda \l( \sum_k \pi_k - 1 \r) \\
+\end{align*}
+
+\begin{align*}
+      & \p{}{\pi_k} L(\{\pi_k\},\lambda) \\
+    = & \sum_{n=1}^N \sum_{j=1}^K t_{nj} \p{}{\pi_k} \ln \pi_j
+      + \p{}{\pi_k} \lambda \l( \sum_k \pi_k - 1 \r) \\
+    = & \sum_{n=1}^N \sum_{j=1}^K t_{nj} I_{jk} \f{1}{\pi_j} + \lambda \\
+    = & \f{1}{\pi_k} \sum_{n=1}^N t_{nk} + \lambda \\
+    = & \f{1}{\pi_k} N_k + \lambda \\
+\end{align*}
+
+\begin{align*}
+    0 = & \f{1}{\pi_k} N_k + \lambda \\
+    - \lambda \pi_k = & N_k \\
+\end{align*}
+
+\begin{align*}
+    - \lambda \sum_k \pi_k = & \sum_k N_k \\
+    - \lambda = & N \\
+\end{align*}
+
+\begin{align*}
+    \pi_k = & \f{N_k}{N} \\
+\end{align*}
+
 ** 4.10 

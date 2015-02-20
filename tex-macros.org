@@ -21,6 +21,8 @@
 \newcommand{\W}{\mathbf{W}}
 \newcommand{\X}{\mathbf{X}}
 \newcommand{\Y}{\mathbf{Y}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\a}{\mathbf{a}}
 \newcommand{\b}{\mathbf{b}}
 \newcommand{\e}{\mathbf{e}}
 \newcommand{\m}{\mathbf{m}}
@@ -30,6 +32,7 @@
 \newcommand{\w}{\mathbf{w}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{\mathsf{b}}}
 \newcommand{\tt}{\mathbf{\mathsf{t}}}
 \newcommand{\xx}{\mathbf{\mathsf{x}}}
 \newcommand{\yy}{\mathbf{\mathsf{y}}}

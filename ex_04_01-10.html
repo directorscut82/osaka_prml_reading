@@ -186,13 +186,13 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1-1">4.1</a></li>
 <li><a href="#sec-1-2">4.2</a></li>
-<li><a href="#sec-1-3">4.4</a></li>
+<li><a href="#sec-1-3">4.3</a></li>
 <li><a href="#sec-1-4">4.4</a></li>
 <li><a href="#sec-1-5">4.5</a></li>
 <li><a href="#sec-1-6">4.6</a></li>
 <li><a href="#sec-1-7">4.7</a></li>
 <li><a href="#sec-1-8">4.8</a></li>
-<li><a href="#sec-1-9">4.9</a></li>
+<li><a href="#sec-1-9"><span class="done DONE">DONE</span> 4.9 [www] 多クラス分類問題の生成モデルによる最尤解</a></li>
 <li><a href="#sec-1-10">4.10</a></li>
 </ul>
 </li>
@@ -219,6 +219,8 @@ for the JavaScript code in this tag.
 \newcommand{\W}{\mathbf{W}}
 \newcommand{\X}{\mathbf{X}}
 \newcommand{\Y}{\mathbf{Y}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\a}{\mathbf{a}}
 \newcommand{\b}{\mathbf{b}}
 \newcommand{\e}{\mathbf{e}}
 \newcommand{\m}{\mathbf{m}}
@@ -228,6 +230,7 @@ for the JavaScript code in this tag.
 \newcommand{\w}{\mathbf{w}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{\mathsf{b}}}
 \newcommand{\tt}{\mathbf{\mathsf{t}}}
 \newcommand{\xx}{\mathbf{\mathsf{x}}}
 \newcommand{\yy}{\mathbf{\mathsf{y}}}
@@ -261,7 +264,7 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-2">4.2</h3>
 </div>
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">4.4</h3>
+<h3 id="sec-1-3">4.3</h3>
 </div>
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">4.4</h3>
@@ -279,8 +282,53 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-8">4.8</h3>
 </div>
 <div id="outline-container-sec-1-9" class="outline-3">
-<h3 id="sec-1-9">4.9</h3>
+<h3 id="sec-1-9"><span class="done DONE">DONE</span> 4.9 [www] 多クラス分類問題の生成モデルによる最尤解</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+尤度関数<br  />
+</p>
+\begin{align*}
+            p(\{\bphi_n,\t_n\}|\{\pi_k\})
+        = & \prod_{n=1}^N \prod_{k=1}^K [p(C_k) p(\bphi_n|C_k)]^{t_{nk}} \\
+        = & \prod_{n=1}^N \prod_{k=1}^K [\pi_k p(\bphi_n|C_k)]^{t_{nk}} \\
+            \ln p(\{\bphi_n,\t_n\}|\{\pi_k\})
+        = & \sum_{n=1}^N \sum_{k=1}^K t_{nk} [\ln \pi_k + \ln p(\bphi_n|C_k)] \\
+\end{align*}
+
+<p>
+\(\sum_k \pi_k = 1\)という制約のもとで対数尤度関数を最大化する\(\pi_k\)を求めるため、<br  />
+ラグランジュの未定係数法を用いる。<br  />
+</p>
+\begin{align*}
+    L(\{\pi_k\},\lambda) = & \ln p(\{\bphi_n,\t_n\}|\{\pi_k\})
+                           + \lambda \l( \sum_k \pi_k - 1 \r) \\
+\end{align*}
+
+\begin{align*}
+      & \p{}{\pi_k} L(\{\pi_k\},\lambda) \\
+    = & \sum_{n=1}^N \sum_{j=1}^K t_{nj} \p{}{\pi_k} \ln \pi_j
+      + \p{}{\pi_k} \lambda \l( \sum_k \pi_k - 1 \r) \\
+    = & \sum_{n=1}^N \sum_{j=1}^K t_{nj} I_{jk} \f{1}{\pi_j} + \lambda \\
+    = & \f{1}{\pi_k} \sum_{n=1}^N t_{nk} + \lambda \\
+    = & \f{1}{\pi_k} N_k + \lambda \\
+\end{align*}
+
+\begin{align*}
+    0 = & \f{1}{\pi_k} N_k + \lambda \\
+    - \lambda \pi_k = & N_k \\
+\end{align*}
+
+\begin{align*}
+    - \lambda \sum_k \pi_k = & \sum_k N_k \\
+    - \lambda = & N \\
+\end{align*}
+
+\begin{align*}
+    \pi_k = & \f{N_k}{N} \\
+\end{align*}
 </div>
+</div>
+
 <div id="outline-container-sec-1-10" class="outline-3">
 <h3 id="sec-1-10">4.10</h3>
 </div>
