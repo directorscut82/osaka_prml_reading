@@ -3,7 +3,57 @@
 * PRML 第4章 演習 4.21-4.26
 ** 4.21 
 ** 4.22 
-** 4.24 
+** DONE 4.23 モデルエビデンスのラプラス近似(4.137)からBIC(4.139)を導出する
+モデルエビデンスのラプラス近似(4.137)に現れる
+\(\btheta_\MAP\)の事後確率の負の対数のヘッセ行列\(\A\)は、
+尤度関数の負の対数のヘッセ行列\(\H\)と
+\(\btheta_\MAP\)の事前確率の対数のヘッセ行列で表すことができる。
+\(\btheta_\MAP\)の事前確率をガウス分布と仮定すると、
+その対数のヘッセ行列は共分散行列に等しい。
+\begin{align*}
+    \A = & - \nabla \nabla \ln p(\btheta_\MAP|\D) \\
+       = & - \nabla \nabla \ln p(\D|\btheta_\MAP) p(\btheta_\MAP) \\
+       = & - \nabla \nabla \ln p(\D|\btheta_\MAP)
+           - \nabla \nabla \ln p(\btheta_\MAP) \\
+       = & \H - \V_0
+\end{align*}
+ここで
+\begin{align*}
+    \H = - \nabla \nabla \ln p(\D|\btheta_\MAP) \\h
+    p(\btheta) = \N(\btheta|\m,\V_0) \\
+    \nabla \nabla \ln p(\btheta_\MAP) = \V_0 \\
+\end{align*}
+
+\(\btheta\)の事前分布が平坦ならば(または、データ点の数が多ければ)、
+\(\H\)に対して\(\V_0\)を無視できる。
+
+(4.137)に上記の結果を代入する。
+\begin{align*}
+    \ln p(\D) \simeq & \ln p(\D|\btheta_\MAP)
+                     + \f{1}{2} (\btheta_\MAP - \m)^\T \V_0 (\btheta_\MAP - \m)
+                     - \f{1}{2} \ln |\H| + \text{const.} \\
+\end{align*}
+
+再度、\(\btheta\)の事前分布が平坦であるという仮定を用いると、
+上式の第1項に対して第2項を無視できる。
+
+データ点がi.i.d.であると仮定すると、ヘッセ行列を各データ点からの寄与\(\H_n\)の和で表すことができる。
+さらに、その和をデータ点の数\(N\)と各データ点からの寄与の平均値\(\hat{\H}\)との積で表すことができる。
+\begin{align*}
+    \H = & \sum_{n=1}^N \H_n = N \hat{\H}, &
+    \hat{\H} = \f{1}{N} \sum_{n=1}^N \H_n
+\end{align*}
+
+\begin{align*}
+    \ln |\H| = \ln |N \hat{\H}| = \ln (N^M |\hat{\H}|) = M \ln N + \ln |\hat{\H}|
+\end{align*}
+第2項は\(\ln N\)と比較して\(O(1)\)なので無視できる。
+
+よって
+\begin{align*}
+    \ln p(\D) \simeq & \ln p(\D|\btheta_\MAP) - \f{1}{2} M \ln N
+\end{align*}
+
 ** 4.24 
 ** 4.25 
 ** 4.26 

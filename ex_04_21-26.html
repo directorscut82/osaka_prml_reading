@@ -186,7 +186,7 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1-1">4.21</a></li>
 <li><a href="#sec-1-2">4.22</a></li>
-<li><a href="#sec-1-3">4.24</a></li>
+<li><a href="#sec-1-3"><span class="done DONE">DONE</span> 4.23 モデルエビデンスのラプラス近似(4.137)からBIC(4.139)を導出する</a></li>
 <li><a href="#sec-1-4">4.24</a></li>
 <li><a href="#sec-1-5">4.25</a></li>
 <li><a href="#sec-1-6">4.26</a></li>
@@ -200,21 +200,28 @@ for the JavaScript code in this tag.
 \newcommand{\r}{\right}
 \newcommand{\f}{\frac}
 \newcommand{\p}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
 
 \newcommand{\A}{\mathbf{A}}
 \newcommand{\B}{\mathbf{B}}
 \newcommand{\C}{\mathbf{C}}
 \newcommand{\D}{\mathbf{D}}
 \newcommand{\G}{\mathbf{G}}
+\newcommand{\H}{\mathbf{H}}
 \newcommand{\I}{\mathbf{I}}
 \newcommand{\L}{\mathbf{L}}
 \newcommand{\M}{\mathbf{M}}
 \newcommand{\R}{\mathbf{R}}
 \newcommand{\S}{\mathbf{S}}
 \newcommand{\TT}{\mathbf{T}}
+\newcommand{\V}{\mathbf{V}}
 \newcommand{\W}{\mathbf{W}}
 \newcommand{\X}{\mathbf{X}}
 \newcommand{\Y}{\mathbf{Y}}
+\newcommand{\0}{\mathbf{0}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\a}{\mathbf{a}}
 \newcommand{\b}{\mathbf{b}}
 \newcommand{\e}{\mathbf{e}}
 \newcommand{\m}{\mathbf{m}}
@@ -224,17 +231,17 @@ for the JavaScript code in this tag.
 \newcommand{\w}{\mathbf{w}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\y}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{\mathsf{b}}}
 \newcommand{\tt}{\mathbf{\mathsf{t}}}
 \newcommand{\xx}{\mathbf{\mathsf{x}}}
 \newcommand{\yy}{\mathbf{\mathsf{y}}}
 \newcommand{\bPhi}{{\rm \bf \Phi}}
+\newcommand{\btheta}{\boldsymbol \theta}
 \newcommand{\bphi}{\boldsymbol \phi}
 \newcommand{\bvphi}{\boldsymbol \varphi}
 \newcommand{\E}{{\mathbb{E}}}
 \newcommand{\D}{{\cal D}}
 \newcommand{\N}{{\cal N}}
-\newcommand{\d}{\mathrm{d}}
-\newcommand{\T}{\mathrm{T}}
 \newcommand{\Tr}{\mathrm{Tr}}
 \newcommand{\var}{\mathrm{var}}
 \newcommand{\cov}{\mathrm{cov}}
@@ -246,6 +253,7 @@ for the JavaScript code in this tag.
 \newcommand{\Gam}{\mathrm{Gam}}
 \newcommand{\St}{\mathrm{St}}
 \newcommand{\ML}{\mathrm{ML}}
+\newcommand{\MAP}{\text{MAP}}
 \end{align*}
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">PRML 第4章 演習 4.21-4.26</h2>
@@ -257,8 +265,76 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-2">4.22</h3>
 </div>
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">4.24</h3>
+<h3 id="sec-1-3"><span class="done DONE">DONE</span> 4.23 モデルエビデンスのラプラス近似(4.137)からBIC(4.139)を導出する</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+モデルエビデンスのラプラス近似(4.137)に現れる<br  />
+\(\btheta_\MAP\)の事後確率の負の対数のヘッセ行列\(\A\)は、<br  />
+尤度関数の負の対数のヘッセ行列\(\H\)と<br  />
+\(\btheta_\MAP\)の事前確率の対数のヘッセ行列で表すことができる。<br  />
+\(\btheta_\MAP\)の事前確率をガウス分布と仮定すると、<br  />
+その対数のヘッセ行列は共分散行列に等しい。<br  />
+</p>
+\begin{align*}
+    \A = & - \nabla \nabla \ln p(\btheta_\MAP|\D) \\
+       = & - \nabla \nabla \ln p(\D|\btheta_\MAP) p(\btheta_\MAP) \\
+       = & - \nabla \nabla \ln p(\D|\btheta_\MAP)
+           - \nabla \nabla \ln p(\btheta_\MAP) \\
+       = & \H - \V_0
+\end{align*}
+<p>
+ここで<br  />
+</p>
+\begin{align*}
+    \H = - \nabla \nabla \ln p(\D|\btheta_\MAP) \\h
+    p(\btheta) = \N(\btheta|\m,\V_0) \\
+    \nabla \nabla \ln p(\btheta_\MAP) = \V_0 \\
+\end{align*}
+
+<p>
+\(\btheta\)の事前分布が平坦ならば(または、データ点の数が多ければ)、<br  />
+\(\H\)に対して\(\V_0\)を無視できる。<br  />
+</p>
+
+<p>
+(4.137)に上記の結果を代入する。<br  />
+</p>
+\begin{align*}
+    \ln p(\D) \simeq & \ln p(\D|\btheta_\MAP)
+                     + \f{1}{2} (\btheta_\MAP - \m)^\T \V_0 (\btheta_\MAP - \m)
+                     - \f{1}{2} \ln |\H| + \text{const.} \\
+\end{align*}
+
+<p>
+再度、\(\btheta\)の事前分布が平坦であるという仮定を用いると、<br  />
+上式の第1項に対して第2項を無視できる。<br  />
+</p>
+
+<p>
+データ点がi.i.d.であると仮定すると、ヘッセ行列を各データ点からの寄与\(\H_n\)の和で表すことができる。<br  />
+さらに、その和をデータ点の数\(N\)と各データ点からの寄与の平均値\(\hat{\H}\)との積で表すことができる。<br  />
+</p>
+\begin{align*}
+    \H = & \sum_{n=1}^N \H_n = N \hat{\H}, &
+    \hat{\H} = \f{1}{N} \sum_{n=1}^N \H_n
+\end{align*}
+
+\begin{align*}
+    \ln |\H| = \ln |N \hat{\H}| = \ln (N^M |\hat{\H}|) = M \ln N + \ln |\hat{\H}|
+\end{align*}
+<p>
+第2項は\(\ln N\)と比較して\(O(1)\)なので無視できる。<br  />
+</p>
+
+<p>
+よって<br  />
+</p>
+\begin{align*}
+    \ln p(\D) \simeq & \ln p(\D|\btheta_\MAP) - \f{1}{2} M \ln N
+\end{align*}
 </div>
+</div>
+
 <div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">4.24</h3>
 </div>
