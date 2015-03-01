@@ -25,6 +25,9 @@
 
 - 3.1 発表資料 [[./slide_03_01/prml_3_slide.pdf][PDF]]
 - 4.3 発表資料 [[./slide_04_03/prml_4.3.html][HTML]]
+- 4.3-4.5 ロジスティック回帰のプログラム
+  [[./ipynb/PRML4.3-4.5_Logistic_Regression.ipynb][ipynb]]
+  [[http://nbviewer.ipython.org/url/fishii.github.io/osaka_prml_reading/osaka_prml_reading/ipynb/PRML4.3-4.5_Logistic_Regression.ipynb][nbviewer]]
 
 * Pythonによるデータ分析入門
 - [[./PythonForDataAnalysis_2.3.html][2.3 データ分析の例 : アメリカの赤ちゃんに名付けられた名前リスト (1880-2010)]]
